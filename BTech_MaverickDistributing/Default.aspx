@@ -9,7 +9,7 @@
     </div>
 
     <div class="row">
-        <div class="col-md-4">
+        <%--<div class="col-md-4">
             <h2>Getting started</h2>
             <p>
                This is an example change. ASP.NET Web Forms lets you build dynamic websites using a familiar drag-and-drop, event-driven model.
@@ -36,7 +36,8 @@
             <p>
                 <a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301950">Learn more &raquo;</a>
             </p>
-        </div>
+        </div>--%>
+        <asp:ListView ID="LV_PartsInfo" runat="server"></asp:ListView>
     </div>
 
 </asp:Content>
