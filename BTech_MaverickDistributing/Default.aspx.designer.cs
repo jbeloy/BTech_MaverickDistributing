@@ -13,6 +13,15 @@ namespace BTech_MaverickDistributing {
     public partial class _Default {
         
         /// <summary>
+        /// SQL_PartsInfo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource SQL_PartsInfo;
+        
+        /// <summary>
         /// LV_PartsInfo control.
         /// </summary>
         /// <remarks>
