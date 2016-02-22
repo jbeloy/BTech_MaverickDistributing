@@ -3,10 +3,10 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
     <!--SQL Data source for the listview-->
-    <asp:SqlDataSource ID="SQL_PartsInfo" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="SELECT * FROM [Parts] ORDER BY [PartID]"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="SQL_PartsInfo" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="GetPartsInfo" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
 
     <div class="jumbotron">
-        <h1>ASP.NET</h1>
+        <h1>Car Part Selector Thingy Webstie</h1>
         <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
         <p><a href="http://www.asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
     </div>
@@ -16,25 +16,22 @@
             <AlternatingItemTemplate>
                 <tr style="background-color:#FFF8DC;">
                     <td>
-                        <asp:Label ID="PartIDLabel" runat="server" Text='<%# Eval("PartID") %>' />
+                        <asp:Label ID="MakeNameLabel" runat="server" Text='<%# Eval("MakeName") %>' />
                     </td>
                     <td>
-                        <asp:Label ID="MakeIDLabel" runat="server" Text='<%# Eval("MakeID") %>' />
+                        <asp:Label ID="EquipmentTypeNameLabel" runat="server" Text='<%# Eval("EquipmentTypeName") %>' />
                     </td>
                     <td>
-                        <asp:Label ID="TypeIDLabel" runat="server" Text='<%# Eval("TypeID") %>' />
+                        <asp:Label ID="CategoryNameLabel" runat="server" Text='<%# Eval("CategoryName") %>' />
                     </td>
                     <td>
-                        <asp:Label ID="CategoryIDLabel" runat="server" Text='<%# Eval("CategoryID") %>' />
-                    </td>
-                    <td>
-                        <asp:Label ID="ModelIDLabel" runat="server" Text='<%# Eval("ModelID") %>' />
+                        <asp:Label ID="ModelNameLabel" runat="server" Text='<%# Eval("ModelName") %>' />
                     </td>
                     <td>
                         <asp:Label ID="YearIDLabel" runat="server" Text='<%# Eval("YearID") %>' />
                     </td>
                     <td>
-                        <asp:Label ID="ManufacturerIDLabel" runat="server" Text='<%# Eval("ManufacturerID") %>' />
+                        <asp:Label ID="ManufacturerNameLabel" runat="server" Text='<%# Eval("ManufacturerName") %>' />
                     </td>
                     <td>
                         <asp:Label ID="PartNumberLabel" runat="server" Text='<%# Eval("PartNumber") %>' />
@@ -43,23 +40,12 @@
                         <asp:Label ID="PartDescLabel" runat="server" Text='<%# Eval("PartDesc") %>' />
                     </td>
                     <td>
-                        <asp:Label ID="PriceLabel" runat="server" Text='<%# Eval("Price") %>' />
+                        <asp:Label ID="PriceLabel" runat="server" Text='<%# Eval("Price", "{0:$0.00}") %>' />
                     </td>
                     <td>
-                        <asp:Label ID="ImageFilePathLabel" runat="server" Text='<%# Eval("ImageFilePath") %>' />
-                    </td>
-                    <td>
-                        <asp:Label ID="CreatedByLabel" runat="server" Text='<%# Eval("CreatedBy") %>' />
-                    </td>
-                    <td>
-                        <asp:Label ID="CreatedDateLabel" runat="server" Text='<%# Eval("CreatedDate") %>' />
-                    </td>
-                    <td>
-                        <asp:Label ID="ModifiedByLabel" runat="server" Text='<%# Eval("ModifiedBy") %>' />
-                    </td>
-                    <td>
-                        <asp:Label ID="ModifiedDateLabel" runat="server" Text='<%# Eval("ModifiedDate") %>' />
-                    </td>
+                        <%--<asp:Label ID="ImageFilePathLabel" runat="server" Text='<%# Eval("ImageFilePath") %>' />--%>
+                        <asp:Image ID="ImageFilePathImage" runat="server" src='<%# Eval("ImageFilePath") %>' Style="width:300px;" />
+                    </td> 
                 </tr>
             </AlternatingItemTemplate>
             <EditItemTemplate>
@@ -69,25 +55,22 @@
                         <asp:Button ID="CancelButton" runat="server" CommandName="Cancel" Text="Cancel" />
                     </td>
                     <td>
-                        <asp:TextBox ID="PartIDTextBox" runat="server" Text='<%# Bind("PartID") %>' />
+                        <asp:TextBox ID="MakeNameTextBox" runat="server" Text='<%# Bind("MakeName") %>' />
                     </td>
                     <td>
-                        <asp:TextBox ID="MakeIDTextBox" runat="server" Text='<%# Bind("MakeID") %>' />
+                        <asp:TextBox ID="EquipmentTypeNameTextBox" runat="server" Text='<%# Bind("EquipmentTypeName") %>' />
                     </td>
                     <td>
-                        <asp:TextBox ID="TypeIDTextBox" runat="server" Text='<%# Bind("TypeID") %>' />
+                        <asp:TextBox ID="CategoryNameTextBox" runat="server" Text='<%# Bind("CategoryName") %>' />
                     </td>
                     <td>
-                        <asp:TextBox ID="CategoryIDTextBox" runat="server" Text='<%# Bind("CategoryID") %>' />
-                    </td>
-                    <td>
-                        <asp:TextBox ID="ModelIDTextBox" runat="server" Text='<%# Bind("ModelID") %>' />
+                        <asp:TextBox ID="ModelNameTextBox" runat="server" Text='<%# Bind("ModelName") %>' />
                     </td>
                     <td>
                         <asp:TextBox ID="YearIDTextBox" runat="server" Text='<%# Bind("YearID") %>' />
                     </td>
                     <td>
-                        <asp:TextBox ID="ManufacturerIDTextBox" runat="server" Text='<%# Bind("ManufacturerID") %>' />
+                        <asp:TextBox ID="ManufacturerNameTextBox" runat="server" Text='<%# Bind("ManufacturerName") %>' />
                     </td>
                     <td>
                         <asp:TextBox ID="PartNumberTextBox" runat="server" Text='<%# Bind("PartNumber") %>' />
@@ -101,24 +84,12 @@
                     <td>
                         <asp:TextBox ID="ImageFilePathTextBox" runat="server" Text='<%# Bind("ImageFilePath") %>' />
                     </td>
-                    <td>
-                        <asp:TextBox ID="CreatedByTextBox" runat="server" Text='<%# Bind("CreatedBy") %>' />
-                    </td>
-                    <td>
-                        <asp:TextBox ID="CreatedDateTextBox" runat="server" Text='<%# Bind("CreatedDate") %>' />
-                    </td>
-                    <td>
-                        <asp:TextBox ID="ModifiedByTextBox" runat="server" Text='<%# Bind("ModifiedBy") %>' />
-                    </td>
-                    <td>
-                        <asp:TextBox ID="ModifiedDateTextBox" runat="server" Text='<%# Bind("ModifiedDate") %>' />
-                    </td>
                 </tr>
             </EditItemTemplate>
             <EmptyDataTemplate>
                 <table runat="server" style="background-color: #FFFFFF;border-collapse: collapse;border-color: #999999;border-style:none;border-width:1px;">
                     <tr>
-                        <td>No data was returned.</td>
+                        <td>No parts where found.</td>
                     </tr>
                 </table>
             </EmptyDataTemplate>
@@ -129,25 +100,22 @@
                         <asp:Button ID="CancelButton" runat="server" CommandName="Cancel" Text="Clear" />
                     </td>
                     <td>
-                        <asp:TextBox ID="PartIDTextBox" runat="server" Text='<%# Bind("PartID") %>' />
+                        <asp:TextBox ID="MakeNameTextBox" runat="server" Text='<%# Bind("MakeName") %>' />
                     </td>
                     <td>
-                        <asp:TextBox ID="MakeIDTextBox" runat="server" Text='<%# Bind("MakeID") %>' />
+                        <asp:TextBox ID="EquipmentTypeNameTextBox" runat="server" Text='<%# Bind("EquipmentTypeName") %>' />
                     </td>
                     <td>
-                        <asp:TextBox ID="TypeIDTextBox" runat="server" Text='<%# Bind("TypeID") %>' />
+                        <asp:TextBox ID="CategoryNameTextBox" runat="server" Text='<%# Bind("CategoryName") %>' />
                     </td>
                     <td>
-                        <asp:TextBox ID="CategoryIDTextBox" runat="server" Text='<%# Bind("CategoryID") %>' />
-                    </td>
-                    <td>
-                        <asp:TextBox ID="ModelIDTextBox" runat="server" Text='<%# Bind("ModelID") %>' />
+                        <asp:TextBox ID="ModelNameTextBox" runat="server" Text='<%# Bind("ModelName") %>' />
                     </td>
                     <td>
                         <asp:TextBox ID="YearIDTextBox" runat="server" Text='<%# Bind("YearID") %>' />
                     </td>
                     <td>
-                        <asp:TextBox ID="ManufacturerIDTextBox" runat="server" Text='<%# Bind("ManufacturerID") %>' />
+                        <asp:TextBox ID="ManufacturerNameTextBox" runat="server" Text='<%# Bind("ManufacturerName") %>' />
                     </td>
                     <td>
                         <asp:TextBox ID="PartNumberTextBox" runat="server" Text='<%# Bind("PartNumber") %>' />
@@ -161,42 +129,27 @@
                     <td>
                         <asp:TextBox ID="ImageFilePathTextBox" runat="server" Text='<%# Bind("ImageFilePath") %>' />
                     </td>
-                    <td>
-                        <asp:TextBox ID="CreatedByTextBox" runat="server" Text='<%# Bind("CreatedBy") %>' />
-                    </td>
-                    <td>
-                        <asp:TextBox ID="CreatedDateTextBox" runat="server" Text='<%# Bind("CreatedDate") %>' />
-                    </td>
-                    <td>
-                        <asp:TextBox ID="ModifiedByTextBox" runat="server" Text='<%# Bind("ModifiedBy") %>' />
-                    </td>
-                    <td>
-                        <asp:TextBox ID="ModifiedDateTextBox" runat="server" Text='<%# Bind("ModifiedDate") %>' />
-                    </td>
                 </tr>
             </InsertItemTemplate>
             <ItemTemplate>
                 <tr style="background-color:#DCDCDC;color: #000000;">
                     <td>
-                        <asp:Label ID="PartIDLabel" runat="server" Text='<%# Eval("PartID") %>' />
+                        <asp:Label ID="MakeNameLabel" runat="server" Text='<%# Eval("MakeName") %>' />
                     </td>
                     <td>
-                        <asp:Label ID="MakeIDLabel" runat="server" Text='<%# Eval("MakeID") %>' />
+                        <asp:Label ID="EquipmentTypeNameLabel" runat="server" Text='<%# Eval("EquipmentTypeName") %>' />
                     </td>
                     <td>
-                        <asp:Label ID="TypeIDLabel" runat="server" Text='<%# Eval("TypeID") %>' />
+                        <asp:Label ID="CategoryNameLabel" runat="server" Text='<%# Eval("CategoryName") %>' />
                     </td>
                     <td>
-                        <asp:Label ID="CategoryIDLabel" runat="server" Text='<%# Eval("CategoryID") %>' />
-                    </td>
-                    <td>
-                        <asp:Label ID="ModelIDLabel" runat="server" Text='<%# Eval("ModelID") %>' />
+                        <asp:Label ID="ModelNameLabel" runat="server" Text='<%# Eval("ModelName") %>' />
                     </td>
                     <td>
                         <asp:Label ID="YearIDLabel" runat="server" Text='<%# Eval("YearID") %>' />
                     </td>
                     <td>
-                        <asp:Label ID="ManufacturerIDLabel" runat="server" Text='<%# Eval("ManufacturerID") %>' />
+                        <asp:Label ID="ManufacturerNameLabel" runat="server" Text='<%# Eval("ManufacturerName") %>' />
                     </td>
                     <td>
                         <asp:Label ID="PartNumberLabel" runat="server" Text='<%# Eval("PartNumber") %>' />
@@ -205,22 +158,11 @@
                         <asp:Label ID="PartDescLabel" runat="server" Text='<%# Eval("PartDesc") %>' />
                     </td>
                     <td>
-                        <asp:Label ID="PriceLabel" runat="server" Text='<%# Eval("Price") %>' />
+                        <asp:Label ID="PriceLabel" runat="server" Text='<%# Eval("Price", "{0:$0.00}") %>' />
                     </td>
                     <td>
-                        <asp:Label ID="ImageFilePathLabel" runat="server" Text='<%# Eval("ImageFilePath") %>' />
-                    </td>
-                    <td>
-                        <asp:Label ID="CreatedByLabel" runat="server" Text='<%# Eval("CreatedBy") %>' />
-                    </td>
-                    <td>
-                        <asp:Label ID="CreatedDateLabel" runat="server" Text='<%# Eval("CreatedDate") %>' />
-                    </td>
-                    <td>
-                        <asp:Label ID="ModifiedByLabel" runat="server" Text='<%# Eval("ModifiedBy") %>' />
-                    </td>
-                    <td>
-                        <asp:Label ID="ModifiedDateLabel" runat="server" Text='<%# Eval("ModifiedDate") %>' />
+                        <%--<asp:Label ID="ImageFilePathLabel" runat="server" Text='<%# Eval("ImageFilePath") %>' />--%>
+                        <asp:Image ID="ImageFilePathImage" runat="server" src='<%# Eval("ImageFilePath") %>' Style="width:300px;" />
                     </td>
                 </tr>
             </ItemTemplate>
@@ -230,21 +172,16 @@
                         <td runat="server">
                             <table id="itemPlaceholderContainer" runat="server" border="1" style="background-color: #FFFFFF;border-collapse: collapse;border-color: #999999;border-style:none;border-width:1px;font-family: Verdana, Arial, Helvetica, sans-serif;">
                                 <tr runat="server" style="background-color:#DCDCDC;color: #000000;">
-                                    <th runat="server">PartID</th>
-                                    <th runat="server">MakeID</th>
-                                    <th runat="server">TypeID</th>
-                                    <th runat="server">CategoryID</th>
-                                    <th runat="server">ModelID</th>
+                                    <th runat="server">MakeName</th>
+                                    <th runat="server">EquipmentTypeName</th>
+                                    <th runat="server">CategoryName</th>
+                                    <th runat="server">ModelName</th>
                                     <th runat="server">YearID</th>
-                                    <th runat="server">ManufacturerID</th>
+                                    <th runat="server">ManufacturerName</th>
                                     <th runat="server">PartNumber</th>
                                     <th runat="server">PartDesc</th>
                                     <th runat="server">Price</th>
                                     <th runat="server">ImageFilePath</th>
-                                    <th runat="server">CreatedBy</th>
-                                    <th runat="server">CreatedDate</th>
-                                    <th runat="server">ModifiedBy</th>
-                                    <th runat="server">ModifiedDate</th>
                                 </tr>
                                 <tr id="itemPlaceholder" runat="server">
                                 </tr>
@@ -259,25 +196,22 @@
             <SelectedItemTemplate>
                 <tr style="background-color:#008A8C;font-weight: bold;color: #FFFFFF;">
                     <td>
-                        <asp:Label ID="PartIDLabel" runat="server" Text='<%# Eval("PartID") %>' />
+                        <asp:Label ID="MakeNameLabel" runat="server" Text='<%# Eval("MakeName") %>' />
                     </td>
                     <td>
-                        <asp:Label ID="MakeIDLabel" runat="server" Text='<%# Eval("MakeID") %>' />
+                        <asp:Label ID="EquipmentTypeNameLabel" runat="server" Text='<%# Eval("EquipmentTypeName") %>' />
                     </td>
                     <td>
-                        <asp:Label ID="TypeIDLabel" runat="server" Text='<%# Eval("TypeID") %>' />
+                        <asp:Label ID="CategoryNameLabel" runat="server" Text='<%# Eval("CategoryName") %>' />
                     </td>
                     <td>
-                        <asp:Label ID="CategoryIDLabel" runat="server" Text='<%# Eval("CategoryID") %>' />
-                    </td>
-                    <td>
-                        <asp:Label ID="ModelIDLabel" runat="server" Text='<%# Eval("ModelID") %>' />
+                        <asp:Label ID="ModelNameLabel" runat="server" Text='<%# Eval("ModelName") %>' />
                     </td>
                     <td>
                         <asp:Label ID="YearIDLabel" runat="server" Text='<%# Eval("YearID") %>' />
                     </td>
                     <td>
-                        <asp:Label ID="ManufacturerIDLabel" runat="server" Text='<%# Eval("ManufacturerID") %>' />
+                        <asp:Label ID="ManufacturerNameLabel" runat="server" Text='<%# Eval("ManufacturerName") %>' />
                     </td>
                     <td>
                         <asp:Label ID="PartNumberLabel" runat="server" Text='<%# Eval("PartNumber") %>' />
@@ -290,18 +224,6 @@
                     </td>
                     <td>
                         <asp:Label ID="ImageFilePathLabel" runat="server" Text='<%# Eval("ImageFilePath") %>' />
-                    </td>
-                    <td>
-                        <asp:Label ID="CreatedByLabel" runat="server" Text='<%# Eval("CreatedBy") %>' />
-                    </td>
-                    <td>
-                        <asp:Label ID="CreatedDateLabel" runat="server" Text='<%# Eval("CreatedDate") %>' />
-                    </td>
-                    <td>
-                        <asp:Label ID="ModifiedByLabel" runat="server" Text='<%# Eval("ModifiedBy") %>' />
-                    </td>
-                    <td>
-                        <asp:Label ID="ModifiedDateLabel" runat="server" Text='<%# Eval("ModifiedDate") %>' />
                     </td>
                 </tr>
             </SelectedItemTemplate>
