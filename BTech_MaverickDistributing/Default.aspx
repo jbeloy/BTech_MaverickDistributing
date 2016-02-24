@@ -2,6 +2,293 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
+    <script>
+
+        //
+        // Settings
+        //
+        var animationSpeed = 700;
+        var drilldownInput = $('#drilldownInput');
+
+        var objDrilldown = {
+
+            animationSpeed: 200,
+            drilldown: {},
+            drilldownInput: {},
+            drilldownSelected: {},
+
+            init: function (id, formID) {
+                this.drilldown = $("#" + id);
+
+                if (formID) { this.drilldownInput = $("#" + formID); }
+                else { console.log("You haven't give me an input to play with"); }
+
+                // Add a container for the selected items
+                this.drilldownSelected = $("#" + this.drilldown.attr('id') + "Selected");
+
+                // Build the selected items from the hidden input value
+                this.build();
+
+                // setup listeners
+                this.listeners.all(this);
+                console.log('new Drilldown object initialized.');
+            },
+
+            build: function () {
+                var self = this;
+                var values = this.drilldownInput.val().split(' ');
+                if (values.length > 1) {
+                    for (i in values) {
+                        var item = this.drilldown.find("#" + values[i] + " input:checkbox");
+                        // since this is not a true click, force the checkbox to be checked
+                        item.attr('checked', true);
+                        this.selectItem(item[0]);
+                    }
+                } else {
+                    // deselect all
+                    this.drilldown.find('input:checkbox').attr('checked', false);
+                }
+                this.updateSelected();
+            },
+
+            listeners: {
+                all: function (self) {
+                    this.lists(self);
+                    this.selected(self);
+                },
+                lists: function (self) {
+                    // listen to clicks on the tree list of items
+                    self.drilldown.find("li > div").click(function (e) {
+                        if (e.target.localName == "div") { self.openItem(e.target); }
+                        if (e.target.localName == "input") { self.selectItem(e.target); }
+                    });
+                    return "List listeners added";
+                },
+                selected: function (self) {
+                    // listen to clicks on the drill-down selected
+                    self.drilldownSelected.click(function (e) {
+                        var selected = $(e.target);
+                        var item = $("#" + selected.attr('data-id'));
+                        var checkbox = item.find("input:checkbox");
+                        selected.remove();
+                        checkbox.attr("checked", false);
+                        self.updateSelected();
+                    });
+                    return "Selected items listeners added";
+                }
+            },
+
+            closeLists: function () {
+                this.drilldown.find('ul').hide();
+            },
+
+            clearActive: function () {
+                this.drilldown.find(".active").removeClass("active");
+            },
+
+            openItem: function (item) {
+                var item = $(item);
+                var child = item.next('ul');
+                var wasVisible = child.is(':visible');
+                // close all lists
+                this.closeLists();
+                // reveal the parents of this element
+                item.parents('ul').show();
+                // animate the contained <ul>
+                // if it is already open, hide it, and vice versa
+                if (wasVisible) {
+                    child.show().slideUp(this.animationSpeed);
+                    this.clearActive();
+                } else {
+                    child.slideDown(this.animationSpeed);
+                    // add an active class to the <div>
+                    // only if it has a child <ul> list
+                    if (item.closest('li').has('ul').length) {
+                        this.clearActive();
+                        item.addClass('active');
+                    }
+                }
+            },
+
+            selectItem: function (item) {
+                // When a checkbox is selected, add a 'selected' class to the parent <div>
+                var checkbox = $(item);
+                var item = checkbox.closest('div');
+                if (checkbox.is(':checked')) {
+                    item.addClass('selected');
+                } else {
+                    item.removeClass('selected');
+                }
+                this.updateSelected();
+            },
+
+            updateSelected: function () {
+                // create a new variable for this so that the each() functions can use the correct scope
+                var self = this;
+                var checked = this.drilldown.find("input:checked");
+                var unchecked = this.drilldown.find("input:checkbox:not(:checked)");
+                var values = '';
+                this.drilldownSelected.empty();
+                unchecked.each(function (key, val) { $(val).closest('div').removeClass('selected'); });
+                checked.each(function (key, val) {
+                    // store the string of IDs for saved reports retrieval
+                    values = values + " " + $(val).closest("div").attr("id");
+                    // add to the selected list for easy removal
+                    var parentDiv = $(val).closest('div');
+                    self.drilldownSelected.append($("<p/>").text(parentDiv.text()).attr('data-id', parentDiv.attr('id')));
+                });
+                this.drilldownInput.val(values);
+            }
+
+        };
+
+        // use the object prototypal setup to create instances of the Drilldown object
+        function Drilldown(item, inputID) {
+            function drilldown() { }
+            drilldown.prototype = objDrilldown;
+            var f = new drilldown();
+            f.init(item, inputID);
+            return f;
+        }
+
+        var drilldown = new Drilldown("drilldown1", "drilldownInput");
+
+    </script>
+
+
+    <style>
+
+        * {
+  box-sizing: border-box;
+}
+
+body {
+  padding: 1em;
+}
+
+small {
+  font-size: 12px;
+  color: #999;
+}
+
+.drilldown {
+  font-size: 0px;
+}
+
+.drilldown > * {
+  font-size: 14px;
+}
+
+.drilldown ul {
+  display: block;
+  list-style: inside none;
+  padding-left: 1em;
+}
+
+.drilldown .drilldown__options-container,
+.drilldown .drilldown__selected-container {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.drilldown .drilldown__options-container {
+  width: 50%;
+}
+
+.drilldown .drilldown__options-container > ul {
+  margin-top: 0;
+  padding: 0;
+}
+
+.drilldown .drilldown__selected-container {
+  width: 47.5%;
+  margin-left: 2.5%;
+}
+
+.drilldown .drilldown__selected-container .drilldown__selected {
+  min-height: 5em;
+  border: 1px solid #CCC;
+  background-color: #EEE;
+}
+
+.drilldown .drilldown__selected-container .drilldown__selected p {
+  margin: 0.25em;
+  padding: 0.5em;
+  display: block;
+  cursor: pointer;
+  border: 1px solid #CCC;
+  border-radius: 0.25em;
+  background-color: #FFF;
+}
+
+.drilldown .drilldown__selected-container .drilldown__selected p:after {
+  content: "X";
+  display: inline-block;
+  padding: 0 0.25em;
+  float: right;
+}
+
+.drilldown .drilldown__selected-container .drilldown__selected p:hover {
+  background-color: #FFE;
+}
+
+.drilldown li {
+  margin: 0.25em 0;
+}
+
+.drilldown li label {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 3em;
+  background-color: #CCC;
+  display: block;
+  text-align: center;
+  border-left: 1px solid #CCC;
+  border-radius: 0 0.25em 0.25em 0;
+  box-shadow: inset 0 1px 3px #999;
+}
+
+.drilldown li input[type=checkbox] {
+  vertical-align: middle;
+  height: 100%;
+  display: inline-block;
+}
+
+.drilldown li > div {
+  position: relative;
+  padding: 0.5em 0 0.5em 1em;
+  background-color: #FFF;
+  border: 1px solid #CCC;
+  border-radius: 0.25em;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.drilldown li > div.active {
+  background-color: #FFC;
+}
+
+.drilldown li > div.active + ul div:not(.selected) {
+  background-color: #FFE;
+}
+
+.drilldown li > div.selected {
+  background-color: #EFF;
+}
+
+.drilldown li > ul {
+  display: none;
+}
+
+.drilldown__input {
+  width: 100%;
+}
+
+
+    </style>
+
     <!--SQL Data source for the listview-->
     <asp:SqlDataSource ID="SQL_PartsInfo" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="GetPartsInfo" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
 
@@ -10,6 +297,137 @@
         <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
         <p><a href="http://www.asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
     </div>
+
+
+
+    <h1>Drill-down select</h1>
+
+<div id="drilldown1" class="drilldown">
+  <div class="drilldown__options-container">
+    <p>Click to expand the options:</p>
+    <ul>
+      <li><div id="10">Region A <label><input type="checkbox"></label></div>
+        <ul>
+          <li><div id="100">Territory A1 <label><input type="checkbox"></label></div>
+            <ul>
+              <li><div id="1000">Division A1-1 <label><input type="checkbox"></label></div>
+                <ul>
+                  <li><div id="12345">12345: Location, City, ST <label><input type="checkbox"></label></div></li>
+                  <li><div id="12346">12346: Location, City, ST <label><input type="checkbox"></label></div></li>
+                  <li><div id="12347">12347: Location, City, ST <label><input type="checkbox"></label></div></li>
+                </ul>
+              </li>
+              <li><div id="1001">Division A1-2 <label><input type="checkbox"></label></div>
+                <ul>
+                  <li><div id="13345">13345: Location, City, ST <label><input type="checkbox"></label></div></li>
+                  <li><div id="13346">13346: Location, City, ST <label><input type="checkbox"></label></div></li>
+                  <li><div id="13347">13347: Location, City, ST <label><input type="checkbox"></label></div></li>
+                </ul>
+              </li>
+              <li><div id="1002">Division A1-3 <label><input type="checkbox"></label></div>
+                <ul>
+                  <li><div id="14345">14345: Location, City, ST <label><input type="checkbox"></label></div></li>
+                  <li><div id="14346">14346: Location, City, ST <label><input type="checkbox"></label></div></li>
+                  <li><div id="14347">14347: Location, City, ST <label><input type="checkbox"></label></div></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li><div id="101">Territory A2 <label><input type="checkbox"></label></div>
+            <ul>
+              <li><div id="1000">Division A2-1 <label><input type="checkbox"></label></div>
+                <ul>
+                  <li><div id="15345">15345: Location, City, ST <label><input type="checkbox"></label></div></li>
+                  <li><div id="15346">15346: Location, City, ST <label><input type="checkbox"></label></div></li>
+                  <li><div id="15347">15347: Location, City, ST <label><input type="checkbox"></label></div></li>
+                </ul>
+              </li>
+              <li><div id="1001">Division A2-2 <label><input type="checkbox"></label></div>
+                <ul>
+                  <li><div id="16345">16345: Location, City, ST <label><input type="checkbox"></label></div></li>
+                  <li><div id="16346">16346: Location, City, ST <label><input type="checkbox"></label></div></li>
+                  <li><div id="16347">16347: Location, City, ST <label><input type="checkbox"></label></div></li>
+                </ul>
+              </li>
+              <li><div id="1002">Division A2-3 <label><input type="checkbox"></label></div>
+                <ul>
+                  <li><div id="17345">17345: Location, City, ST <label><input type="checkbox"></label></div></li>
+                  <li><div id="17346">17346: Location, City, ST <label><input type="checkbox"></label></div></li>
+                  <li><div id="17347">17347: Location, City, ST <label><input type="checkbox"></label></div></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><div id="20">Region B <label><input type="checkbox"></label></div>
+        <ul>
+          <li><div id="100">Territory B1 <label><input type="checkbox"></label></div>
+            <ul>
+              <li><div id="1000">Division B1-1 <label><input type="checkbox"></label></div>
+                <ul>
+                  <li><div id="22345">22345: Location, City, ST <label><input type="checkbox"></label></div></li>
+                  <li><div id="22346">22346: Location, City, ST <label><input type="checkbox"></label></div></li>
+                  <li><div id="22347">22347: Location, City, ST <label><input type="checkbox"></label></div></li>
+                </ul>
+              </li>
+              <li><div id="1001">Division B1-2 <label><input type="checkbox"></label></div>
+                <ul>
+                  <li><div id="23345">23345: Location, City, ST <label><input type="checkbox"></label></div></li>
+                  <li><div id="23346">23346: Location, City, ST <label><input type="checkbox"></label></div></li>
+                  <li><div id="23347">23347: Location, City, ST <label><input type="checkbox"></label></div></li>
+                </ul>
+              </li>
+              <li><div id="1002">Division B1-3 <label><input type="checkbox"></label></div>
+                <ul>
+                  <li><div id="24345">24345: Location, City, ST <label><input type="checkbox"></label></div></li>
+                  <li><div id="24346">24346: Location, City, ST <label><input type="checkbox"></label></div></li>
+                  <li><div id="24347">24347: Location, City, ST <label><input type="checkbox"></label></div></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li><div id="101">Territory B2 <label><input type="checkbox"></label></div>
+            <ul>
+              <li><div id="1000">Division B2-1 <label><input type="checkbox"></label></div>
+                <ul>
+                  <li><div id="25345">25345: Location, City, ST <label><input type="checkbox"></label></div></li>
+                  <li><div id="25346">25346: Location, City, ST <label><input type="checkbox"></label></div></li>
+                  <li><div id="25347">25347: Location, City, ST <label><input type="checkbox"></label></div></li>
+                </ul>
+              </li>
+              <li><div id="1001">Division B2-2 <label><input type="checkbox"></label></div>
+                <ul>
+                  <li><div id="26345">26345: Location, City, ST <label><input type="checkbox"></label></div></li>
+                  <li><div id="26346">26346: Location, City, ST <label><input type="checkbox"></label></div></li>
+                  <li><div id="26347">26347: Location, City, ST <label><input type="checkbox"></label></div></li>
+                </ul>
+              </li>
+              <li><div id="1002">Division B2-3 <label><input type="checkbox"></label></div>
+                <ul>
+                  <li><div id="27345">27345: Location, City, ST <label><input type="checkbox"></label></div></li>
+                  <li><div id="27346">27346: Location, City, ST <label><input type="checkbox"></label></div></li>
+                  <li><div id="27347">27347: Location, City, ST <label><input type="checkbox"></label></div></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <div class="drilldown__selected-container">
+    <p>Selected items:</p>
+    <div id="drilldown1Selected" class="drilldown__selected"></div>
+    <p><small>To remove selected items click them above.</small></p>
+  </div>
+</div>
+<p><small>Make this input type "hidden" when using in production</small></p>
+<input type="text" id="drilldownInput" class="drilldown__input" value="">
+
+
+
+
 
     <div class="row">
         <asp:ListView ID="LV_PartsInfo" runat="server" DataSourceID="SQL_PartsInfo">
