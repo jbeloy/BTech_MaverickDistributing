@@ -166,6 +166,56 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Images\100.png" />
+    <Content Include="Images\101.jpg" />
+    <Content Include="Images\102.jpg" />
+    <Content Include="Images\103.jpg" />
+    <Content Include="Images\104.jpg" />
+    <Content Include="Images\105.jpg" />
+    <Content Include="Images\106.jpg" />
+    <Content Include="Images\107.jpg" />
+    <Content Include="Images\108.jpg" />
+    <Content Include="Images\109.jpg" />
+    <Content Include="Images\110.jpg" />
+    <Content Include="Images\111.jpg" />
+    <Content Include="Images\112.jpg" />
+    <Content Include="Images\113.jpg" />
+    <Content Include="Images\114.jpg" />
+    <Content Include="Images\115.jpg" />
+    <Content Include="Images\116.jpg" />
+    <Content Include="Images\117.jpg" />
+    <Content Include="Images\118.jpg" />
+    <Content Include="Images\119.jpg" />
+    <Content Include="Images\120.jpg" />
+    <Content Include="Images\121.jpg" />
+    <Content Include="Images\122.jpg" />
+    <Content Include="Images\123.jpg" />
+    <Content Include="Images\124.jpg" />
+    <Content Include="Images\125.jpg" />
+    <Content Include="Images\126.jpg" />
+    <Content Include="Images\127.jpg" />
+    <Content Include="Images\129.jpg" />
+    <Content Include="Images\130.jpg" />
+    <Content Include="Images\131.jpg" />
+    <Content Include="Images\132.jpg" />
+    <Content Include="Images\133.jpg" />
+    <Content Include="Images\134.jpg" />
+    <Content Include="Images\135.jpg" />
+    <Content Include="Images\136.jpg" />
+    <Content Include="Images\137.jpg" />
+    <Content Include="Images\138.jpg" />
+    <Content Include="Images\139.jpg" />
+    <Content Include="Images\140.jpg" />
+    <Content Include="Images\141.jpg" />
+    <Content Include="Images\142.jpg" />
+    <Content Include="Images\143.jpg" />
+    <Content Include="Images\144.jpg" />
+    <Content Include="Images\145.jpg" />
+    <Content Include="Images\146.jpg" />
+    <Content Include="Images\147.jpg" />
+    <Content Include="Images\148.jpg" />
+    <Content Include="Images\149.jpg" />
+    <Content Include="Images\150.png" />
     <Content Include="packages.config" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -382,7 +432,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Images\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
