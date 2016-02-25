@@ -22,6 +22,15 @@ namespace BTech_MaverickDistributing {
         protected global::System.Web.UI.WebControls.SqlDataSource SQL_PartsInfo;
         
         /// <summary>
+        /// CHK_Clutch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox CHK_Clutch;
+        
+        /// <summary>
         /// LV_PartsInfo control.
         /// </summary>
         /// <remarks>
@@ -29,5 +38,14 @@ namespace BTech_MaverickDistributing {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ListView LV_PartsInfo;
+        
+        /// <summary>
+        /// HF_PartsInfo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HF_PartsInfo;
     }
 }

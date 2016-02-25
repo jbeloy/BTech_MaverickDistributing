@@ -13,5 +13,22 @@ namespace BTech_MaverickDistributing
         {
 
         }
+
+        protected void CHK_Clutch_ServerChange(object sender, EventArgs e)
+        {
+            //When the button is checked, updatae the listview to show that part.
+
+            //Check to see if the checkbox is checked.
+            if(CHK_Clutch.Checked)
+            {
+                //Update the hidden field with the parameters.
+                HF_PartsInfo.Value = "Clutch";
+            }
+            else
+            {
+                //Erase the value from the HiddenField.
+                HF_PartsInfo.Value = null;
+            }
+        }
     }
 }
