@@ -4,154 +4,158 @@
 
     <script>
 
-        //
-        // Settings
-        //
-        var animationSpeed = 700;
-        var drilldownInput = $('#drilldownInput');
+        $(document).ready(function () {
 
-        var objDrilldown = {
+            //
+            // Settings
+            //
+            var animationSpeed = 700;
+            var drilldownInput = $('#drilldownInput');
 
-            animationSpeed: 200,
-            drilldown: {},
-            drilldownInput: {},
-            drilldownSelected: {},
+            var objDrilldown = {
 
-            init: function (id, formID) {
-                this.drilldown = $("#" + id);
+                animationSpeed: 200,
+                drilldown: {},
+                drilldownInput: {},
+                drilldownSelected: {},
 
-                if (formID) { this.drilldownInput = $("#" + formID); }
-                else { console.log("You haven't give me an input to play with"); }
+                init: function (id, formID) {
+                    this.drilldown = $("#" + id);
 
-                // Add a container for the selected items
-                this.drilldownSelected = $("#" + this.drilldown.attr('id') + "Selected");
+                    if (formID) { this.drilldownInput = $("#" + formID); }
+                    else { console.log("You haven't give me an input to play with"); }
 
-                // Build the selected items from the hidden input value
-                this.build();
+                    // Add a container for the selected items
+                    this.drilldownSelected = $("#" + this.drilldown.attr('id') + "Selected");
 
-                // setup listeners
-                this.listeners.all(this);
-                console.log('new Drilldown object initialized.');
-            },
+                    // Build the selected items from the hidden input value
+                    this.build();
 
-            build: function () {
-                var self = this;
-                var values = this.drilldownInput.val().split(' ');
-                if (values.length > 1) {
-                    for (i in values) {
-                        var item = this.drilldown.find("#" + values[i] + " input:checkbox");
-                        // since this is not a true click, force the checkbox to be checked
-                        item.attr('checked', true);
-                        this.selectItem(item[0]);
+                    // setup listeners
+                    this.listeners.all(this);
+                    console.log('new Drilldown object initialized.');
+                },
+
+                build: function () {
+                    var self = this;
+                    var values = this.drilldownInput.val().split(' ');
+                    if (values.length > 1) {
+                        for (i in values) {
+                            var item = this.drilldown.find("#" + values[i] + " input:checkbox");
+                            // since this is not a true click, force the checkbox to be checked
+                            item.attr('checked', true);
+                            this.selectItem(item[0]);
+                        }
+                    } else {
+                        // deselect all
+                        this.drilldown.find('input:checkbox').attr('checked', false);
                     }
-                } else {
-                    // deselect all
-                    this.drilldown.find('input:checkbox').attr('checked', false);
-                }
-                this.updateSelected();
-            },
-
-            listeners: {
-                all: function (self) {
-                    this.lists(self);
-                    this.selected(self);
+                    this.updateSelected();
                 },
-                lists: function (self) {
-                    // listen to clicks on the tree list of items
-                    self.drilldown.find("li > div").click(function (e) {
-                        if (e.target.localName == "div") { self.openItem(e.target); }
-                        if (e.target.localName == "input") { self.selectItem(e.target); }
-                    });
-                    return "List listeners added";
+
+                listeners: {
+                    all: function (self) {
+                        this.lists(self);
+                        this.selected(self);
+                    },
+                    lists: function (self) {
+                        // listen to clicks on the tree list of items
+                        self.drilldown.find("li > div").click(function (e) {
+                            if (e.target.localName == "div") { self.openItem(e.target); }
+                            if (e.target.localName == "input") { self.selectItem(e.target); }
+                        });
+                        return "List listeners added";
+                    },
+                    selected: function (self) {
+                        // listen to clicks on the drill-down selected
+                        self.drilldownSelected.click(function (e) {
+                            var selected = $(e.target);
+                            var item = $("#" + selected.attr('data-id'));
+                            var checkbox = item.find("input:checkbox");
+                            selected.remove();
+                            checkbox.attr("checked", false);
+                            self.updateSelected();
+                        });
+                        return "Selected items listeners added";
+                    }
                 },
-                selected: function (self) {
-                    // listen to clicks on the drill-down selected
-                    self.drilldownSelected.click(function (e) {
-                        var selected = $(e.target);
-                        var item = $("#" + selected.attr('data-id'));
-                        var checkbox = item.find("input:checkbox");
-                        selected.remove();
-                        checkbox.attr("checked", false);
-                        self.updateSelected();
-                    });
-                    return "Selected items listeners added";
-                }
-            },
 
-            closeLists: function () {
-                this.drilldown.find('ul').hide();
-            },
+                closeLists: function () {
+                    this.drilldown.find('ul').hide();
+                },
 
-            clearActive: function () {
-                this.drilldown.find(".active").removeClass("active");
-            },
+                clearActive: function () {
+                    this.drilldown.find(".active").removeClass("active");
+                },
 
-            openItem: function (item) {
-                var item = $(item);
-                var child = item.next('ul');
-                var wasVisible = child.is(':visible');
-                // close all lists
-                this.closeLists();
-                // reveal the parents of this element
-                item.parents('ul').show();
-                // animate the contained <ul>
-                // if it is already open, hide it, and vice versa
-                if (wasVisible) {
-                    child.show().slideUp(this.animationSpeed);
-                    this.clearActive();
-                } else {
-                    child.slideDown(this.animationSpeed);
-                    // add an active class to the <div>
-                    // only if it has a child <ul> list
-                    if (item.closest('li').has('ul').length) {
+                openItem: function (item) {
+                    var item = $(item);
+                    var child = item.next('ul');
+                    var wasVisible = child.is(':visible');
+                    // close all lists
+                    this.closeLists();
+                    // reveal the parents of this element
+                    item.parents('ul').show();
+                    // animate the contained <ul>
+                    // if it is already open, hide it, and vice versa
+                    if (wasVisible) {
+                        child.show().slideUp(this.animationSpeed);
                         this.clearActive();
-                        item.addClass('active');
+                    } else {
+                        child.slideDown(this.animationSpeed);
+                        // add an active class to the <div>
+                        // only if it has a child <ul> list
+                        if (item.closest('li').has('ul').length) {
+                            this.clearActive();
+                            item.addClass('active');
+                        }
                     }
-                }
-            },
+                },
 
-            selectItem: function (item) {
-                // When a checkbox is selected, add a 'selected' class to the parent <div>
-                var checkbox = $(item);
-                var item = checkbox.closest('div');
-                if (checkbox.is(':checked')) {
-                    item.addClass('selected');
-                } else {
-                    item.removeClass('selected');
-                }
-                this.updateSelected();
-            },
+                selectItem: function (item) {
+                    // When a checkbox is selected, add a 'selected' class to the parent <div>
+                    var checkbox = $(item);
+                    var item = checkbox.closest('div');
+                    if (checkbox.is(':checked')) {
+                        item.addClass('selected');
+                    } else {
+                        item.removeClass('selected');
+                    }
+                    this.updateSelected();
+                },
 
-            updateSelected: function () {
-                // create a new variable for this so that the each() functions can use the correct scope
-                var self = this;
-                var checked = this.drilldown.find("input:checked");
-                var unchecked = this.drilldown.find("input:checkbox:not(:checked)");
-                var values = '';
-                this.drilldownSelected.empty();
-                unchecked.each(function (key, val) { $(val).closest('div').removeClass('selected'); });
-                checked.each(function (key, val) {
-                    // store the string of IDs for saved reports retrieval
-                    values = values + " " + $(val).closest("div").attr("id");
-                    // add to the selected list for easy removal
-                    var parentDiv = $(val).closest('div');
-                    self.drilldownSelected.append($("<p/>").text(parentDiv.text()).attr('data-id', parentDiv.attr('id')));
-                });
-                this.drilldownInput.val(values);
+                updateSelected: function () {
+                    // create a new variable for this so that the each() functions can use the correct scope
+                    var self = this;
+                    var checked = this.drilldown.find("input:checked");
+                    var unchecked = this.drilldown.find("input:checkbox:not(:checked)");
+                    var values = '';
+                    this.drilldownSelected.empty();
+                    unchecked.each(function (key, val) { $(val).closest('div').removeClass('selected'); });
+                    checked.each(function (key, val) {
+                        // store the string of IDs for saved reports retrieval
+                        values = values + " " + $(val).closest("div").attr("id");
+                        // add to the selected list for easy removal
+                        var parentDiv = $(val).closest('div');
+                        self.drilldownSelected.append($("<p/>").text(parentDiv.text()).attr('data-id', parentDiv.attr('id')));
+                    });
+                    this.drilldownInput.val(values);
+                }
+
+            };
+
+            // use the object prototypal setup to create instances of the Drilldown object
+            function Drilldown(item, inputID) {
+                function drilldown() { }
+                drilldown.prototype = objDrilldown;
+                var f = new drilldown();
+                f.init(item, inputID);
+                return f;
             }
 
-        };
+            var drilldown = new Drilldown("drilldown1", "drilldownInput");
 
-        // use the object prototypal setup to create instances of the Drilldown object
-        function Drilldown(item, inputID) {
-            function drilldown() { }
-            drilldown.prototype = objDrilldown;
-            var f = new drilldown();
-            f.init(item, inputID);
-            return f;
-        }
-
-        var drilldown = new Drilldown("drilldown1", "drilldownInput");
+        });
 
     </script>
 
