@@ -94,6 +94,7 @@
           vertical-align: middle;
           height: 100%;
           display: inline-block;
+          width: 50%;
         }
 
         .drilldown li > div {
@@ -125,3 +126,7 @@
         .drilldown__input {
           width: 100%;
         }
+
+.partsInfo{
+    padding-top: 10%;
+}
