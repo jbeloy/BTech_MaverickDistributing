@@ -1,0 +1,692 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="md_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryName" Type="nvarchar" MaxLength="30" />
+          <Property Name="CategoryDesc" Type="nvarchar" MaxLength="300" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="30" />
+          <Property Name="CreatedDate" Type="smalldatetime" />
+          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="30" />
+          <Property Name="ModifiedDate" Type="smalldatetime" />
+          <Property Name="CategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EquipmentType">
+          <Key>
+            <PropertyRef Name="EquipmentTypeID" />
+          </Key>
+          <Property Name="EquipmentTypeName" Type="nvarchar" MaxLength="30" />
+          <Property Name="EquipmentTypeDesc" Type="nvarchar" MaxLength="300" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="30" />
+          <Property Name="CreatedDate" Type="smalldatetime" />
+          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="30" />
+          <Property Name="ModifiedDate" Type="smalldatetime" />
+          <Property Name="EquipmentTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EquipmentYear">
+          <Key>
+            <PropertyRef Name="EquipmentYearID" />
+          </Key>
+          <Property Name="EquipmentYearID" Type="int" Nullable="false" />
+          <Property Name="EquipmentYearName" Type="nvarchar" MaxLength="30" />
+          <Property Name="EquipmentYearDesc" Type="nvarchar" MaxLength="300" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="30" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="30" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Make">
+          <Key>
+            <PropertyRef Name="MakeID" />
+          </Key>
+          <Property Name="MakeName" Type="nvarchar" MaxLength="30" />
+          <Property Name="MakeDesc" Type="nvarchar" MaxLength="300" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="30" />
+          <Property Name="CreatedDate" Type="smalldatetime" />
+          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="30" />
+          <Property Name="ModifiedDate" Type="smalldatetime" />
+          <Property Name="MakeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Manufacturer">
+          <Key>
+            <PropertyRef Name="ManufacturerID" />
+          </Key>
+          <Property Name="ManufacturerTypeID" Type="int" Nullable="false" />
+          <Property Name="ManufacturerName" Type="nvarchar" MaxLength="30" />
+          <Property Name="ManufacturerDesc" Type="nvarchar" MaxLength="300" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="30" />
+          <Property Name="CreatedDate" Type="smalldatetime" />
+          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="30" />
+          <Property Name="ModifiedDate" Type="smalldatetime" />
+          <Property Name="ManufacturerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ManufacturerType">
+          <Key>
+            <PropertyRef Name="ManufacturerTypeID" />
+          </Key>
+          <Property Name="ManufacturerTypeName" Type="nvarchar" MaxLength="30" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="30" />
+          <Property Name="CreatedDate" Type="smalldatetime" />
+          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="30" />
+          <Property Name="ModifiedDate" Type="smalldatetime" />
+          <Property Name="ManufacturerTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Model">
+          <Key>
+            <PropertyRef Name="ModelID" />
+          </Key>
+          <Property Name="ModelName" Type="nvarchar" MaxLength="30" />
+          <Property Name="ModelDesc" Type="nvarchar" MaxLength="300" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="30" />
+          <Property Name="CreatedDate" Type="smalldatetime" />
+          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="30" />
+          <Property Name="ModifiedDate" Type="smalldatetime" />
+          <Property Name="ModelID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Parts">
+          <Key>
+            <PropertyRef Name="MakeID" />
+            <PropertyRef Name="TypeID" />
+            <PropertyRef Name="CategoryID" />
+            <PropertyRef Name="ModelID" />
+            <PropertyRef Name="YearID" />
+            <PropertyRef Name="PartID" />
+          </Key>
+          <Property Name="MakeID" Type="int" Nullable="false" />
+          <Property Name="TypeID" Type="int" Nullable="false" />
+          <Property Name="CategoryID" Type="int" Nullable="false" />
+          <Property Name="ModelID" Type="int" Nullable="false" />
+          <Property Name="YearID" Type="int" Nullable="false" />
+          <Property Name="ManufacturerID" Type="int" Nullable="false" />
+          <Property Name="PartNumber" Type="nvarchar" MaxLength="100" />
+          <Property Name="PartDesc" Type="nvarchar" MaxLength="300" />
+          <Property Name="Price" Type="decimal" Precision="7" Scale="2" />
+          <Property Name="ImageFilePath" Type="nvarchar(max)" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="30" />
+          <Property Name="CreatedDate" Type="smalldatetime" />
+          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="30" />
+          <Property Name="ModifiedDate" Type="smalldatetime" />
+          <Property Name="PartID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'md_db.dbo.PartsView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="PartsView">
+          <Key>
+            <PropertyRef Name="YearID" />
+          </Key>
+          <Property Name="MakeName" Type="nvarchar" MaxLength="30" />
+          <Property Name="EquipmentTypeName" Type="nvarchar" MaxLength="30" />
+          <Property Name="CategoryName" Type="nvarchar" MaxLength="30" />
+          <Property Name="ModelName" Type="nvarchar" MaxLength="30" />
+          <Property Name="YearID" Type="int" Nullable="false" />
+          <Property Name="ManufacturerName" Type="nvarchar" MaxLength="30" />
+          <Property Name="ManufacturerTypeName" Type="nvarchar" MaxLength="30" />
+          <Property Name="PartNumber" Type="nvarchar" MaxLength="100" />
+          <Property Name="PartDesc" Type="nvarchar" MaxLength="300" />
+          <Property Name="Price" Type="decimal" Precision="7" Scale="2" />
+          <Property Name="ImageFilePath" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_Manufacturer_ManufacturerTypeID">
+          <End Role="ManufacturerType" Type="Self.ManufacturerType" Multiplicity="1" />
+          <End Role="Manufacturer" Type="Self.Manufacturer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ManufacturerType">
+              <PropertyRef Name="ManufacturerTypeID" />
+            </Principal>
+            <Dependent Role="Manufacturer">
+              <PropertyRef Name="ManufacturerTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Parts_CategoryID">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="Parts" Type="Self.Parts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="Parts">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Parts_MakeID">
+          <End Role="Make" Type="Self.Make" Multiplicity="1" />
+          <End Role="Parts" Type="Self.Parts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Make">
+              <PropertyRef Name="MakeID" />
+            </Principal>
+            <Dependent Role="Parts">
+              <PropertyRef Name="MakeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Parts_ManufacturerID">
+          <End Role="Manufacturer" Type="Self.Manufacturer" Multiplicity="1" />
+          <End Role="Parts" Type="Self.Parts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturer">
+              <PropertyRef Name="ManufacturerID" />
+            </Principal>
+            <Dependent Role="Parts">
+              <PropertyRef Name="ManufacturerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Parts_ModelID">
+          <End Role="Model" Type="Self.Model" Multiplicity="1" />
+          <End Role="Parts" Type="Self.Parts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Model">
+              <PropertyRef Name="ModelID" />
+            </Principal>
+            <Dependent Role="Parts">
+              <PropertyRef Name="ModelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Parts_TypeID">
+          <End Role="EquipmentType" Type="Self.EquipmentType" Multiplicity="1" />
+          <End Role="Parts" Type="Self.Parts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EquipmentType">
+              <PropertyRef Name="EquipmentTypeID" />
+            </Principal>
+            <Dependent Role="Parts">
+              <PropertyRef Name="TypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="GetPartsInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="md_dbModelStoreContainer">
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EquipmentType" EntityType="Self.EquipmentType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EquipmentYear" EntityType="Self.EquipmentYear" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Make" EntityType="Self.Make" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Manufacturer" EntityType="Self.Manufacturer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ManufacturerType" EntityType="Self.ManufacturerType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Model" EntityType="Self.Model" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Parts" EntityType="Self.Parts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PartsView" EntityType="Self.PartsView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [PartsView].[MakeName] AS [MakeName], 
+    [PartsView].[EquipmentTypeName] AS [EquipmentTypeName], 
+    [PartsView].[CategoryName] AS [CategoryName], 
+    [PartsView].[ModelName] AS [ModelName], 
+    [PartsView].[YearID] AS [YearID], 
+    [PartsView].[ManufacturerName] AS [ManufacturerName], 
+    [PartsView].[ManufacturerTypeName] AS [ManufacturerTypeName], 
+    [PartsView].[PartNumber] AS [PartNumber], 
+    [PartsView].[PartDesc] AS [PartDesc], 
+    [PartsView].[Price] AS [Price], 
+    [PartsView].[ImageFilePath] AS [ImageFilePath]
+    FROM [dbo].[PartsView] AS [PartsView]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Manufacturer_ManufacturerTypeID" Association="Self.FK_Manufacturer_ManufacturerTypeID">
+            <End Role="ManufacturerType" EntitySet="ManufacturerType" />
+            <End Role="Manufacturer" EntitySet="Manufacturer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Parts_CategoryID" Association="Self.FK_Parts_CategoryID">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Parts" EntitySet="Parts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Parts_MakeID" Association="Self.FK_Parts_MakeID">
+            <End Role="Make" EntitySet="Make" />
+            <End Role="Parts" EntitySet="Parts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Parts_ManufacturerID" Association="Self.FK_Parts_ManufacturerID">
+            <End Role="Manufacturer" EntitySet="Manufacturer" />
+            <End Role="Parts" EntitySet="Parts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Parts_ModelID" Association="Self.FK_Parts_ModelID">
+            <End Role="Model" EntitySet="Model" />
+            <End Role="Parts" EntitySet="Parts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Parts_TypeID" Association="Self.FK_Parts_TypeID">
+            <End Role="EquipmentType" EntitySet="EquipmentType" />
+            <End Role="Parts" EntitySet="Parts" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="md_dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="CategoryDesc" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="0" />
+          <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Parts" Relationship="Self.FK_Parts_CategoryID" FromRole="Category" ToRole="Parts" />
+        </EntityType>
+        <EntityType Name="EquipmentType">
+          <Key>
+            <PropertyRef Name="EquipmentTypeID" />
+          </Key>
+          <Property Name="EquipmentTypeName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="EquipmentTypeDesc" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="0" />
+          <Property Name="EquipmentTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Parts" Relationship="Self.FK_Parts_TypeID" FromRole="EquipmentType" ToRole="Parts" />
+        </EntityType>
+        <EntityType Name="EquipmentYear">
+          <Key>
+            <PropertyRef Name="EquipmentYearID" />
+          </Key>
+          <Property Name="EquipmentYearID" Type="Int32" Nullable="false" />
+          <Property Name="EquipmentYearName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="EquipmentYearDesc" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Make">
+          <Key>
+            <PropertyRef Name="MakeID" />
+          </Key>
+          <Property Name="MakeName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="MakeDesc" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="0" />
+          <Property Name="MakeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Parts" Relationship="Self.FK_Parts_MakeID" FromRole="Make" ToRole="Parts" />
+        </EntityType>
+        <EntityType Name="Manufacturer">
+          <Key>
+            <PropertyRef Name="ManufacturerID" />
+          </Key>
+          <Property Name="ManufacturerTypeID" Type="Int32" Nullable="false" />
+          <Property Name="ManufacturerName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="ManufacturerDesc" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="0" />
+          <Property Name="ManufacturerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="ManufacturerType" Relationship="Self.FK_Manufacturer_ManufacturerTypeID" FromRole="Manufacturer" ToRole="ManufacturerType" />
+          <NavigationProperty Name="Parts" Relationship="Self.FK_Parts_ManufacturerID" FromRole="Manufacturer" ToRole="Parts" />
+        </EntityType>
+        <EntityType Name="ManufacturerType">
+          <Key>
+            <PropertyRef Name="ManufacturerTypeID" />
+          </Key>
+          <Property Name="ManufacturerTypeName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="0" />
+          <Property Name="ManufacturerTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Manufacturers" Relationship="Self.FK_Manufacturer_ManufacturerTypeID" FromRole="ManufacturerType" ToRole="Manufacturer" />
+        </EntityType>
+        <EntityType Name="Model">
+          <Key>
+            <PropertyRef Name="ModelID" />
+          </Key>
+          <Property Name="ModelName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="ModelDesc" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="0" />
+          <Property Name="ModelID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Parts" Relationship="Self.FK_Parts_ModelID" FromRole="Model" ToRole="Parts" />
+        </EntityType>
+        <EntityType Name="Part">
+          <Key>
+            <PropertyRef Name="MakeID" />
+            <PropertyRef Name="TypeID" />
+            <PropertyRef Name="CategoryID" />
+            <PropertyRef Name="ModelID" />
+            <PropertyRef Name="YearID" />
+            <PropertyRef Name="PartID" />
+          </Key>
+          <Property Name="MakeID" Type="Int32" Nullable="false" />
+          <Property Name="TypeID" Type="Int32" Nullable="false" />
+          <Property Name="CategoryID" Type="Int32" Nullable="false" />
+          <Property Name="ModelID" Type="Int32" Nullable="false" />
+          <Property Name="YearID" Type="Int32" Nullable="false" />
+          <Property Name="ManufacturerID" Type="Int32" Nullable="false" />
+          <Property Name="PartNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PartDesc" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Precision="7" Scale="2" />
+          <Property Name="ImageFilePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="0" />
+          <Property Name="PartID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Category" Relationship="Self.FK_Parts_CategoryID" FromRole="Parts" ToRole="Category" />
+          <NavigationProperty Name="EquipmentType" Relationship="Self.FK_Parts_TypeID" FromRole="Parts" ToRole="EquipmentType" />
+          <NavigationProperty Name="Make" Relationship="Self.FK_Parts_MakeID" FromRole="Parts" ToRole="Make" />
+          <NavigationProperty Name="Manufacturer" Relationship="Self.FK_Parts_ManufacturerID" FromRole="Parts" ToRole="Manufacturer" />
+          <NavigationProperty Name="Model" Relationship="Self.FK_Parts_ModelID" FromRole="Parts" ToRole="Model" />
+        </EntityType>
+        <Association Name="FK_Parts_CategoryID">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="Parts" Type="Self.Part" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="Parts">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Parts_TypeID">
+          <End Role="EquipmentType" Type="Self.EquipmentType" Multiplicity="1" />
+          <End Role="Parts" Type="Self.Part" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EquipmentType">
+              <PropertyRef Name="EquipmentTypeID" />
+            </Principal>
+            <Dependent Role="Parts">
+              <PropertyRef Name="TypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Parts_MakeID">
+          <End Role="Make" Type="Self.Make" Multiplicity="1" />
+          <End Role="Parts" Type="Self.Part" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Make">
+              <PropertyRef Name="MakeID" />
+            </Principal>
+            <Dependent Role="Parts">
+              <PropertyRef Name="MakeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Manufacturer_ManufacturerTypeID">
+          <End Role="ManufacturerType" Type="Self.ManufacturerType" Multiplicity="1" />
+          <End Role="Manufacturer" Type="Self.Manufacturer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ManufacturerType">
+              <PropertyRef Name="ManufacturerTypeID" />
+            </Principal>
+            <Dependent Role="Manufacturer">
+              <PropertyRef Name="ManufacturerTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Parts_ManufacturerID">
+          <End Role="Manufacturer" Type="Self.Manufacturer" Multiplicity="1" />
+          <End Role="Parts" Type="Self.Part" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturer">
+              <PropertyRef Name="ManufacturerID" />
+            </Principal>
+            <Dependent Role="Parts">
+              <PropertyRef Name="ManufacturerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Parts_ModelID">
+          <End Role="Model" Type="Self.Model" Multiplicity="1" />
+          <End Role="Parts" Type="Self.Part" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Model">
+              <PropertyRef Name="ModelID" />
+            </Principal>
+            <Dependent Role="Parts">
+              <PropertyRef Name="ModelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="md_dbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categories" EntityType="Self.Category" />
+          <EntitySet Name="EquipmentTypes" EntityType="Self.EquipmentType" />
+          <EntitySet Name="EquipmentYears" EntityType="Self.EquipmentYear" />
+          <EntitySet Name="Makes" EntityType="Self.Make" />
+          <EntitySet Name="Manufacturers" EntityType="Self.Manufacturer" />
+          <EntitySet Name="ManufacturerTypes" EntityType="Self.ManufacturerType" />
+          <EntitySet Name="Models" EntityType="Self.Model" />
+          <EntitySet Name="Parts" EntityType="Self.Part" />
+          <AssociationSet Name="FK_Parts_CategoryID" Association="Self.FK_Parts_CategoryID">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Parts" EntitySet="Parts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Parts_TypeID" Association="Self.FK_Parts_TypeID">
+            <End Role="EquipmentType" EntitySet="EquipmentTypes" />
+            <End Role="Parts" EntitySet="Parts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Parts_MakeID" Association="Self.FK_Parts_MakeID">
+            <End Role="Make" EntitySet="Makes" />
+            <End Role="Parts" EntitySet="Parts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Manufacturer_ManufacturerTypeID" Association="Self.FK_Manufacturer_ManufacturerTypeID">
+            <End Role="ManufacturerType" EntitySet="ManufacturerTypes" />
+            <End Role="Manufacturer" EntitySet="Manufacturers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Parts_ManufacturerID" Association="Self.FK_Parts_ManufacturerID">
+            <End Role="Manufacturer" EntitySet="Manufacturers" />
+            <End Role="Parts" EntitySet="Parts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Parts_ModelID" Association="Self.FK_Parts_ModelID">
+            <End Role="Model" EntitySet="Models" />
+            <End Role="Parts" EntitySet="Parts" />
+          </AssociationSet>
+          <FunctionImport Name="GetPartsInfo" ReturnType="Collection(md_dbModel.GetPartsInfo_Result)" />
+          <EntitySet Name="PartsViews" EntityType="md_dbModel.PartsView" />
+        </EntityContainer>
+        <ComplexType Name="GetPartsInfo_Result">
+          <Property Type="String" Name="MakeName" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="EquipmentTypeName" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="CategoryName" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="ModelName" Nullable="true" MaxLength="30" />
+          <Property Type="Int32" Name="YearID" Nullable="false" />
+          <Property Type="String" Name="ManufacturerName" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="PartNumber" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="PartDesc" Nullable="true" MaxLength="300" />
+          <Property Type="Decimal" Name="Price" Nullable="true" Precision="7" Scale="2" />
+          <Property Type="String" Name="ImageFilePath" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="PartsView">
+          <Key>
+            <PropertyRef Name="YearID" />
+          </Key>
+          <Property Name="MakeName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="EquipmentTypeName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="CategoryName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="ModelName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="YearID" Type="Int32" Nullable="false" />
+          <Property Name="ManufacturerName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="ManufacturerTypeName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="PartNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PartDesc" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Precision="7" Scale="2" />
+          <Property Name="ImageFilePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="md_dbModelStoreContainer" CdmEntityContainer="md_dbEntities">
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="md_dbModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="CategoryDesc" ColumnName="CategoryDesc" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EquipmentTypes">
+            <EntityTypeMapping TypeName="md_dbModel.EquipmentType">
+              <MappingFragment StoreEntitySet="EquipmentType">
+                <ScalarProperty Name="EquipmentTypeName" ColumnName="EquipmentTypeName" />
+                <ScalarProperty Name="EquipmentTypeDesc" ColumnName="EquipmentTypeDesc" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="EquipmentTypeID" ColumnName="EquipmentTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EquipmentYears">
+            <EntityTypeMapping TypeName="md_dbModel.EquipmentYear">
+              <MappingFragment StoreEntitySet="EquipmentYear">
+                <ScalarProperty Name="EquipmentYearID" ColumnName="EquipmentYearID" />
+                <ScalarProperty Name="EquipmentYearName" ColumnName="EquipmentYearName" />
+                <ScalarProperty Name="EquipmentYearDesc" ColumnName="EquipmentYearDesc" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Makes">
+            <EntityTypeMapping TypeName="md_dbModel.Make">
+              <MappingFragment StoreEntitySet="Make">
+                <ScalarProperty Name="MakeName" ColumnName="MakeName" />
+                <ScalarProperty Name="MakeDesc" ColumnName="MakeDesc" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="MakeID" ColumnName="MakeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Manufacturers">
+            <EntityTypeMapping TypeName="md_dbModel.Manufacturer">
+              <MappingFragment StoreEntitySet="Manufacturer">
+                <ScalarProperty Name="ManufacturerTypeID" ColumnName="ManufacturerTypeID" />
+                <ScalarProperty Name="ManufacturerName" ColumnName="ManufacturerName" />
+                <ScalarProperty Name="ManufacturerDesc" ColumnName="ManufacturerDesc" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ManufacturerID" ColumnName="ManufacturerID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ManufacturerTypes">
+            <EntityTypeMapping TypeName="md_dbModel.ManufacturerType">
+              <MappingFragment StoreEntitySet="ManufacturerType">
+                <ScalarProperty Name="ManufacturerTypeName" ColumnName="ManufacturerTypeName" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ManufacturerTypeID" ColumnName="ManufacturerTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Models">
+            <EntityTypeMapping TypeName="md_dbModel.Model">
+              <MappingFragment StoreEntitySet="Model">
+                <ScalarProperty Name="ModelName" ColumnName="ModelName" />
+                <ScalarProperty Name="ModelDesc" ColumnName="ModelDesc" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModelID" ColumnName="ModelID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Parts">
+            <EntityTypeMapping TypeName="md_dbModel.Part">
+              <MappingFragment StoreEntitySet="Parts">
+                <ScalarProperty Name="MakeID" ColumnName="MakeID" />
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="ModelID" ColumnName="ModelID" />
+                <ScalarProperty Name="YearID" ColumnName="YearID" />
+                <ScalarProperty Name="ManufacturerID" ColumnName="ManufacturerID" />
+                <ScalarProperty Name="PartNumber" ColumnName="PartNumber" />
+                <ScalarProperty Name="PartDesc" ColumnName="PartDesc" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ImageFilePath" ColumnName="ImageFilePath" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="PartID" ColumnName="PartID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetPartsInfo" FunctionName="md_dbModel.Store.GetPartsInfo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="md_dbModel.GetPartsInfo_Result">
+                <ScalarProperty Name="MakeName" ColumnName="MakeName" />
+                <ScalarProperty Name="EquipmentTypeName" ColumnName="EquipmentTypeName" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="ModelName" ColumnName="ModelName" />
+                <ScalarProperty Name="YearID" ColumnName="YearID" />
+                <ScalarProperty Name="ManufacturerName" ColumnName="ManufacturerName" />
+                <ScalarProperty Name="PartNumber" ColumnName="PartNumber" />
+                <ScalarProperty Name="PartDesc" ColumnName="PartDesc" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ImageFilePath" ColumnName="ImageFilePath" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="PartsViews">
+            <EntityTypeMapping TypeName="md_dbModel.PartsView">
+              <MappingFragment StoreEntitySet="PartsView">
+                <ScalarProperty Name="ImageFilePath" ColumnName="ImageFilePath" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="PartDesc" ColumnName="PartDesc" />
+                <ScalarProperty Name="PartNumber" ColumnName="PartNumber" />
+                <ScalarProperty Name="ManufacturerTypeName" ColumnName="ManufacturerTypeName" />
+                <ScalarProperty Name="ManufacturerName" ColumnName="ManufacturerName" />
+                <ScalarProperty Name="YearID" ColumnName="YearID" />
+                <ScalarProperty Name="ModelName" ColumnName="ModelName" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="EquipmentTypeName" ColumnName="EquipmentTypeName" />
+                <ScalarProperty Name="MakeName" ColumnName="MakeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

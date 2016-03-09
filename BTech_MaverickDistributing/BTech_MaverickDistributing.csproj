@@ -44,6 +44,8 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
@@ -245,6 +247,23 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Account\Web.config" />
+    <EntityDeploy Include="MaverickDistributingDataModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>MaverickDistributingDataModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="MaverickDistributingDataModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MaverickDistributingDataModel.edmx</DependentUpon>
+      <LastGenOutput>MaverickDistributingDataModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="MaverickDistributingDataModel.edmx.diagram">
+      <DependentUpon>MaverickDistributingDataModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="MaverickDistributingDataModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MaverickDistributingDataModel.edmx</DependentUpon>
+      <LastGenOutput>MaverickDistributingDataModel.cs</LastGenOutput>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -411,6 +430,9 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Category.cs">
+      <DependentUpon>MaverickDistributingDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Contact.aspx.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -426,10 +448,52 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="EquipmentType.cs">
+      <DependentUpon>MaverickDistributingDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EquipmentYear.cs">
+      <DependentUpon>MaverickDistributingDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetPartsInfo_Result.cs">
+      <DependentUpon>MaverickDistributingDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Make.cs">
+      <DependentUpon>MaverickDistributingDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Manufacturer.cs">
+      <DependentUpon>MaverickDistributingDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ManufacturerType.cs">
+      <DependentUpon>MaverickDistributingDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MaverickDistributingDataModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MaverickDistributingDataModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MaverickDistributingDataModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MaverickDistributingDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MaverickDistributingDataModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MaverickDistributingDataModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Model.cs">
+      <DependentUpon>MaverickDistributingDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Part.cs">
+      <DependentUpon>MaverickDistributingDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PartsView.cs">
+      <DependentUpon>MaverickDistributingDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
@@ -445,6 +509,7 @@
     <Compile Include="Site.Mobile.Master.designer.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
     </Compile>
+    <Compile Include="SqlStatements\MaverickPartsSql.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
@@ -456,6 +521,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7b3c7a8fcf724ddc8314e9cc819f6a3f" Name="Diagram1">
+        <EntityTypeShape EntityType="md_dbModel.Category" Width="1.5" PointX="3" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="md_dbModel.EquipmentType" Width="1.5" PointX="3" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="md_dbModel.EquipmentYear" Width="1.5" PointX="5.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="md_dbModel.Make" Width="1.5" PointX="3" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="md_dbModel.Manufacturer" Width="1.5" PointX="3" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="md_dbModel.ManufacturerType" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="md_dbModel.Model" Width="1.5" PointX="3" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="md_dbModel.Part" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
+        <AssociationConnector Association="md_dbModel.FK_Parts_CategoryID" ManuallyRouted="false" />
+        <AssociationConnector Association="md_dbModel.FK_Parts_TypeID" ManuallyRouted="false" />
+        <AssociationConnector Association="md_dbModel.FK_Parts_MakeID" ManuallyRouted="false" />
+        <AssociationConnector Association="md_dbModel.FK_Manufacturer_ManufacturerTypeID" ManuallyRouted="false" />
+        <AssociationConnector Association="md_dbModel.FK_Parts_ManufacturerID" ManuallyRouted="false" />
+        <AssociationConnector Association="md_dbModel.FK_Parts_ModelID" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="md_dbModel.PartsView" Width="1.5" PointX="7.375" PointY="0.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

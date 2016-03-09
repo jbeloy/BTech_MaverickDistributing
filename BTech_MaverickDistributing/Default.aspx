@@ -310,9 +310,9 @@ small {
   <div class="drilldown__options-container">
     <p>Click to expand the options:</p>
     <ul>
-      <li><div id="10">Region A <label><input type="checkbox"></label></div>
+      <li><div id="10" >Region A <label><input type="checkbox"></label></div>
         <ul>
-          <li><div id="100">Territory A1 <label><input type="checkbox"></label></div>
+          <li><div id="100" >Territory A1 <label><input type="checkbox"></label></div>
             <ul>
               <li><div id="1000">Division A1-1 <label><input type="checkbox"></label></div>
                 <ul>
@@ -431,7 +431,8 @@ small {
 
 
 
-
+    <ul runat="server" id="tabs"> 
+     </ul> 
 
     <div class="row">
         <asp:ListView ID="LV_PartsInfo" runat="server" DataSourceID="SQL_PartsInfo">
