@@ -72,5 +72,57 @@ namespace BTech_MaverickDistributing.SqlStatements
                 return null;
             }
         }
+
+        public static List<string> GetMake()
+        {
+            string Connection = WebConfigurationManager.ConnectionStrings["md_dbConnectionString"].ConnectionString;
+            SqlConnection sqlConnection = new SqlConnection(Connection);
+            SqlDataReader reader;
+            List<string> EquipmentTypes = new List<string>();
+
+            //This funciton will take all of the values and create them.
+            try
+            {
+                sqlConnection.Open();
+            }
+            catch (Exception err)
+            {
+                Console.WriteLine(err.Message);
+            }
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = sqlConnection;
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "GetMake";           //getting the  procedure created in SQL.
+
+            try
+            {
+                reader = cmd.ExecuteReader(); //added October 21
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        //We will read every value form the reader into the list.
+                        for (int i = 0; i < reader.FieldCount; i++)
+                        {
+                            EquipmentTypes.Add(reader[i].ToString());
+                        }
+                    }
+                }
+
+                sqlConnection.Close();
+                return EquipmentTypes;
+            }
+            catch (Exception ex)
+            {
+                //If the execution fails, we need to close the connection string.
+                sqlConnection.Close();
+                Console.WriteLine(ex.Message);
+
+                //Return -1 if the insert fails.
+                return null;
+            }
+        }
     }
 }

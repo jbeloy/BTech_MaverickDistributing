@@ -14,7 +14,10 @@ namespace BTech_MaverickDistributing
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            LoadTreeViewTest();
+            Repeater1.DataSource = SQL_EquipmentType;
+            Repeater1.DataBind();
+
+            //LoadTreeViewTest();
         }
         public void LoadTreeViewTest()
         {
@@ -22,6 +25,9 @@ namespace BTech_MaverickDistributing
             {
                 using (var ctx = new md_dbEntities())
                 {
+                    List<string> equipmentTypes = new List<string>();
+                    List<string> makes = new List<string>();
+
                     var objectContext = (ctx as System.Data.Entity.Infrastructure.IObjectContextAdapter).ObjectContext;
 
                     string strSQLtoGetParts = "";
@@ -37,14 +43,26 @@ namespace BTech_MaverickDistributing
                     var getPartSubset = objectContext.ExecuteStoreQuery<PartsView>(strSQLtoGetParts).ToList();
 
                     //Get all of the equipment types from the database.
-                    List<string> equipmentTypes = Statements.GetEquipmentType();
+                    equipmentTypes = Statements.GetEquipmentType();
 
                     foreach(string t in equipmentTypes)
                     {
                         HtmlGenericControl li = new HtmlGenericControl("li");//Create html control <li>
                         //Create the correct <li> for the equipment type. Using the naming convention tableAbreviation_recordName eg: et_ATV.
-                        li.InnerHtml = "<div id='et_" + t +"' >" + t + "<label><input type='checkbox'></label></div>";
+                        li.InnerHtml = "<div id='et_" + t +"' >" + t + "<label><input type='checkbox'></label></div><ul id='" + t + "_make' runat='server'></ul>";
+                        li.Attributes.Add("onload", "li_" + t + "_Load");
+                        li.ID = "li_" + t;
                         equipmentType.Controls.Add(li);
+                    }
+
+                    makes = Statements.GetMake();
+
+                    foreach(string t in makes)
+                    {
+                        HtmlGenericControl li = new HtmlGenericControl("li");//Create html control <li>
+                        //Create the correct <li> for the equipment type. Using the naming convention tableAbreviation_recordName eg: et_ATV.
+                        li.InnerHtml = "<div id='mk_" + t + "' >" + t + "<label><input type='checkbox'></label></div>";
+                        Page.FindControl("ATV_make").Controls.Add(li);
                     }
 
                     //foreach (var partRow in getPartSubset)

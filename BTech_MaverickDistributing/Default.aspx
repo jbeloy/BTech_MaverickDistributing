@@ -295,6 +295,8 @@ small {
 
     <!--SQL Data source for the listview-->
     <asp:SqlDataSource ID="SQL_PartsInfo" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="GetPartsInfo" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="SQL_EquipmentType" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="SELECT [EquipmentTypeName] FROM [EquipmentType] ORDER BY [EquipmentTypeName]"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="SQL_Make" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="SELECT [MakeName] FROM [Make] ORDER BY [MakeName]"></asp:SqlDataSource>
 
     <div class="jumbotron">
         <h1>Car Part Selector Thingy Webstie</h1>
@@ -310,60 +312,19 @@ small {
   <div class="drilldown__options-container">
     <p>Click to expand the options:</p>
     <ul id="equipmentType" runat="server">
-      <%--<li><div id="10" >Re <label><input type="checkbox"></label></div>--%>
-        <ul id="make">
-          <%--<li><div id="100" >Territory A1 <label><input type="checkbox"></label></div>--%>
-            <ul>
-              <%--<li><div id="1000">Division A1-1 <label><input type="checkbox"></label></div>--%>
-                <ul>
-                  <%--<li><div id="12345">12345: Location, City, ST <label><input type="checkbox"></label></div></li>
-                  <li><div id="12346">12346: Location, City, ST <label><input type="checkbox"></label></div></li>
-                  <li><div id="12347">12347: Location, City, ST <label><input type="checkbox"></label></div></li>--%>
-                </ul>
-              <%--</li>
-              <li><div id="1001">Division A1-2 <label><input type="checkbox"></label></div>--%>
-                <ul>
-                  <%--<li><div id="13345">13345: Location, City, ST <label><input type="checkbox"></label></div></li>
-                  <li><div id="13346">13346: Location, City, ST <label><input type="checkbox"></label></div></li>
-                  <li><div id="13347">13347: Location, City, ST <label><input type="checkbox"></label></div></li>--%>
-                </ul>
-              <%--</li>
-              <li><div id="1002">Division A1-3 <label><input type="checkbox"></label></div>--%>
-                <ul>
-                  <%--<li><div id="14345">14345: Location, City, ST <label><input type="checkbox"></label></div></li>
-                  <li><div id="14346">14346: Location, City, ST <label><input type="checkbox"></label></div></li>
-                  <li><div id="14347">14347: Location, City, ST <label><input type="checkbox"></label></div></li>--%>
-                </ul>
-              <%--</li>--%>
-            </ul>
-          <%--</li>
-          <li><div id="101">Territory A2 <label><input type="checkbox"></label></div>--%>
-            <ul>
-              <%--<li><div id="1000">Division A2-1 <label><input type="checkbox"></label></div>--%>
-                <ul>
-                  <%--<li><div id="15345">15345: Location, City, ST <label><input type="checkbox"></label></div></li>
-                  <li><div id="15346">15346: Location, City, ST <label><input type="checkbox"></label></div></li>
-                  <li><div id="15347">15347: Location, City, ST <label><input type="checkbox"></label></div></li>--%>
-                </ul>
-              <%--</li>
-              <li><div id="1001">Division A2-2 <label><input type="checkbox"></label></div>--%>
-                <ul>
-                  <%--<li><div id="16345">16345: Location, City, ST <label><input type="checkbox"></label></div></li>
-                  <li><div id="16346">16346: Location, City, ST <label><input type="checkbox"></label></div></li>
-                  <li><div id="16347">16347: Location, City, ST <label><input type="checkbox"></label></div></li>--%>
-                </ul>
-              <%--</li>
-              <li><div id="1002">Division A2-3 <label><input type="checkbox"></label></div>--%>
-                <ul>
-                  <%--<li><div id="17345">17345: Location, City, ST <label><input type="checkbox"></label></div></li>
-                  <li><div id="17346">17346: Location, City, ST <label><input type="checkbox"></label></div></li>
-                  <li><div id="17347">17347: Location, City, ST <label><input type="checkbox"></label></div></li>--%>
-                </ul>
-              <%--</li>--%>
-            </ul>
-          <%--</li>--%>
-        </ul>
-      <%--</li>--%>
+
+        <asp:Repeater ID="Repeater1" runat="server">
+            <HeaderTemplate><ul></HeaderTemplate>
+            <ItemTemplate><li><div id="et_"><%# Eval("EquipmentTypeName") %><label><input type="checkbox"></label></div><ul id="_make" runat="server">
+                <asp:Repeater ID="Repeater2" runat="server" DataSource="SQL_Make">
+                    <ItemTemplate>
+                        <li><div id="mk_"><%# Eval("MakeName") %><label><input type="checkbox"></label></div><ul id="_year" runat="server"></ul></li>
+                    </ItemTemplate>
+                </asp:Repeater>
+            </ul></li></ItemTemplate>
+            <FooterTemplate></ul></FooterTemplate>
+        </asp:Repeater>
+      
     </ul>
   </div>
   <div class="drilldown__selected-container">

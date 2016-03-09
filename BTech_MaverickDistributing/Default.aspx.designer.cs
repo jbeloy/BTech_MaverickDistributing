@@ -22,6 +22,24 @@ namespace BTech_MaverickDistributing {
         protected global::System.Web.UI.WebControls.SqlDataSource SQL_PartsInfo;
         
         /// <summary>
+        /// SQL_EquipmentType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource SQL_EquipmentType;
+        
+        /// <summary>
+        /// SQL_Make control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource SQL_Make;
+        
+        /// <summary>
         /// equipmentType control.
         /// </summary>
         /// <remarks>
@@ -29,6 +47,15 @@ namespace BTech_MaverickDistributing {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl equipmentType;
+        
+        /// <summary>
+        /// Repeater1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater Repeater1;
         
         /// <summary>
         /// tabs control.
