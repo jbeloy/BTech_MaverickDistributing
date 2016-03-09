@@ -14,8 +14,8 @@ namespace BTech_MaverickDistributing
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Repeater1.DataSource = SQL_EquipmentType;
-            Repeater1.DataBind();
+            //Repeater1.DataSource = SQL_EquipmentType;
+            //Repeater1.DataBind();
 
             //LoadTreeViewTest();
         }

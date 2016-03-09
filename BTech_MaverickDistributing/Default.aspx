@@ -313,10 +313,10 @@ small {
     <p>Click to expand the options:</p>
     <ul id="equipmentType" runat="server">
 
-        <asp:Repeater ID="Repeater1" runat="server">
+        <asp:Repeater ID="Repeater1" runat="server" DataSourceID="SQL_EquipmentType">
             <HeaderTemplate><ul></HeaderTemplate>
             <ItemTemplate><li><div id="et_"><%# Eval("EquipmentTypeName") %><label><input type="checkbox"></label></div><ul id="_make" runat="server">
-                <asp:Repeater ID="Repeater2" runat="server" DataSource="SQL_Make">
+                <asp:Repeater ID="Repeater2" runat="server" DataSourceID="SQL_Make">
                     <ItemTemplate>
                         <li><div id="mk_"><%# Eval("MakeName") %><label><input type="checkbox"></label></div><ul id="_year" runat="server"></ul></li>
                     </ItemTemplate>
