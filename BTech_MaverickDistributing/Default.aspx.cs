@@ -39,8 +39,11 @@ namespace BTech_MaverickDistributing
                     foreach (var partRow in getPartSubset)
                     {
                         HtmlGenericControl li = new HtmlGenericControl("li");//Create html control <li>
-                        li.InnerText = partRow.ManufacturerName + ", " + partRow.PartDesc + ", " + partRow.CategoryName; // these are the attributes of the data row from the database
-                        tabs.Controls.Add(li);
+                        //li.InnerText = partRow.ManufacturerName + ", " + partRow.PartDesc + ", " + partRow.CategoryName; // these are the attributes of the data row from the database
+                        li.InnerHtml = "<div id='10' >ATV<label><input type='checkbox'></label></div>";
+                        //li.InnerText = "ATV";
+                        //tabs.Controls.Add(li);
+                        equipmentType.Controls.Add(li);
 
                         //HtmlGenericControl anchor = new HtmlGenericControl("a");
                         //anchor.Attributes.Add("href", "page.htm");

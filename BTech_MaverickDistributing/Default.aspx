@@ -309,115 +309,61 @@ small {
 <div id="drilldown1" class="drilldown">
   <div class="drilldown__options-container">
     <p>Click to expand the options:</p>
-    <ul>
-      <li><div id="10" >Region A <label><input type="checkbox"></label></div>
-        <ul>
-          <li><div id="100" >Territory A1 <label><input type="checkbox"></label></div>
+    <ul id="equipmentType" runat="server">
+      <%--<li><div id="10" >Re <label><input type="checkbox"></label></div>--%>
+        <ul id="make">
+          <%--<li><div id="100" >Territory A1 <label><input type="checkbox"></label></div>--%>
             <ul>
-              <li><div id="1000">Division A1-1 <label><input type="checkbox"></label></div>
+              <%--<li><div id="1000">Division A1-1 <label><input type="checkbox"></label></div>--%>
                 <ul>
-                  <li><div id="12345">12345: Location, City, ST <label><input type="checkbox"></label></div></li>
+                  <%--<li><div id="12345">12345: Location, City, ST <label><input type="checkbox"></label></div></li>
                   <li><div id="12346">12346: Location, City, ST <label><input type="checkbox"></label></div></li>
-                  <li><div id="12347">12347: Location, City, ST <label><input type="checkbox"></label></div></li>
+                  <li><div id="12347">12347: Location, City, ST <label><input type="checkbox"></label></div></li>--%>
                 </ul>
-              </li>
-              <li><div id="1001">Division A1-2 <label><input type="checkbox"></label></div>
+              <%--</li>
+              <li><div id="1001">Division A1-2 <label><input type="checkbox"></label></div>--%>
                 <ul>
-                  <li><div id="13345">13345: Location, City, ST <label><input type="checkbox"></label></div></li>
+                  <%--<li><div id="13345">13345: Location, City, ST <label><input type="checkbox"></label></div></li>
                   <li><div id="13346">13346: Location, City, ST <label><input type="checkbox"></label></div></li>
-                  <li><div id="13347">13347: Location, City, ST <label><input type="checkbox"></label></div></li>
+                  <li><div id="13347">13347: Location, City, ST <label><input type="checkbox"></label></div></li>--%>
                 </ul>
-              </li>
-              <li><div id="1002">Division A1-3 <label><input type="checkbox"></label></div>
+              <%--</li>
+              <li><div id="1002">Division A1-3 <label><input type="checkbox"></label></div>--%>
                 <ul>
-                  <li><div id="14345">14345: Location, City, ST <label><input type="checkbox"></label></div></li>
+                  <%--<li><div id="14345">14345: Location, City, ST <label><input type="checkbox"></label></div></li>
                   <li><div id="14346">14346: Location, City, ST <label><input type="checkbox"></label></div></li>
-                  <li><div id="14347">14347: Location, City, ST <label><input type="checkbox"></label></div></li>
+                  <li><div id="14347">14347: Location, City, ST <label><input type="checkbox"></label></div></li>--%>
                 </ul>
-              </li>
+              <%--</li>--%>
             </ul>
-          </li>
-          <li><div id="101">Territory A2 <label><input type="checkbox"></label></div>
+          <%--</li>
+          <li><div id="101">Territory A2 <label><input type="checkbox"></label></div>--%>
             <ul>
-              <li><div id="1000">Division A2-1 <label><input type="checkbox"></label></div>
+              <%--<li><div id="1000">Division A2-1 <label><input type="checkbox"></label></div>--%>
                 <ul>
-                  <li><div id="15345">15345: Location, City, ST <label><input type="checkbox"></label></div></li>
+                  <%--<li><div id="15345">15345: Location, City, ST <label><input type="checkbox"></label></div></li>
                   <li><div id="15346">15346: Location, City, ST <label><input type="checkbox"></label></div></li>
-                  <li><div id="15347">15347: Location, City, ST <label><input type="checkbox"></label></div></li>
+                  <li><div id="15347">15347: Location, City, ST <label><input type="checkbox"></label></div></li>--%>
                 </ul>
-              </li>
-              <li><div id="1001">Division A2-2 <label><input type="checkbox"></label></div>
+              <%--</li>
+              <li><div id="1001">Division A2-2 <label><input type="checkbox"></label></div>--%>
                 <ul>
-                  <li><div id="16345">16345: Location, City, ST <label><input type="checkbox"></label></div></li>
+                  <%--<li><div id="16345">16345: Location, City, ST <label><input type="checkbox"></label></div></li>
                   <li><div id="16346">16346: Location, City, ST <label><input type="checkbox"></label></div></li>
-                  <li><div id="16347">16347: Location, City, ST <label><input type="checkbox"></label></div></li>
+                  <li><div id="16347">16347: Location, City, ST <label><input type="checkbox"></label></div></li>--%>
                 </ul>
-              </li>
-              <li><div id="1002">Division A2-3 <label><input type="checkbox"></label></div>
+              <%--</li>
+              <li><div id="1002">Division A2-3 <label><input type="checkbox"></label></div>--%>
                 <ul>
-                  <li><div id="17345">17345: Location, City, ST <label><input type="checkbox"></label></div></li>
+                  <%--<li><div id="17345">17345: Location, City, ST <label><input type="checkbox"></label></div></li>
                   <li><div id="17346">17346: Location, City, ST <label><input type="checkbox"></label></div></li>
-                  <li><div id="17347">17347: Location, City, ST <label><input type="checkbox"></label></div></li>
+                  <li><div id="17347">17347: Location, City, ST <label><input type="checkbox"></label></div></li>--%>
                 </ul>
-              </li>
+              <%--</li>--%>
             </ul>
-          </li>
+          <%--</li>--%>
         </ul>
-      </li>
-      <li><div id="20">Region B <label><input type="checkbox"></label></div>
-        <ul>
-          <li><div id="100">Territory B1 <label><input type="checkbox"></label></div>
-            <ul>
-              <li><div id="1000">Division B1-1 <label><input type="checkbox"></label></div>
-                <ul>
-                  <li><div id="22345">22345: Location, City, ST <label><input type="checkbox"></label></div></li>
-                  <li><div id="22346">22346: Location, City, ST <label><input type="checkbox"></label></div></li>
-                  <li><div id="22347">22347: Location, City, ST <label><input type="checkbox"></label></div></li>
-                </ul>
-              </li>
-              <li><div id="1001">Division B1-2 <label><input type="checkbox"></label></div>
-                <ul>
-                  <li><div id="23345">23345: Location, City, ST <label><input type="checkbox"></label></div></li>
-                  <li><div id="23346">23346: Location, City, ST <label><input type="checkbox"></label></div></li>
-                  <li><div id="23347">23347: Location, City, ST <label><input type="checkbox"></label></div></li>
-                </ul>
-              </li>
-              <li><div id="1002">Division B1-3 <label><input type="checkbox"></label></div>
-                <ul>
-                  <li><div id="24345">24345: Location, City, ST <label><input type="checkbox"></label></div></li>
-                  <li><div id="24346">24346: Location, City, ST <label><input type="checkbox"></label></div></li>
-                  <li><div id="24347">24347: Location, City, ST <label><input type="checkbox"></label></div></li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-          <li><div id="101">Territory B2 <label><input type="checkbox"></label></div>
-            <ul>
-              <li><div id="1000">Division B2-1 <label><input type="checkbox"></label></div>
-                <ul>
-                  <li><div id="25345">25345: Location, City, ST <label><input type="checkbox"></label></div></li>
-                  <li><div id="25346">25346: Location, City, ST <label><input type="checkbox"></label></div></li>
-                  <li><div id="25347">25347: Location, City, ST <label><input type="checkbox"></label></div></li>
-                </ul>
-              </li>
-              <li><div id="1001">Division B2-2 <label><input type="checkbox"></label></div>
-                <ul>
-                  <li><div id="26345">26345: Location, City, ST <label><input type="checkbox"></label></div></li>
-                  <li><div id="26346">26346: Location, City, ST <label><input type="checkbox"></label></div></li>
-                  <li><div id="26347">26347: Location, City, ST <label><input type="checkbox"></label></div></li>
-                </ul>
-              </li>
-              <li><div id="1002">Division B2-3 <label><input type="checkbox"></label></div>
-                <ul>
-                  <li><div id="27345">27345: Location, City, ST <label><input type="checkbox"></label></div></li>
-                  <li><div id="27346">27346: Location, City, ST <label><input type="checkbox"></label></div></li>
-                  <li><div id="27347">27347: Location, City, ST <label><input type="checkbox"></label></div></li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </li>
+      <%--</li>--%>
     </ul>
   </div>
   <div class="drilldown__selected-container">
@@ -426,13 +372,12 @@ small {
     <p><small>To remove selected items click them above.</small></p>
   </div>
 </div>
-<p><small>Make this input type "hidden" when using in production</small></p>
-<input type="text" id="drilldownInput" class="drilldown__input" value="">
+<input type="text" id="drilldownInput" class="drilldown__input" value="" style="display: none;">
 
 
 
     <ul runat="server" id="tabs"> 
-     </ul> 
+    </ul> 
 
     <div class="row">
         <asp:ListView ID="LV_PartsInfo" runat="server" DataSourceID="SQL_PartsInfo">
