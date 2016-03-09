@@ -36,29 +36,40 @@ namespace BTech_MaverickDistributing
                     strSQLtoGetParts = String.Format(Statements.GetPartsByYearMakeModelCategory(), yearToGet, partMakeToGet, partModelToGet, partCategoryToGet);
                     var getPartSubset = objectContext.ExecuteStoreQuery<PartsView>(strSQLtoGetParts).ToList();
 
-                    foreach (var partRow in getPartSubset)
+                    //Get all of the equipment types from the database.
+                    List<string> equipmentTypes = Statements.GetEquipmentType();
+
+                    foreach(string t in equipmentTypes)
                     {
                         HtmlGenericControl li = new HtmlGenericControl("li");//Create html control <li>
-                        //li.InnerText = partRow.ManufacturerName + ", " + partRow.PartDesc + ", " + partRow.CategoryName; // these are the attributes of the data row from the database
-                        li.InnerHtml = "<div id='10' >ATV<label><input type='checkbox'></label></div>";
-                        //li.InnerText = "ATV";
-                        //tabs.Controls.Add(li);
+                        //Create the correct <li> for the equipment type. Using the naming convention tableAbreviation_recordName eg: et_ATV.
+                        li.InnerHtml = "<div id='et_" + t +"' >" + t + "<label><input type='checkbox'></label></div>";
                         equipmentType.Controls.Add(li);
-
-                        //HtmlGenericControl anchor = new HtmlGenericControl("a");
-                        //anchor.Attributes.Add("href", "page.htm");
-                        //anchor.InnerText = partRow.PartDesc;
-
-                        //HtmlGenericControl li = new HtmlGenericControl("li");
-                        //li.Attributes.Add("class", "MyClass");
-                        //li.InnerText = "Item2";
-                        //MyList2.Controls.Add(li);
-                        //li.Controls.Add(anchor);
-
-                        //li.Controls.Add(partRow.ManufacturerName + ", " + partRow.PartDesc + ", " + partRow.Price);
-                        //drilldown1.Controls.Add(li);
-                        
                     }
+
+                    //foreach (var partRow in getPartSubset)
+                    //{
+                    //    HtmlGenericControl li = new HtmlGenericControl("li");//Create html control <li>
+                    //    //li.InnerText = partRow.ManufacturerName + ", " + partRow.PartDesc + ", " + partRow.CategoryName; // these are the attributes of the data row from the database
+                    //    li.InnerHtml = "<div id='10' >ATV<label><input type='checkbox'></label></div>";
+                    //    //li.InnerText = "ATV";
+                    //    //tabs.Controls.Add(li);
+                    //    equipmentType.Controls.Add(li);
+
+                    //    //HtmlGenericControl anchor = new HtmlGenericControl("a");
+                    //    //anchor.Attributes.Add("href", "page.htm");
+                    //    //anchor.InnerText = partRow.PartDesc;
+
+                    //    //HtmlGenericControl li = new HtmlGenericControl("li");
+                    //    //li.Attributes.Add("class", "MyClass");
+                    //    //li.InnerText = "Item2";
+                    //    //MyList2.Controls.Add(li);
+                    //    //li.Controls.Add(anchor);
+
+                    //    //li.Controls.Add(partRow.ManufacturerName + ", " + partRow.PartDesc + ", " + partRow.Price);
+                    //    //drilldown1.Controls.Add(li);
+                        
+                    //}
                 }
 
             }
