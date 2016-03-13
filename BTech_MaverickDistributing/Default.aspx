@@ -304,7 +304,11 @@ small {
     <asp:SqlDataSource ID="SQL_PartsInfo" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="GetPartsInfo" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
     <asp:SqlDataSource ID="SQL_EquipmentType" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="SELECT [EquipmentTypeName] FROM [EquipmentType] ORDER BY [EquipmentTypeName]"></asp:SqlDataSource>
     <asp:SqlDataSource ID="SQL_Make" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="SELECT [MakeName] FROM [Make] ORDER BY [MakeName]"></asp:SqlDataSource>
-    <asp:SqlDataSource ID="SQL_Year" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="SELECT [EquipmentYearID] FROM [EquipmentYear] ORDER BY [EquipmentYearID] DESC"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="SQL_Year" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="GetYear" SelectCommandType="StoredProcedure">
+        <SelectParameters>
+            <asp:CookieParameter CookieName="make" Name="Make" Type="String" />
+        </SelectParameters>
+    </asp:SqlDataSource>
 
     <div class="jumbotron">
         <h1>Car Part Selector Thingy Webstie</h1>
@@ -323,14 +327,20 @@ small {
 
         <asp:Repeater ID="Repeater1" runat="server" DataSourceID="SQL_EquipmentType">
             <HeaderTemplate><ul></HeaderTemplate>
-            <ItemTemplate><li><div id="et_<%# Eval("EquipmentTypeName") %>"><%# Eval("EquipmentTypeName") %><label><input type="checkbox"></label></div><ul runat="server">
-                <asp:Repeater ID="Repeater2" runat="server" DataSourceID="SQL_Make">
-                    <ItemTemplate>
-                        <li><div id="mk_<%# Eval("MakeName") %>"><%# Eval("MakeName") %><label><input type="checkbox" onclick="setSearch('<%# Eval("MakeName").ToString() %>')"></label></div><ul runat="server">
+            <ItemTemplate>
+                <li><div id="et_<%# Eval("EquipmentTypeName") %>"><%# Eval("EquipmentTypeName") %><label><input type="checkbox"></label></div><ul runat="server">
+                    <asp:Repeater ID="Repeater2" runat="server" DataSourceID="SQL_Make" OnItemDataBound="Repeater2_ItemDataBound">
+                        <ItemTemplate>
+                            <li><div id="mk_<%# Eval("MakeName") %>"><%# Eval("MakeName") %><label><input type="checkbox" onclick="setSearch('<%# Eval("MakeName").ToString() %>')"></label></div><ul runat="server">
+                                <asp:Repeater ID="Repeater2" runat="server" DataSourceID="SQL_Year">
+                                    <ItemTemplate>
+                                        <li><div id="year_<%# Eval("YearID") %>"><%# Eval("YearID") %><label><input type="checkbox" onclick="setSearch('<%# Eval("YearID").ToString() %>')"></label></div><ul runat="server">
                             
-                        </ul></li></ItemTemplate>
-                </asp:Repeater>
-            </ul></li></ItemTemplate>
+                                        </ul></li></ItemTemplate>
+                                </asp:Repeater>
+                            </ul></li></ItemTemplate>
+                    </asp:Repeater>
+                </ul></li></ItemTemplate>
             <FooterTemplate></ul></FooterTemplate>
         </asp:Repeater>
       

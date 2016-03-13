@@ -14,6 +14,7 @@ namespace BTech_MaverickDistributing
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            
             //LoadTreeViewTest();
         }
         public void LoadTreeViewTest()
@@ -109,6 +110,15 @@ namespace BTech_MaverickDistributing
                 //Erase the value from the HiddenField.
                 HF_PartsInfo.Value = null;
             }*/
+        }
+
+        protected void Repeater2_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            Repeater MakeRepeater = (Repeater)sender;
+            foreach (RepeaterItem ri in MakeRepeater.Items)
+            {
+                Session["Make"] = ri.ClientID;
+            }
         }
     }
 }
