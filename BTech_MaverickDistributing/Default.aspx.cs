@@ -115,6 +115,9 @@ namespace BTech_MaverickDistributing
         {
             string Category = DataBinder.Eval(e.Item.DataItem, "MakeName").ToString();
             Session["make"] = Category;
+            RepeaterItem item = e.Item;
+            Repeater Product = (Repeater)item.FindControl("Repeater3");
+            Product.DataBind();
             //Repeater MakeRepeater = (Repeater)sender;
             //MakeRepeater.DataBind();
         }
