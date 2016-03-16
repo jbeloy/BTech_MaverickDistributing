@@ -332,7 +332,7 @@ small {
                     <asp:Repeater ID="Repeater2" runat="server" DataSourceID="SQL_Make" OnItemDataBound="Repeater2_ItemDataBound">
                         <ItemTemplate>
                             <li><div id="mk_<%# Eval("MakeName") %>"><%# Eval("MakeName") %><label><input type="checkbox" onclick="setSearch('<%# Eval("MakeName").ToString() %>')"></label></div><ul runat="server">
-                                <asp:Repeater ID="Repeater3" runat="server" DataSourceID="SQL_Year">
+                                <asp:Repeater ID="Repeater3" runat="server" DataSourceID="SQL_Year" OnItemDataBound="Repeater3_ItemDataBound">
                                     <ItemTemplate>
                                         <li><div id="year_<%# Eval("YearID") %>"><%# Eval("YearID") %><label><input type="checkbox" onclick="setSearch('<%# Eval("YearID").ToString() %>')"></label></div><ul runat="server">
                             

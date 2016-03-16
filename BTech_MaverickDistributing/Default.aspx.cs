@@ -14,7 +14,6 @@ namespace BTech_MaverickDistributing
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Session["make"] = "Honda";
             //LoadTreeViewTest();
         }
         public void LoadTreeViewTest()
@@ -114,11 +113,16 @@ namespace BTech_MaverickDistributing
 
         protected void Repeater2_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
+            string Category = DataBinder.Eval(e.Item.DataItem, "MakeName").ToString();
+            Session["make"] = Category;
+            //Repeater MakeRepeater = (Repeater)sender;
+            //MakeRepeater.DataBind();
+        }
+
+        protected void Repeater3_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
             Repeater MakeRepeater = (Repeater)sender;
-            foreach (RepeaterItem ri in MakeRepeater.Items)
-            {
-                Session["Make"] = ri.ClientID;
-            }
+            MakeRepeater.DataBind();
         }
     }
 }
