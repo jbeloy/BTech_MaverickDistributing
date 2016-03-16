@@ -7,6 +7,9 @@ using System.Web.UI.WebControls;
 using BTech_MaverickDistributing.Models;
 using BTech_MaverickDistributing.SqlStatements;
 using System.Web.UI.HtmlControls;
+using System.Data;
+using System.Data.SqlClient;
+using System.Web.Configuration;
 
 namespace BTech_MaverickDistributing
 {
@@ -14,6 +17,44 @@ namespace BTech_MaverickDistributing
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            //Create the connection and DataAdapter for the Authors table.
+            string Connection = WebConfigurationManager.ConnectionStrings["md_dbConnectionString"].ConnectionString;
+            SqlConnection cnn = new SqlConnection(Connection);
+            SqlDataAdapter cmd1 = new SqlDataAdapter("select * from EquipmentType", cnn);
+
+            //Create and fill the DataSet.
+            DataSet ds = new DataSet();
+            cmd1.Fill(ds, "EquipmentType");
+
+            SqlDataAdapter cmd2 = new SqlDataAdapter("select * from Make", cnn);
+            cmd2.Fill(ds, "Make");
+
+            //Create a second DataAdapter for the Titles table.
+            SqlDataAdapter cmd3 = new SqlDataAdapter("select distinct MakeID, TypeID from Parts", cnn);
+            cmd3.Fill(ds, "Parts");
+
+            //Create the relation bewtween the Authors and Titles tables.
+            ds.Relations.Add("myrelation",
+            ds.Tables["EquipmentType"].Columns["EquipmentTypeID"],
+            ds.Tables["Parts"].Columns["TypeID"]);
+
+            //Bind the Authors table to the parent Repeater control, and call DataBind.
+            parentRepeater.DataSource = ds.Tables["EquipmentType"];
+            Page.DataBind();
+
+            //SqlDataAdapter cmd4 = new SqlDataAdapter("select distinct YearID, MakeID from Parts", cnn);
+            //cmd4.Fill(ds, "Parts");
+
+            //ds.Relations.Add("myrelation2",
+            //ds.Tables["Make"].Columns["MakeID"],
+            //ds.Tables["Parts"].Columns["MakeID"]);
+
+            //Page.DataBind();
+
+            //Close the connection.
+            cnn.Close();
+
+
             //LoadTreeViewTest();
         }
         public void LoadTreeViewTest()
@@ -118,14 +159,15 @@ namespace BTech_MaverickDistributing
             //this.Session["make"] = "Honda";
             RepeaterItem item = e.Item;
             //Repeater3_ItemDataBound(sender, e);
-            //Repeater Product = (Repeater)item.FindControl("Repeater3");
-            //Product.DataBind();
+            Repeater Product = (Repeater)item.FindControl("Repeater3");
+            Product.DataBind();
             //Repeater MakeRepeater = (Repeater)sender;
             //MakeRepeater.DataBind();
         }
 
         protected void Repeater3_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
+            //Repeater MakeRepeater = (Repeater)sender;
             string Year = DataBinder.Eval(e.Item.DataItem, "YearID").ToString();
             RepeaterItem item = e.Item;
 
@@ -136,7 +178,7 @@ namespace BTech_MaverickDistributing
                 else
                     e.Item.Visible = false;
             }
-            //Repeater MakeRepeater = (Repeater)sender;
+            
             //MakeRepeater.DataBind();
         }
 

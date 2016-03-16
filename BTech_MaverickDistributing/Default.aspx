@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="BTech_MaverickDistributing._Default" %>
+<%@Import Namespace="System.Data"%>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
@@ -327,16 +328,16 @@ on m.MakeID = p.MakeID">
     <p>Click to expand the options:</p>
     <ul id="equipmentType" runat="server">
 
-        <asp:Repeater ID="Repeater1" runat="server" DataSourceID="SQL_EquipmentType">
+        <%--<asp:Repeater ID="Repeater1" runat="server" DataSourceID="SQL_EquipmentType">
             <HeaderTemplate><ul></HeaderTemplate>
             <ItemTemplate>
                 <li><div id="et_<%# Eval("EquipmentTypeName") %>"><%# Eval("EquipmentTypeName") %><label><input type="checkbox"></label></div><ul runat="server">
-                    <asp:Repeater ID="Repeater2" runat="server" DataSourceID="SQL_Make" OnItemDataBound="Repeater2_ItemDataBound">
+                    <asp:Repeater ID="Repeater2" runat="server" DataSourceID="SQL_Year" OnItemDataBound="Repeater2_ItemDataBound">
                         <ItemTemplate>
-                            <li><div id="mk_<%# Eval("MakeName") %>"><%# Eval("MakeName") %><label><input type="checkbox" onclick="setSearch('<%# Eval("MakeName").ToString() %>')"></label></div><ul runat="server">
-                                <asp:Repeater ID="Repeater3" runat="server" DataSourceID="SQL_Year">
+                            <li><div id="mk_<%# Eval("MakeName") %>"><%# Eval("MakeName") %><label><input type="checkbox"></label></div><ul runat="server">
+                                <asp:Repeater ID="Repeater3" runat="server" datasource='<%# ((DataRowView)Container.DataItem).Row.GetChildRows("myrelation") %>'>
                                     <ItemTemplate>
-                                        <li><div id="year_<%# Eval("YearID") %>"><%# Eval("YearID") %><label><input type="checkbox" onclick="setSearch('<%# Eval("YearID").ToString() %>')"></label></div><ul runat="server">
+                                        <li><div id="year_<%# Eval("YearID") %>"><%# Eval("YearID") %><label><input type="checkbox"></label></div><ul runat="server">
                             
                                         </ul></li></ItemTemplate>
                                 </asp:Repeater>
@@ -344,7 +345,37 @@ on m.MakeID = p.MakeID">
                     </asp:Repeater>
                 </ul></li></ItemTemplate>
             <FooterTemplate></ul></FooterTemplate>
-        </asp:Repeater>
+        </asp:Repeater>--%>
+
+        <!-- start parent repeater -->
+        <asp:repeater id="parentRepeater" runat="server">
+           <itemtemplate>
+              <li><div id="et_<%# DataBinder.Eval(Container.DataItem,"EquipmentTypeName") %>"><%# DataBinder.Eval(Container.DataItem,"EquipmentTypeName") %><label><input type="checkbox"></label></div><ul runat="server">
+              
+              <!-- start child repeater1 -->
+              <asp:repeater id="Repeater1" datasource='<%# ((DataRowView)Container.DataItem).Row.GetChildRows("myrelation") %>' runat="server">
+
+                 <itemtemplate>
+                     <li><div id="et_<%# DataBinder.Eval(Container.DataItem, "[\"MakeID\"]")%>"><%# DataBinder.Eval(Container.DataItem, "[\"MakeID\"]")%><label><input type="checkbox"></label></div><ul runat="server">
+                         <!-- start child repeater2 -->
+                          <%--<asp:repeater id="childRepeater2" datasource='<%# ((DataRowView)Container.DataItem).Row.GetChildRows("myrelation2") %>' runat="server">
+
+                             <itemtemplate>
+                                 <li><div id="et_<%# DataBinder.Eval(Container.DataItem, "[\"YearID\"]")%>"><%# DataBinder.Eval(Container.DataItem, "[\"YearID\"]")%><label><input type="checkbox"></label></div><ul runat="server">
+                             </ul></li></itemtemplate>
+
+                          </asp:repeater>--%>
+                          <!-- end child repeater2 -->
+                 </ul></li></itemtemplate>
+
+              </asp:repeater>
+              <!-- end child repeater1 -->  
+
+              
+
+           </ul></li></itemtemplate>
+        </asp:repeater>
+        <!-- end parent repeater -->
       
     </ul>
   </div>
