@@ -113,19 +113,32 @@ namespace BTech_MaverickDistributing
 
         protected void Repeater2_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
-            string Category = DataBinder.Eval(e.Item.DataItem, "MakeName").ToString();
-            Session["make"] = Category;
+            string MakeName = DataBinder.Eval(e.Item.DataItem, "MakeName").ToString();
+            this.Session["make"] = MakeName;
+            //this.Session["make"] = "Honda";
             RepeaterItem item = e.Item;
-            Repeater Product = (Repeater)item.FindControl("Repeater3");
-            Product.DataBind();
+            //Repeater3_ItemDataBound(sender, e);
+            //Repeater Product = (Repeater)item.FindControl("Repeater3");
+            //Product.DataBind();
             //Repeater MakeRepeater = (Repeater)sender;
             //MakeRepeater.DataBind();
         }
 
         protected void Repeater3_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
-            Repeater MakeRepeater = (Repeater)sender;
-            MakeRepeater.DataBind();
+            string Year = DataBinder.Eval(e.Item.DataItem, "YearID").ToString();
+            RepeaterItem item = e.Item;
+
+            if (this.Session["make"] != null)
+            {
+                if (this.Session["make"].ToString() == DataBinder.Eval(e.Item.DataItem, "MakeName").ToString())
+                    e.Item.Visible = true;
+                else
+                    e.Item.Visible = false;
+            }
+            //Repeater MakeRepeater = (Repeater)sender;
+            //MakeRepeater.DataBind();
         }
+
     }
 }
