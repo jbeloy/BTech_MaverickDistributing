@@ -14,7 +14,7 @@ namespace BTech_MaverickDistributing
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            Session["make"] = "Honda";
             //LoadTreeViewTest();
         }
         public void LoadTreeViewTest()
