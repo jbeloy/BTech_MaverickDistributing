@@ -30,7 +30,7 @@ namespace BTech_MaverickDistributing
             cmd2.Fill(ds, "Make");
 
             //Create a second DataAdapter for the Titles table.
-            SqlDataAdapter cmd3 = new SqlDataAdapter("select distinct MakeID, TypeID from Parts", cnn);
+            SqlDataAdapter cmd3 = new SqlDataAdapter("select distinct MakeID, TypeID, YearID from Parts", cnn);
             cmd3.Fill(ds, "Parts");
 
             //Create the relation bewtween the Authors and Titles tables.
@@ -38,18 +38,14 @@ namespace BTech_MaverickDistributing
             ds.Tables["EquipmentType"].Columns["EquipmentTypeID"],
             ds.Tables["Parts"].Columns["TypeID"]);
 
+            ds.Relations.Add("myrelation2",
+            ds.Tables["Make"].Columns["MakeID"],
+            ds.Tables["Parts"].Columns["MakeID"]);
+
             //Bind the Authors table to the parent Repeater control, and call DataBind.
-            parentRepeater.DataSource = ds.Tables["EquipmentType"];
+            parentRepeater.DataSource = ds;
+            //parentRepeater.DataSource = ds.Tables["EquipmentType"];
             Page.DataBind();
-
-            //SqlDataAdapter cmd4 = new SqlDataAdapter("select distinct YearID, MakeID from Parts", cnn);
-            //cmd4.Fill(ds, "Parts");
-
-            //ds.Relations.Add("myrelation2",
-            //ds.Tables["Make"].Columns["MakeID"],
-            //ds.Tables["Parts"].Columns["MakeID"]);
-
-            //Page.DataBind();
 
             //Close the connection.
             cnn.Close();

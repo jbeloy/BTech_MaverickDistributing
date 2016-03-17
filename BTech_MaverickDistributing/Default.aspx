@@ -358,20 +358,18 @@ on m.MakeID = p.MakeID">
                  <itemtemplate>
                      <li><div id="et_<%# DataBinder.Eval(Container.DataItem, "[\"MakeID\"]")%>"><%# DataBinder.Eval(Container.DataItem, "[\"MakeID\"]")%><label><input type="checkbox"></label></div><ul runat="server">
                          <!-- start child repeater2 -->
-                          <%--<asp:repeater id="childRepeater2" datasource='<%# ((DataRowView)Container.DataItem).Row.GetChildRows("myrelation2") %>' runat="server">
+                          <asp:repeater id="childRepeater2" datasource='<%# ((DataRow)Container.DataItem).GetChildRows("myrelation2") %>' runat="server">
 
                              <itemtemplate>
                                  <li><div id="et_<%# DataBinder.Eval(Container.DataItem, "[\"YearID\"]")%>"><%# DataBinder.Eval(Container.DataItem, "[\"YearID\"]")%><label><input type="checkbox"></label></div><ul runat="server">
                              </ul></li></itemtemplate>
 
-                          </asp:repeater>--%>
+                          </asp:repeater>
                           <!-- end child repeater2 -->
                  </ul></li></itemtemplate>
 
               </asp:repeater>
               <!-- end child repeater1 -->  
-
-              
 
            </ul></li></itemtemplate>
         </asp:repeater>
