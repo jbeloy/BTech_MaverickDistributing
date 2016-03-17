@@ -303,13 +303,24 @@ small {
 
     <!--SQL Data source for the listview-->
     <asp:SqlDataSource ID="SQL_PartsInfo" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="GetPartsInfo" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
-    <asp:SqlDataSource ID="SQL_EquipmentType" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="SELECT [EquipmentTypeName] FROM [EquipmentType] ORDER BY [EquipmentTypeName]"></asp:SqlDataSource>
-    <asp:SqlDataSource ID="SQL_Make" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="SELECT [MakeName] FROM [Make] ORDER BY [MakeName]"></asp:SqlDataSource>
-    <asp:SqlDataSource ID="SQL_Year" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="SELECT DISTINCT p.YearID, m.MakeName
-
- FROM [Parts] p
-INNER JOIN [Make] m
-on m.MakeID = p.MakeID">
+    <asp:SqlDataSource ID="SQL_EquipmentType" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="SELECT [EquipmentTypeName], [EquipmentTypeID] FROM [EquipmentType]"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="SQL_Make" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="GetMake" SelectCommandType="StoredProcedure">
+        <SelectParameters>
+            <asp:ControlParameter ControlID="DDL_EquipmentType" Name="EquipmentType" PropertyName="SelectedValue" Type="String" />
+        </SelectParameters>
+    </asp:SqlDataSource>
+    <asp:SqlDataSource ID="SQL_Year" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="GetYear" SelectCommandType="StoredProcedure">
+        <SelectParameters>
+            <asp:ControlParameter ControlID="DDL_Make" Name="Make" PropertyName="SelectedValue" Type="String" />
+            <asp:ControlParameter ControlID="DDL_EquipmentType" Name="EquipmentType" PropertyName="SelectedValue" Type="String" />
+        </SelectParameters>
+    </asp:SqlDataSource>
+    <asp:SqlDataSource ID="SQL_Model" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="GetModel" SelectCommandType="StoredProcedure">
+        <SelectParameters>
+            <asp:ControlParameter ControlID="DDL_Year" Name="Year" PropertyName="SelectedValue" Type="Int32" />
+            <asp:ControlParameter ControlID="DDL_Make" Name="Make" PropertyName="SelectedValue" Type="Int32" />
+            <asp:ControlParameter ControlID="DDL_EquipmentType" Name="EquipmentType" PropertyName="SelectedValue" Type="Int32" />
+        </SelectParameters>
     </asp:SqlDataSource>
 
 
@@ -319,73 +330,75 @@ on m.MakeID = p.MakeID">
         <p><a href="http://www.asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
     </div>
 
-
-
     <h1>Drill-down select</h1>
 
-<div id="drilldown1" class="drilldown">
-  <div class="drilldown__options-container">
-    <p>Click to expand the options:</p>
-    <ul id="equipmentType" runat="server">
+    <!--Use Dropdown list for now, until the drill down menu is compelte.-->
+    <asp:DropDownList ID="DDL_EquipmentType" runat="server" DataSourceID="SQL_EquipmentType" DataTextField="EquipmentTypeName" DataValueField="EquipmentTypeID" OnSelectedIndexChanged="DDL_EquipmentType_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+    <asp:DropDownList ID="DDL_Make" runat="server" DataSourceID="SQL_Make" DataTextField="MakeID" DataValueField="MakeID" AutoPostBack="true" OnSelectedIndexChanged="DDL_Make_SelectedIndexChanged"></asp:DropDownList>
+    <asp:DropDownList ID="DDL_Year" runat="server" DataSourceID="SQL_Year" DataTextField="YearID" DataValueField="YearID" OnSelectedIndexChanged="DDL_Year_SelectedIndexChanged"></asp:DropDownList>
+    <asp:DropDownList ID="DDL_Model" runat="server" DataSourceID="SQL_Model" DataTextField="ModelName" DataValueField="ModelName" OnSelectedIndexChanged="DDL_Model_SelectedIndexChanged"></asp:DropDownList>
 
-        <%--<asp:Repeater ID="Repeater1" runat="server" DataSourceID="SQL_EquipmentType">
-            <HeaderTemplate><ul></HeaderTemplate>
-            <ItemTemplate>
-                <li><div id="et_<%# Eval("EquipmentTypeName") %>"><%# Eval("EquipmentTypeName") %><label><input type="checkbox"></label></div><ul runat="server">
-                    <asp:Repeater ID="Repeater2" runat="server" DataSourceID="SQL_Year" OnItemDataBound="Repeater2_ItemDataBound">
-                        <ItemTemplate>
-                            <li><div id="mk_<%# Eval("MakeName") %>"><%# Eval("MakeName") %><label><input type="checkbox"></label></div><ul runat="server">
-                                <asp:Repeater ID="Repeater3" runat="server" datasource='<%# ((DataRowView)Container.DataItem).Row.GetChildRows("myrelation") %>'>
-                                    <ItemTemplate>
-                                        <li><div id="year_<%# Eval("YearID") %>"><%# Eval("YearID") %><label><input type="checkbox"></label></div><ul runat="server">
+    <%--<div id="drilldown1" class="drilldown"> 
+      <div class="drilldown__options-container">
+        <p>Click to expand the options:</p>
+        <ul id="equipmentType" runat="server">
+
+            <%--<asp:Repeater ID="Repeater1" runat="server" DataSourceID="SQL_EquipmentType">
+                <HeaderTemplate><ul></HeaderTemplate>
+                <ItemTemplate>
+                    <li><div id="et_<%# Eval("EquipmentTypeName") %>"><%# Eval("EquipmentTypeName") %><label><input type="checkbox"></label></div><ul runat="server">
+                        <asp:Repeater ID="Repeater2" runat="server" DataSourceID="SQL_Year" OnItemDataBound="Repeater2_ItemDataBound">
+                            <ItemTemplate>
+                                <li><div id="mk_<%# Eval("MakeName") %>"><%# Eval("MakeName") %><label><input type="checkbox"></label></div><ul runat="server">
+                                    <asp:Repeater ID="Repeater3" runat="server" datasource='<%# ((DataRowView)Container.DataItem).Row.GetChildRows("myrelation") %>'>
+                                        <ItemTemplate>
+                                            <li><div id="year_<%# Eval("YearID") %>"><%# Eval("YearID") %><label><input type="checkbox"></label></div><ul runat="server">
                             
-                                        </ul></li></ItemTemplate>
-                                </asp:Repeater>
-                            </ul></li></ItemTemplate>
-                    </asp:Repeater>
-                </ul></li></ItemTemplate>
-            <FooterTemplate></ul></FooterTemplate>
-        </asp:Repeater>--%>
+                                            </ul></li></ItemTemplate>
+                                    </asp:Repeater>
+                                </ul></li></ItemTemplate>
+                        </asp:Repeater>
+                    </ul></li></ItemTemplate>
+                <FooterTemplate></ul></FooterTemplate>
+            </asp:Repeater>--%>
 
-        <!-- start parent repeater -->
-        <asp:repeater id="parentRepeater" runat="server" OnItemDataBound="parentRepeater_ItemDataBound">
-           <itemtemplate>
-              <li><div id="et_<%# Eval("EquipmentTypeName") %>"><%# Eval("EquipmentTypeName") %><label><input type="checkbox"></label></div><ul runat="server">
+      <%--      <!-- start parent repeater -->
+            <asp:repeater id="parentRepeater" runat="server" OnItemDataBound="parentRepeater_ItemDataBound">
+               <itemtemplate>
+                  <li><div id="et_<%# Eval("EquipmentTypeName") %>"><%# Eval("EquipmentTypeName") %><label><input type="checkbox"></label></div><ul runat="server">
               
-              <!-- start child repeater1 -->
-              <asp:repeater id="childRepeater" runat="server">
+                  <!-- start child repeater1 -->
+                  <asp:repeater id="childRepeater" runat="server">
 
-                 <itemtemplate>
-                     <li><div id="et_<%# Eval("MakeName")%>"><%# Eval("MakeName")%><label><input type="checkbox"></label></div><ul runat="server">
-                         <!-- start child repeater2 -->
-                          <asp:repeater id="childRepeater2"  runat="server" datasource='<%# ((DataRowView)Container.DataItem).Row.GetChildRows("MakeID") %>'>
+                     <itemtemplate>
+                         <li><div id="et_<%# Eval("MakeName")%>"><%# Eval("MakeName")%><label><input type="checkbox"></label></div><ul runat="server">
+                             <!-- start child repeater2 -->
+                              <asp:repeater id="childRepeater2"  runat="server" datasource='<%# ((DataRowView)Container.DataItem).Row.GetChildRows("MakeID") %>'>
 
-                             <itemtemplate>
-                                 <li><div id="et_<%# Eval("YearID")%>"><%# Eval("YearID")%><label><input type="checkbox"></label></div><ul runat="server">
-                             </ul></li></itemtemplate>
+                                 <itemtemplate>
+                                     <li><div id="et_<%# Eval("YearID")%>"><%# Eval("YearID")%><label><input type="checkbox"></label></div><ul runat="server">
+                                 </ul></li></itemtemplate>
 
-                          </asp:repeater>
-                          <!-- end child repeater2 -->
-                 </ul></li></itemtemplate>
+                              </asp:repeater>
+                              <!-- end child repeater2 -->
+                     </ul></li></itemtemplate>
 
-              </asp:repeater>
-              <!-- end child repeater1 -->  
+                  </asp:repeater>
+                  <!-- end child repeater1 -->  
 
-           </ul></li></itemtemplate>
-        </asp:repeater>
-        <!-- end parent repeater -->
+               </ul></li></itemtemplate>
+            </asp:repeater>
+            <!-- end parent repeater -->
       
-    </ul>
-  </div>
-  <div class="drilldown__selected-container">
-    <p>Selected items:</p>
-    <div id="drilldown1Selected" class="drilldown__selected"></div>
-    <p><small>To remove selected items click them above.</small></p>
-  </div>
-</div>
-<input type="text" id="drilldownInput" class="drilldown__input" value="" style="display: none;">
-
-
+        </ul>
+      </div>--%>
+      <div class="drilldown__selected-container">
+        <p>Selected items:</p>
+        <div id="drilldown1Selected" class="drilldown__selected"></div>
+        <p><small>To remove selected items click them above.</small></p>
+      </div>
+    </div>
+    <input type="text" id="drilldownInput" class="drilldown__input" value="" style="display: none;">--%>
 
     <ul runat="server" id="tabs"> 
     </ul> 

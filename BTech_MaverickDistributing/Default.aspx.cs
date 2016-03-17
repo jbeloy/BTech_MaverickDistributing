@@ -17,22 +17,22 @@ namespace BTech_MaverickDistributing
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            string cn = WebConfigurationManager.ConnectionStrings["md_dbConnectionString"].ConnectionString;
-            using (SqlConnection conn = new SqlConnection(cn))
-            {
-                SqlDataAdapter cmd = new SqlDataAdapter("select EquipmentTypeName, EquipmentTypeID from EquipmentType where (EquipmentTypeID IN (select TypeID from Parts)); select TypeID, MakeName, M.MakeID, YearID from Make M inner join Parts P on M.MakeID=P.MakeID; select MakeName, MakeID from Make where (MakeID IN (select MakeID from Parts))", conn);
-                DataSet ds = new DataSet();
-                cmd.Fill(ds);
+            //string cn = WebConfigurationManager.ConnectionStrings["md_dbConnectionString"].ConnectionString;
+            //using (SqlConnection conn = new SqlConnection(cn))
+            //{
+            //    SqlDataAdapter cmd = new SqlDataAdapter("select EquipmentTypeName, EquipmentTypeID from EquipmentType where (EquipmentTypeID IN (select TypeID from Parts)); select TypeID, MakeName, M.MakeID, YearID from Make M inner join Parts P on M.MakeID=P.MakeID; select MakeName, MakeID from Make where (MakeID IN (select MakeID from Parts))", conn);
+            //    DataSet ds = new DataSet();
+            //    cmd.Fill(ds);
 
-                ds.Relations.Add(new DataRelation("TypeID", ds.Tables[0].Columns["EquipmentTypeID"],
-                ds.Tables[1].Columns["TypeID"]));
+            //    ds.Relations.Add(new DataRelation("TypeID", ds.Tables[0].Columns["EquipmentTypeID"],
+            //    ds.Tables[1].Columns["TypeID"]));
 
-                ds.Relations.Add(new DataRelation("MakeID", ds.Tables[2].Columns["MakeID"],
-                ds.Tables[1].Columns["MakeID"]));
+            //    ds.Relations.Add(new DataRelation("MakeID", ds.Tables[2].Columns["MakeID"],
+            //    ds.Tables[1].Columns["MakeID"]));
 
-                parentRepeater.DataSource = ds.Tables[0];
-                parentRepeater.DataBind();
-            }
+            //    parentRepeater.DataSource = ds.Tables[0];
+            //    parentRepeater.DataBind();
+            //}
 
 
             //Create the connection and DataAdapter for the Authors table.
@@ -215,6 +215,34 @@ namespace BTech_MaverickDistributing
                 ChildRep.DataSource = drv.CreateChildView("MakeID");
                 ChildRep.DataBind();
             }
+        }
+
+        protected void DDL_EquipmentType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DDL_Make.DataBind();
+            DDL_Year.DataBind();
+            DDL_Model.DataBind();
+        }
+
+        protected void DDL_Make_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DDL_EquipmentType.DataBind();
+            DDL_Year.DataBind();
+            DDL_Model.DataBind();
+        }
+
+        protected void DDL_Year_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DDL_EquipmentType.DataBind();
+            DDL_Make.DataBind();
+            DDL_Model.DataBind();
+        }
+
+        protected void DDL_Model_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DDL_EquipmentType.DataBind();
+            DDL_Make.DataBind();
+            DDL_Year.DataBind();
         }
     }
 }

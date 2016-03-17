@@ -49,22 +49,49 @@ namespace BTech_MaverickDistributing {
         protected global::System.Web.UI.WebControls.SqlDataSource SQL_Year;
         
         /// <summary>
-        /// equipmentType control.
+        /// SQL_Model control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl equipmentType;
+        protected global::System.Web.UI.WebControls.SqlDataSource SQL_Model;
         
         /// <summary>
-        /// parentRepeater control.
+        /// DDL_EquipmentType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater parentRepeater;
+        protected global::System.Web.UI.WebControls.DropDownList DDL_EquipmentType;
+        
+        /// <summary>
+        /// DDL_Make control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DDL_Make;
+        
+        /// <summary>
+        /// DDL_Year control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DDL_Year;
+        
+        /// <summary>
+        /// DDL_Model control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DDL_Model;
         
         /// <summary>
         /// tabs control.
