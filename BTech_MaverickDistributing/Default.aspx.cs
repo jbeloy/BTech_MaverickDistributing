@@ -17,136 +17,151 @@ namespace BTech_MaverickDistributing
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            string cn = WebConfigurationManager.ConnectionStrings["md_dbConnectionString"].ConnectionString;
+            using (SqlConnection conn = new SqlConnection(cn))
+            {
+                SqlDataAdapter cmd = new SqlDataAdapter("select EquipmentTypeName, EquipmentTypeID from EquipmentType where (EquipmentTypeID IN (select TypeID from Parts)); select TypeID, MakeName, M.MakeID, YearID from Make M inner join Parts P on M.MakeID=P.MakeID; select MakeName, MakeID from Make where (MakeID IN (select MakeID from Parts))", conn);
+                DataSet ds = new DataSet();
+                cmd.Fill(ds);
+
+                ds.Relations.Add(new DataRelation("TypeID", ds.Tables[0].Columns["EquipmentTypeID"],
+                ds.Tables[1].Columns["TypeID"]));
+
+                ds.Relations.Add(new DataRelation("MakeID", ds.Tables[2].Columns["MakeID"],
+                ds.Tables[1].Columns["MakeID"]));
+
+                parentRepeater.DataSource = ds.Tables[0];
+                parentRepeater.DataBind();
+            }
+
+
             //Create the connection and DataAdapter for the Authors table.
-            string Connection = WebConfigurationManager.ConnectionStrings["md_dbConnectionString"].ConnectionString;
-            SqlConnection cnn = new SqlConnection(Connection);
-            SqlDataAdapter cmd1 = new SqlDataAdapter("select * from EquipmentType", cnn);
+            //string Connection = WebConfigurationManager.ConnectionStrings["md_dbConnectionString"].ConnectionString;
+            //SqlConnection cnn = new SqlConnection(Connection);
 
-            //Create and fill the DataSet.
-            DataSet ds = new DataSet();
-            cmd1.Fill(ds, "EquipmentType");
+            //SqlDataAdapter cmd1 = new SqlDataAdapter("select TypeID, MakeID from Parts group by TypeID, MakeID", cnn);
+            //SqlDataAdapter cmd4 = new SqlDataAdapter("select * from EquipmentType", cnn);
+            //SqlDataAdapter cmd2 = new SqlDataAdapter("select * from Make", cnn);
+            ////SqlDataAdapter cmd3 = new SqlDataAdapter("select * from EquipmentYear", cnn);            
 
-            SqlDataAdapter cmd2 = new SqlDataAdapter("select * from Make", cnn);
-            cmd2.Fill(ds, "Make");
+            ////Create and fill the DataSet.
+            //DataSet ds = new DataSet();
+            //cmd4.Fill(ds, "EquipmentType");
+            //cmd2.Fill(ds, "Make");
+            ////cmd3.Fill(ds, "EquipmentYear");
+            //cmd1.Fill(ds, "Parts");
 
-            //Create a second DataAdapter for the Titles table.
-            SqlDataAdapter cmd3 = new SqlDataAdapter("select distinct MakeID, TypeID, YearID from Parts", cnn);
-            cmd3.Fill(ds, "Parts");
+            //////Create the relation bewtween the Authors and Titles tables.
+            //ds.Relations.Add("myrelation",
+            //ds.Tables["Parts"].Columns["TypeID"],
+            //ds.Tables["EquipmentType"].Columns["EquipmentTypeID"]);
 
-            //Create the relation bewtween the Authors and Titles tables.
-            ds.Relations.Add("myrelation",
-            ds.Tables["EquipmentType"].Columns["EquipmentTypeID"],
-            ds.Tables["Parts"].Columns["TypeID"]);
+            //ds.Relations.Add("myrelation2",
+            //ds.Tables["Make"].Columns["MakeID"],
+            //ds.Tables["Parts"].Columns["MakeID"]);
 
-            ds.Relations.Add("myrelation2",
-            ds.Tables["Make"].Columns["MakeID"],
-            ds.Tables["Parts"].Columns["MakeID"]);
-
-            //Bind the Authors table to the parent Repeater control, and call DataBind.
-            parentRepeater.DataSource = ds;
+            //////Bind the child table to the parent Repeater control, and call DataBind.
+            //////parentRepeater.DataSource = ds;
             //parentRepeater.DataSource = ds.Tables["EquipmentType"];
-            Page.DataBind();
+            //Page.DataBind();
 
-            //Close the connection.
-            cnn.Close();
-
-
-            //LoadTreeViewTest();
+            //////Close the connection.
+            //cnn.Close();
         }
-        public void LoadTreeViewTest()
-        {
-            try
-            {
-                using (var ctx = new md_dbEntities())
-                {
-                    List<string> equipmentTypes = new List<string>();
-                    List<string> makes = new List<string>();
+        //public void LoadTreeViewTest()
+        //{
+        //    try
+        //    {
+        //        using (var ctx = new md_dbEntities())
+        //        {
+        //            List<string> equipmentTypes = new List<string>();
+        //            List<string> makes = new List<string>();
 
-                    var objectContext = (ctx as System.Data.Entity.Infrastructure.IObjectContextAdapter).ObjectContext;
+        //            var objectContext = (ctx as System.Data.Entity.Infrastructure.IObjectContextAdapter).ObjectContext;
 
-                    string strSQLtoGetParts = "";
-                    //these are the parameters to get a subset of the result set
-                    int yearToGet = 2005;
-                    string partMakeToGet = "Honda";
-                    string partModelToGet = "TRX450R";
-                    string partCategoryToGet = "CLUTCH";
+        //            string strSQLtoGetParts = "";
+        //            //these are the parameters to get a subset of the result set
+        //            int yearToGet = 2005;
+        //            string partMakeToGet = "Honda";
+        //            string partModelToGet = "TRX450R";
+        //            string partCategoryToGet = "CLUTCH";
 
-                    //use objectContext here..
+        //            //use objectContext here..
 
-                    strSQLtoGetParts = String.Format(Statements.GetPartsByYearMakeModelCategory(), yearToGet, partMakeToGet, partModelToGet, partCategoryToGet);
-                    var getPartSubset = objectContext.ExecuteStoreQuery<PartsView>(strSQLtoGetParts).ToList();
+        //            strSQLtoGetParts = String.Format(Statements.GetPartsByYearMakeModelCategory(), yearToGet, partMakeToGet, partModelToGet, partCategoryToGet);
+        //            var getPartSubset = objectContext.ExecuteStoreQuery<PartsView>(strSQLtoGetParts).ToList();
 
-                    //Get all of the equipment types from the database.
-                    equipmentTypes = Statements.GetEquipmentType();
+        //            //Get all of the equipment types from the database.
+        //            equipmentTypes = Statements.GetEquipmentType();
 
-                    foreach(string t in equipmentTypes)
-                    {
-                        HtmlGenericControl li = new HtmlGenericControl("li");//Create html control <li>
-                        //Create the correct <li> for the equipment type. Using the naming convention tableAbreviation_recordName eg: et_ATV.
-                        li.InnerHtml = "<div id='et_" + t +"' >" + t + "<label><input type='checkbox'></label></div><ul id='" + t + "_make' runat='server'></ul>";
-                        li.Attributes.Add("onload", "li_" + t + "_Load");
-                        li.ID = "li_" + t;
-                        equipmentType.Controls.Add(li);
-                    }
+        //            foreach(string t in equipmentTypes)
+        //            {
+        //                HtmlGenericControl li = new HtmlGenericControl("li");//Create html control <li>
+        //                //Create the correct <li> for the equipment type. Using the naming convention tableAbreviation_recordName eg: et_ATV.
+        //                li.InnerHtml = "<div id='et_" + t +"' >" + t + "<label><input type='checkbox'></label></div><ul id='" + t + "_make' runat='server'></ul>";
+        //                li.Attributes.Add("onload", "li_" + t + "_Load");
+        //                li.ID = "li_" + t;
+        //                equipmentType.Controls.Add(li);
+        //            }
 
-                    makes = Statements.GetMake();
+        //            makes = Statements.GetMake();
 
-                    foreach(string t in makes)
-                    {
-                        HtmlGenericControl li = new HtmlGenericControl("li");//Create html control <li>
-                        //Create the correct <li> for the equipment type. Using the naming convention tableAbreviation_recordName eg: et_ATV.
-                        li.InnerHtml = "<div id='mk_" + t + "' >" + t + "<label><input type='checkbox'></label></div>";
-                        Page.FindControl("ATV_make").Controls.Add(li);
-                    }
+        //            foreach(string t in makes)
+        //            {
+        //                HtmlGenericControl li = new HtmlGenericControl("li");//Create html control <li>
+        //                //Create the correct <li> for the equipment type. Using the naming convention tableAbreviation_recordName eg: et_ATV.
+        //                li.InnerHtml = "<div id='mk_" + t + "' >" + t + "<label><input type='checkbox'></label></div>";
+        //                Page.FindControl("ATV_make").Controls.Add(li);
+        //            }
 
-                    //foreach (var partRow in getPartSubset)
-                    //{
-                    //    HtmlGenericControl li = new HtmlGenericControl("li");//Create html control <li>
-                    //    //li.InnerText = partRow.ManufacturerName + ", " + partRow.PartDesc + ", " + partRow.CategoryName; // these are the attributes of the data row from the database
-                    //    li.InnerHtml = "<div id='10' >ATV<label><input type='checkbox'></label></div>";
-                    //    //li.InnerText = "ATV";
-                    //    //tabs.Controls.Add(li);
-                    //    equipmentType.Controls.Add(li);
+        //            //foreach (var partRow in getPartSubset)
+        //            //{
+        //            //    HtmlGenericControl li = new HtmlGenericControl("li");//Create html control <li>
+        //            //    //li.InnerText = partRow.ManufacturerName + ", " + partRow.PartDesc + ", " + partRow.CategoryName; // these are the attributes of the data row from the database
+        //            //    li.InnerHtml = "<div id='10' >ATV<label><input type='checkbox'></label></div>";
+        //            //    //li.InnerText = "ATV";
+        //            //    //tabs.Controls.Add(li);
+        //            //    equipmentType.Controls.Add(li);
 
-                    //    //HtmlGenericControl anchor = new HtmlGenericControl("a");
-                    //    //anchor.Attributes.Add("href", "page.htm");
-                    //    //anchor.InnerText = partRow.PartDesc;
+        //            //    //HtmlGenericControl anchor = new HtmlGenericControl("a");
+        //            //    //anchor.Attributes.Add("href", "page.htm");
+        //            //    //anchor.InnerText = partRow.PartDesc;
 
-                    //    //HtmlGenericControl li = new HtmlGenericControl("li");
-                    //    //li.Attributes.Add("class", "MyClass");
-                    //    //li.InnerText = "Item2";
-                    //    //MyList2.Controls.Add(li);
-                    //    //li.Controls.Add(anchor);
+        //            //    //HtmlGenericControl li = new HtmlGenericControl("li");
+        //            //    //li.Attributes.Add("class", "MyClass");
+        //            //    //li.InnerText = "Item2";
+        //            //    //MyList2.Controls.Add(li);
+        //            //    //li.Controls.Add(anchor);
 
-                    //    //li.Controls.Add(partRow.ManufacturerName + ", " + partRow.PartDesc + ", " + partRow.Price);
-                    //    //drilldown1.Controls.Add(li);
+        //            //    //li.Controls.Add(partRow.ManufacturerName + ", " + partRow.PartDesc + ", " + partRow.Price);
+        //            //    //drilldown1.Controls.Add(li);
                         
-                    //}
-                }
+        //            //}
+        //        }
 
-            }
-            catch (Exception ex)
-            {
-                //error handling here
-            }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        //error handling here
+        //    }
             
-        }
-        protected void CHK_Clutch_ServerChange(object sender, EventArgs e)
-        {
-            //When the button is checked, updatae the listview to show that part.
+        //}
+        //protected void CHK_Clutch_ServerChange(object sender, EventArgs e)
+        //{
+        //    //When the button is checked, updatae the listview to show that part.
 
-            //Check to see if the checkbox is checked.
-            /*if(CHK_Clutch.Checked)
-            {
-                //Update the hidden field with the parameters.
-                HF_PartsInfo.Value = "Clutch";
-            }
-            else
-            {
-                //Erase the value from the HiddenField.
-                HF_PartsInfo.Value = null;
-            }*/
-        }
+        //    //Check to see if the checkbox is checked.
+        //    /*if(CHK_Clutch.Checked)
+        //    {
+        //        //Update the hidden field with the parameters.
+        //        HF_PartsInfo.Value = "Clutch";
+        //    }
+        //    else
+        //    {
+        //        //Erase the value from the HiddenField.
+        //        HF_PartsInfo.Value = null;
+        //    }*/
+        //}
 
         protected void Repeater2_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
@@ -178,5 +193,28 @@ namespace BTech_MaverickDistributing
             //MakeRepeater.DataBind();
         }
 
+        protected void parentRepeater_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item ||
+            e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+              DataRowView drv = e.Item.DataItem as DataRowView;
+              Repeater ChildRep = e.Item.FindControl("childRepeater") as Repeater;
+              ChildRep.DataSource = drv.CreateChildView("TypeID");
+              ChildRep.DataBind();
+            }
+        }
+
+        protected void childRepeater_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item ||
+            e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                DataRowView drv = e.Item.DataItem as DataRowView;
+                Repeater ChildRep = e.Item.FindControl("childRepeater2") as Repeater;
+                ChildRep.DataSource = drv.CreateChildView("MakeID");
+                ChildRep.DataBind();
+            }
+        }
     }
 }

@@ -348,20 +348,20 @@ on m.MakeID = p.MakeID">
         </asp:Repeater>--%>
 
         <!-- start parent repeater -->
-        <asp:repeater id="parentRepeater" runat="server">
+        <asp:repeater id="parentRepeater" runat="server" OnItemDataBound="parentRepeater_ItemDataBound">
            <itemtemplate>
-              <li><div id="et_<%# DataBinder.Eval(Container.DataItem,"EquipmentTypeName") %>"><%# DataBinder.Eval(Container.DataItem,"EquipmentTypeName") %><label><input type="checkbox"></label></div><ul runat="server">
+              <li><div id="et_<%# Eval("EquipmentTypeName") %>"><%# Eval("EquipmentTypeName") %><label><input type="checkbox"></label></div><ul runat="server">
               
               <!-- start child repeater1 -->
-              <asp:repeater id="Repeater1" datasource='<%# ((DataRowView)Container.DataItem).Row.GetChildRows("myrelation") %>' runat="server">
+              <asp:repeater id="childRepeater" runat="server">
 
                  <itemtemplate>
-                     <li><div id="et_<%# DataBinder.Eval(Container.DataItem, "[\"MakeID\"]")%>"><%# DataBinder.Eval(Container.DataItem, "[\"MakeID\"]")%><label><input type="checkbox"></label></div><ul runat="server">
+                     <li><div id="et_<%# Eval("MakeName")%>"><%# Eval("MakeName")%><label><input type="checkbox"></label></div><ul runat="server">
                          <!-- start child repeater2 -->
-                          <asp:repeater id="childRepeater2" datasource='<%# ((DataRow)Container.DataItem).GetChildRows("myrelation2") %>' runat="server">
+                          <asp:repeater id="childRepeater2"  runat="server" datasource='<%# ((DataRowView)Container.DataItem).Row.GetChildRows("MakeID") %>'>
 
                              <itemtemplate>
-                                 <li><div id="et_<%# DataBinder.Eval(Container.DataItem, "[\"YearID\"]")%>"><%# DataBinder.Eval(Container.DataItem, "[\"YearID\"]")%><label><input type="checkbox"></label></div><ul runat="server">
+                                 <li><div id="et_<%# Eval("YearID")%>"><%# Eval("YearID")%><label><input type="checkbox"></label></div><ul runat="server">
                              </ul></li></itemtemplate>
 
                           </asp:repeater>
