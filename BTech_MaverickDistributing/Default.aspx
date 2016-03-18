@@ -303,7 +303,7 @@ small {
 
     <!--SQL Data source for the listview-->
     <asp:SqlDataSource ID="SQL_PartsInfo" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="GetPartsInfo" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
-    <asp:SqlDataSource ID="SQL_EquipmentType" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="SELECT [EquipmentTypeName], [EquipmentTypeID] FROM [EquipmentType]"></asp:SqlDataSource>
+    <%--<asp:SqlDataSource ID="SQL_EquipmentType" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="SELECT [EquipmentTypeName], [EquipmentTypeID] FROM [EquipmentType]"></asp:SqlDataSource>
     <asp:SqlDataSource ID="SQL_Make" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="GetMake" SelectCommandType="StoredProcedure">
         <SelectParameters>
             <asp:ControlParameter ControlID="DDL_EquipmentType" Name="EquipmentType" PropertyName="SelectedValue" Type="String" />
@@ -321,7 +321,7 @@ small {
             <asp:ControlParameter ControlID="DDL_Make" Name="Make" PropertyName="SelectedValue" Type="Int32" />
             <asp:ControlParameter ControlID="DDL_EquipmentType" Name="EquipmentType" PropertyName="SelectedValue" Type="Int32" />
         </SelectParameters>
-    </asp:SqlDataSource>
+    </asp:SqlDataSource>--%>
 
 
     <div class="jumbotron">
@@ -333,12 +333,6 @@ small {
     <h1>Drill-down select</h1>
 
     <asp:TreeView ID="TV_Menu" runat="server" OnSelectedNodeChanged="TV_Menu_SelectedNodeChanged"></asp:TreeView>
-
-    <!--Use Dropdown list for now, until the drill down menu is compelte.-->
-    <asp:DropDownList ID="DDL_EquipmentType" runat="server" DataSourceID="SQL_EquipmentType" DataTextField="EquipmentTypeName" DataValueField="EquipmentTypeID" OnSelectedIndexChanged="DDL_EquipmentType_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
-    <asp:DropDownList ID="DDL_Make" runat="server" DataSourceID="SQL_Make" DataTextField="MakeID" DataValueField="MakeID" AutoPostBack="true" OnSelectedIndexChanged="DDL_Make_SelectedIndexChanged"></asp:DropDownList>
-    <asp:DropDownList ID="DDL_Year" runat="server" DataSourceID="SQL_Year" DataTextField="YearID" DataValueField="YearID" OnSelectedIndexChanged="DDL_Year_SelectedIndexChanged"></asp:DropDownList>
-    <asp:DropDownList ID="DDL_Model" runat="server" DataSourceID="SQL_Model" DataTextField="ModelName" DataValueField="ModelName" OnSelectedIndexChanged="DDL_Model_SelectedIndexChanged"></asp:DropDownList>
 
     <%--<div id="drilldown1" class="drilldown"> 
       <div class="drilldown__options-container">
@@ -394,7 +388,7 @@ small {
       
         </ul>
       </div>--%>
-      <div class="drilldown__selected-container">
+<%--      <div class="drilldown__selected-container">
         <p>Selected items:</p>
         <div id="drilldown1Selected" class="drilldown__selected"></div>
         <p><small>To remove selected items click them above.</small></p>
@@ -402,8 +396,8 @@ small {
     </div>
     <input type="text" id="drilldownInput" class="drilldown__input" value="" style="display: none;">--%>
 
-    <ul runat="server" id="tabs"> 
-    </ul> 
+    <%--<ul runat="server" id="tabs"> 
+    </ul>--%>
 
     <div class="row">
         <asp:ListView ID="LV_PartsInfo" runat="server" DataSourceID="SQL_PartsInfo">

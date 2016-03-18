@@ -17,27 +17,30 @@ namespace BTech_MaverickDistributing
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            string cn = WebConfigurationManager.ConnectionStrings["md_dbConnectionString"].ConnectionString;
-            using (SqlConnection conn = new SqlConnection(cn))
+            if(!Page.IsPostBack)
             {
-                //SqlDataAdapter cmd = new SqlDataAdapter("select EquipmentTypeName from EquipmentType", conn);
-                SqlCommand cmd = new SqlCommand("select EquipmentTypeName, EquipmentTypeID from EquipmentType", conn);
-
-                conn.Open();
-
-                DataTable dtTable = new DataTable();
-                dtTable.Load(cmd.ExecuteReader());
-
-                conn.Close();
-
-                foreach (DataRow row in dtTable.Rows)
+                string cn = WebConfigurationManager.ConnectionStrings["md_dbConnectionString"].ConnectionString;
+                using (SqlConnection conn = new SqlConnection(cn))
                 {
-                    TreeNode node = new TreeNode(row["EquipmentTypeName"].ToString());
-                    node.PopulateOnDemand = false;
-                    node.Value = "first_" + row["EquipmentTypeID"].ToString();
+                    //SqlDataAdapter cmd = new SqlDataAdapter("select EquipmentTypeName from EquipmentType", conn);
+                    SqlCommand cmd = new SqlCommand("select EquipmentTypeName, EquipmentTypeID from EquipmentType", conn);
 
-                    TV_Menu.Nodes.Add(node);
-                 }
+                    conn.Open();
+
+                    DataTable dtTable = new DataTable();
+                    dtTable.Load(cmd.ExecuteReader());
+
+                    conn.Close();
+
+                    foreach (DataRow row in dtTable.Rows)
+                    {
+                        TreeNode node = new TreeNode(row["EquipmentTypeName"].ToString());
+                        node.PopulateOnDemand = true;
+                        node.Value = "first_" + row["EquipmentTypeID"].ToString();
+
+                        TV_Menu.Nodes.Add(node);
+                    }
+                }
             }
 
             //using (SqlConnection conn = new SqlConnection(cn))
@@ -239,34 +242,6 @@ namespace BTech_MaverickDistributing
             }
         }
 
-        protected void DDL_EquipmentType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            DDL_Make.DataBind();
-            DDL_Year.DataBind();
-            DDL_Model.DataBind();
-        }
-
-        protected void DDL_Make_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            DDL_EquipmentType.DataBind();
-            DDL_Year.DataBind();
-            DDL_Model.DataBind();
-        }
-
-        protected void DDL_Year_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            DDL_EquipmentType.DataBind();
-            DDL_Make.DataBind();
-            DDL_Model.DataBind();
-        }
-
-        protected void DDL_Model_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            DDL_EquipmentType.DataBind();
-            DDL_Make.DataBind();
-            DDL_Year.DataBind();
-        }
-
         protected void TV_Menu_SelectedNodeChanged(object sender, EventArgs e)
         {
             string cn = WebConfigurationManager.ConnectionStrings["md_dbConnectionString"].ConnectionString;
@@ -276,7 +251,7 @@ namespace BTech_MaverickDistributing
                 string[] arg = TV_Menu.SelectedNode.Value.Split('_');
                 if(arg[0] == "first")
                 {
-                    SqlCommand cmd = new SqlCommand("select distinct MakeID from Parts", conn);
+                    SqlCommand cmd = new SqlCommand("select distinct MakeName, P.MakeID from Parts P inner join Make M on P.MakeId=M.MakeID", conn);
                     conn.Open();
 
                     DataTable dtTableChild = new DataTable();
@@ -286,9 +261,9 @@ namespace BTech_MaverickDistributing
 
                     foreach (DataRow childrow in dtTableChild.Rows)
                     {
-                        TreeNode childNode = new TreeNode(childrow["MakeID"].ToString());
-                        childNode.PopulateOnDemand = true;
-                        childNode.Value = "second_" + childrow["MakeID"];
+                        TreeNode childNode = new TreeNode(childrow["MakeName"].ToString());
+                        childNode.PopulateOnDemand = false;
+                        childNode.Value = "second_" + childrow["MakeName"];
                         Session["make"] = childrow["MakeID"].ToString();
 
                         TV_Menu.SelectedNode.ChildNodes.Add(childNode);
@@ -307,13 +282,54 @@ namespace BTech_MaverickDistributing
                     foreach (DataRow childrow in dtTableChild.Rows)
                     {
                         TreeNode childNode = new TreeNode(childrow["YearID"].ToString());
-                        //childNode.PopulateOnDemand = true;
-                        childNode.Value = "second_" + childrow["YearID"];
+                        childNode.PopulateOnDemand = false;
+                        childNode.Value = "third_" + childrow["YearID"];
                         Session["year"] = childrow["YearID"].ToString();
 
                         TV_Menu.SelectedNode.ChildNodes.Add(childNode);
                     }
                 }
+                else if(arg[0] == "third")
+                {
+                    SqlCommand cmd = new SqlCommand("select distinct ModelName, P.ModelID from Parts P inner join Model M on P.ModelID=M.ModelID where MakeID=" + Session["make"].ToString() + " and YearID=" + Session["year"].ToString(), conn);
+                    conn.Open();
+
+                    DataTable dtTableChild = new DataTable();
+                    dtTableChild.Load(cmd.ExecuteReader());
+
+                    conn.Close();
+
+                    foreach (DataRow childrow in dtTableChild.Rows)
+                    {
+                        TreeNode childNode = new TreeNode(childrow["ModelName"].ToString());
+                        childNode.PopulateOnDemand = false;
+                        childNode.Value = "fourth_" + childrow["ModelName"];
+                        Session["model"] = childrow["ModelID"].ToString();
+
+                        TV_Menu.SelectedNode.ChildNodes.Add(childNode);
+                    }
+                }
+                else if (arg[0] == "fourth")
+                {
+                    SqlCommand cmd = new SqlCommand("select distinct CategoryName, P.CategoryID from Parts P inner join Category C on P.CategoryID=C.CategoryID where MakeID=" + Session["make"].ToString() + " and YearID=" + Session["year"].ToString() + " and ModelID=" + Session["model"], conn);
+                    conn.Open();
+
+                    DataTable dtTableChild = new DataTable();
+                    dtTableChild.Load(cmd.ExecuteReader());
+
+                    conn.Close();
+
+                    foreach (DataRow childrow in dtTableChild.Rows)
+                    {
+                        TreeNode childNode = new TreeNode(childrow["CategoryName"].ToString());
+                        childNode.PopulateOnDemand = false;
+                        childNode.Value = "fifth" + childrow["CategoryName"];
+                        Session["model"] = childrow["CategoryID"].ToString();
+
+                        TV_Menu.SelectedNode.ChildNodes.Add(childNode);
+                    }
+                }
+
             }
         }
     }
