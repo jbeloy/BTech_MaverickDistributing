@@ -58,6 +58,15 @@ namespace BTech_MaverickDistributing {
         protected global::System.Web.UI.WebControls.SqlDataSource SQL_Model;
         
         /// <summary>
+        /// TV_Menu control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TreeView TV_Menu;
+        
+        /// <summary>
         /// DDL_EquipmentType control.
         /// </summary>
         /// <remarks>

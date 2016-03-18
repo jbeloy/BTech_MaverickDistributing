@@ -332,6 +332,8 @@ small {
 
     <h1>Drill-down select</h1>
 
+    <asp:TreeView ID="TV_Menu" runat="server" OnSelectedNodeChanged="TV_Menu_SelectedNodeChanged"></asp:TreeView>
+
     <!--Use Dropdown list for now, until the drill down menu is compelte.-->
     <asp:DropDownList ID="DDL_EquipmentType" runat="server" DataSourceID="SQL_EquipmentType" DataTextField="EquipmentTypeName" DataValueField="EquipmentTypeID" OnSelectedIndexChanged="DDL_EquipmentType_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
     <asp:DropDownList ID="DDL_Make" runat="server" DataSourceID="SQL_Make" DataTextField="MakeID" DataValueField="MakeID" AutoPostBack="true" OnSelectedIndexChanged="DDL_Make_SelectedIndexChanged"></asp:DropDownList>

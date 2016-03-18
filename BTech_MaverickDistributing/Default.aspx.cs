@@ -17,7 +17,29 @@ namespace BTech_MaverickDistributing
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //string cn = WebConfigurationManager.ConnectionStrings["md_dbConnectionString"].ConnectionString;
+            string cn = WebConfigurationManager.ConnectionStrings["md_dbConnectionString"].ConnectionString;
+            using (SqlConnection conn = new SqlConnection(cn))
+            {
+                //SqlDataAdapter cmd = new SqlDataAdapter("select EquipmentTypeName from EquipmentType", conn);
+                SqlCommand cmd = new SqlCommand("select EquipmentTypeName, EquipmentTypeID from EquipmentType", conn);
+
+                conn.Open();
+
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader());
+
+                conn.Close();
+
+                foreach (DataRow row in dtTable.Rows)
+                {
+                    TreeNode node = new TreeNode(row["EquipmentTypeName"].ToString());
+                    node.PopulateOnDemand = false;
+                    node.Value = "first_" + row["EquipmentTypeID"].ToString();
+
+                    TV_Menu.Nodes.Add(node);
+                 }
+            }
+
             //using (SqlConnection conn = new SqlConnection(cn))
             //{
             //    SqlDataAdapter cmd = new SqlDataAdapter("select EquipmentTypeName, EquipmentTypeID from EquipmentType where (EquipmentTypeID IN (select TypeID from Parts)); select TypeID, MakeName, M.MakeID, YearID from Make M inner join Parts P on M.MakeID=P.MakeID; select MakeName, MakeID from Make where (MakeID IN (select MakeID from Parts))", conn);
@@ -243,6 +265,56 @@ namespace BTech_MaverickDistributing
             DDL_EquipmentType.DataBind();
             DDL_Make.DataBind();
             DDL_Year.DataBind();
+        }
+
+        protected void TV_Menu_SelectedNodeChanged(object sender, EventArgs e)
+        {
+            string cn = WebConfigurationManager.ConnectionStrings["md_dbConnectionString"].ConnectionString;
+            using (SqlConnection conn = new SqlConnection(cn))
+            {
+                //Check what level of tree view we are in before we call the SQL statement.
+                string[] arg = TV_Menu.SelectedNode.Value.Split('_');
+                if(arg[0] == "first")
+                {
+                    SqlCommand cmd = new SqlCommand("select distinct MakeID from Parts", conn);
+                    conn.Open();
+
+                    DataTable dtTableChild = new DataTable();
+                    dtTableChild.Load(cmd.ExecuteReader());
+
+                    conn.Close();
+
+                    foreach (DataRow childrow in dtTableChild.Rows)
+                    {
+                        TreeNode childNode = new TreeNode(childrow["MakeID"].ToString());
+                        childNode.PopulateOnDemand = true;
+                        childNode.Value = "second_" + childrow["MakeID"];
+                        Session["make"] = childrow["MakeID"].ToString();
+
+                        TV_Menu.SelectedNode.ChildNodes.Add(childNode);
+                    }
+                }
+                else if(arg[0] == "second")
+                {
+                    SqlCommand cmd = new SqlCommand("select distinct YearID from Parts where MakeID=" + Session["make"].ToString(), conn);
+                    conn.Open();
+
+                    DataTable dtTableChild = new DataTable();
+                    dtTableChild.Load(cmd.ExecuteReader());
+
+                    conn.Close();
+
+                    foreach (DataRow childrow in dtTableChild.Rows)
+                    {
+                        TreeNode childNode = new TreeNode(childrow["YearID"].ToString());
+                        //childNode.PopulateOnDemand = true;
+                        childNode.Value = "second_" + childrow["YearID"];
+                        Session["year"] = childrow["YearID"].ToString();
+
+                        TV_Menu.SelectedNode.ChildNodes.Add(childNode);
+                    }
+                }
+            }
         }
     }
 }
