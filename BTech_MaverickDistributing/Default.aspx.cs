@@ -15,6 +15,8 @@ namespace BTech_MaverickDistributing
 {
     public partial class _Default : Page
     {
+        Dictionary<string, string> makeDic = new Dictionary<string, string>();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if(!Page.IsPostBack)
@@ -266,28 +268,34 @@ namespace BTech_MaverickDistributing
                         childNode.Value = "second_" + childrow["MakeName"];
                         Session["make"] = childrow["MakeID"].ToString();
 
+                        //Add the values into the dictionary, so it cna be itterated through in the select statement later.
+                        //makeDic.Add(childrow["MakeName"].ToString(), childrow["MakeID"].ToString());
+
                         TV_Menu.SelectedNode.ChildNodes.Add(childNode);
                     }
                 }
                 else if(arg[0] == "second")
                 {
-                    SqlCommand cmd = new SqlCommand("select distinct YearID from Parts where MakeID=" + Session["make"].ToString(), conn);
-                    conn.Open();
+                    //foreach(KeyValuePair<string, string> KVP in makeDic)
+                    //{
+                        SqlCommand cmd = new SqlCommand("select distinct YearID from Parts where MakeID=" + KVP.Value, conn);
+                        conn.Open();
 
-                    DataTable dtTableChild = new DataTable();
-                    dtTableChild.Load(cmd.ExecuteReader());
+                        DataTable dtTableChild = new DataTable();
+                        dtTableChild.Load(cmd.ExecuteReader());
 
-                    conn.Close();
+                        conn.Close();
 
-                    foreach (DataRow childrow in dtTableChild.Rows)
-                    {
-                        TreeNode childNode = new TreeNode(childrow["YearID"].ToString());
-                        childNode.PopulateOnDemand = false;
-                        childNode.Value = "third_" + childrow["YearID"];
-                        Session["year"] = childrow["YearID"].ToString();
+                        foreach (DataRow childrow in dtTableChild.Rows)
+                        {
+                            TreeNode childNode = new TreeNode(childrow["YearID"].ToString());
+                            childNode.PopulateOnDemand = false;
+                            childNode.Value = "third_" + childrow["YearID"];
+                            Session["year"] = childrow["YearID"].ToString();
 
-                        TV_Menu.SelectedNode.ChildNodes.Add(childNode);
-                    }
+                            TV_Menu.SelectedNode.ChildNodes.Add(childNode);
+                        }
+                    //}
                 }
                 else if(arg[0] == "third")
                 {
@@ -322,14 +330,25 @@ namespace BTech_MaverickDistributing
                     foreach (DataRow childrow in dtTableChild.Rows)
                     {
                         TreeNode childNode = new TreeNode(childrow["CategoryName"].ToString());
-                        childNode.PopulateOnDemand = false;
-                        childNode.Value = "fifth" + childrow["CategoryName"];
-                        Session["model"] = childrow["CategoryID"].ToString();
+                        childNode.PopulateOnDemand = true;
+                        childNode.Value = "fifth_" + childrow["CategoryName"] + "_" + childrow["CategoryID"];
+                        Session["category"] = childrow["CategoryID"].ToString();
 
                         TV_Menu.SelectedNode.ChildNodes.Add(childNode);
                     }
                 }
+                else if(arg[0] == "fifth")
+                {
+                    Session["category"] = arg[2];
+                    string e1 = Session["make"].ToString();
+                    string e2 = Session["year"].ToString();
+                    string e3 = Session["model"].ToString();
+                    string e4 = Session["category"].ToString();
 
+                    //When the part category is clicked, then we need to bind the listview and data source.
+                    //SQL_PartsInfo.DataBind();
+                    LV_PartsInfo.DataBind();
+                }
             }
         }
     }

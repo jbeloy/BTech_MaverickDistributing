@@ -4,11 +4,6 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
     <script>
-        
-        function setSearch(item)
-        {
-            Session("search") = item;
-        }
 
         $(document).ready(function () {
 
@@ -302,7 +297,14 @@ small {
     </style>
 
     <!--SQL Data source for the listview-->
-    <asp:SqlDataSource ID="SQL_PartsInfo" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="GetPartsInfo" SelectCommandType="StoredProcedure"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="SQL_PartsInfo" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="GetPartsInfo" SelectCommandType="StoredProcedure">
+        <SelectParameters>
+            <asp:SessionParameter Name="MakeID" SessionField="make" Type="Int32" />
+            <asp:SessionParameter Name="CategoryID" SessionField="category" Type="Int32" />
+            <asp:SessionParameter Name="ModelID" SessionField="model" Type="Int32" />
+            <asp:SessionParameter Name="YearID" SessionField="year" Type="Int32" />
+        </SelectParameters>
+    </asp:SqlDataSource>
     <%--<asp:SqlDataSource ID="SQL_EquipmentType" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="SELECT [EquipmentTypeName], [EquipmentTypeID] FROM [EquipmentType]"></asp:SqlDataSource>
     <asp:SqlDataSource ID="SQL_Make" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="GetMake" SelectCommandType="StoredProcedure">
         <SelectParameters>
