@@ -15,8 +15,6 @@ namespace BTech_MaverickDistributing
 {
     public partial class _Default : Page
     {
-        Dictionary<string, string> makeDic = new Dictionary<string, string>();
-
         protected void Page_Load(object sender, EventArgs e)
         {
             if(!Page.IsPostBack)
@@ -265,41 +263,39 @@ namespace BTech_MaverickDistributing
                     {
                         TreeNode childNode = new TreeNode(childrow["MakeName"].ToString());
                         childNode.PopulateOnDemand = false;
-                        childNode.Value = "second_" + childrow["MakeName"];
+                        childNode.Value = "second_" + childrow["MakeID"];
                         Session["make"] = childrow["MakeID"].ToString();
-
-                        //Add the values into the dictionary, so it cna be itterated through in the select statement later.
-                        //makeDic.Add(childrow["MakeName"].ToString(), childrow["MakeID"].ToString());
 
                         TV_Menu.SelectedNode.ChildNodes.Add(childNode);
                     }
                 }
                 else if(arg[0] == "second")
                 {
-                    //foreach(KeyValuePair<string, string> KVP in makeDic)
-                    //{
-                        SqlCommand cmd = new SqlCommand("select distinct YearID from Parts where MakeID=" + Session["make"], conn);
-                        conn.Open();
+                    //Use the selected value from the menue to execute the sql statement.
+                    SqlCommand cmd = new SqlCommand("select distinct YearID from Parts where MakeID=" + arg[1], conn);
+                    conn.Open();
 
-                        DataTable dtTableChild = new DataTable();
-                        dtTableChild.Load(cmd.ExecuteReader());
+                    DataTable dtTableChild = new DataTable();
+                    dtTableChild.Load(cmd.ExecuteReader());
 
-                        conn.Close();
+                    conn.Close();
 
-                        foreach (DataRow childrow in dtTableChild.Rows)
-                        {
-                            TreeNode childNode = new TreeNode(childrow["YearID"].ToString());
-                            childNode.PopulateOnDemand = false;
-                            childNode.Value = "third_" + childrow["YearID"];
-                            Session["year"] = childrow["YearID"].ToString();
+                    foreach (DataRow childrow in dtTableChild.Rows)
+                    {
+                        TreeNode childNode = new TreeNode(childrow["YearID"].ToString());
+                        childNode.PopulateOnDemand = false;
+                        childNode.Value = "third_" + childrow["YearID"];
+                        Session["year"] = childrow["YearID"].ToString();
 
-                            TV_Menu.SelectedNode.ChildNodes.Add(childNode);
-                        }
-                    //}
+                        TV_Menu.SelectedNode.ChildNodes.Add(childNode);
+                    }
                 }
                 else if(arg[0] == "third")
                 {
-                    SqlCommand cmd = new SqlCommand("select distinct ModelName, P.ModelID from Parts P inner join Model M on P.ModelID=M.ModelID where MakeID=" + Session["make"].ToString() + " and YearID=" + Session["year"].ToString(), conn);
+                    //Get the value of the parent node here.
+                    string[] makeArg = TV_Menu.SelectedNode.Parent.Value.Split('_');
+
+                    SqlCommand cmd = new SqlCommand("select distinct ModelName, P.ModelID from Parts P inner join Model M on P.ModelID=M.ModelID where MakeID=" + makeArg[1] + " and YearID=" + arg[1], conn);
                     conn.Open();
 
                     DataTable dtTableChild = new DataTable();
@@ -311,7 +307,7 @@ namespace BTech_MaverickDistributing
                     {
                         TreeNode childNode = new TreeNode(childrow["ModelName"].ToString());
                         childNode.PopulateOnDemand = false;
-                        childNode.Value = "fourth_" + childrow["ModelName"];
+                        childNode.Value = "fourth_" + childrow["ModelID"];
                         Session["model"] = childrow["ModelID"].ToString();
 
                         TV_Menu.SelectedNode.ChildNodes.Add(childNode);
@@ -319,7 +315,10 @@ namespace BTech_MaverickDistributing
                 }
                 else if (arg[0] == "fourth")
                 {
-                    SqlCommand cmd = new SqlCommand("select distinct CategoryName, P.CategoryID from Parts P inner join Category C on P.CategoryID=C.CategoryID where MakeID=" + Session["make"].ToString() + " and YearID=" + Session["year"].ToString() + " and ModelID=" + Session["model"], conn);
+                    string[] makeArg = TV_Menu.SelectedNode.Parent.Parent.Value.Split('_');
+                    string[] yearArg = TV_Menu.SelectedNode.Parent.Value.Split('_');
+
+                    SqlCommand cmd = new SqlCommand("select distinct CategoryName, P.CategoryID from Parts P inner join Category C on P.CategoryID=C.CategoryID where MakeID=" + makeArg[1] + " and YearID=" + yearArg[1] + " and ModelID=" + arg[1], conn);
                     conn.Open();
 
                     DataTable dtTableChild = new DataTable();
@@ -331,7 +330,7 @@ namespace BTech_MaverickDistributing
                     {
                         TreeNode childNode = new TreeNode(childrow["CategoryName"].ToString());
                         childNode.PopulateOnDemand = true;
-                        childNode.Value = "fifth_" + childrow["CategoryName"] + "_" + childrow["CategoryID"];
+                        childNode.Value = "fifth_" + childrow["CategoryID"];
                         Session["category"] = childrow["CategoryID"].ToString();
 
                         TV_Menu.SelectedNode.ChildNodes.Add(childNode);
@@ -339,7 +338,15 @@ namespace BTech_MaverickDistributing
                 }
                 else if(arg[0] == "fifth")
                 {
-                    Session["category"] = arg[2];
+                    string[] makeArg = TV_Menu.SelectedNode.Parent.Parent.Parent.Value.Split('_');
+                    string[] yearArg = TV_Menu.SelectedNode.Parent.Parent.Value.Split('_');
+                    string[] modelArg = TV_Menu.SelectedNode.Parent.Value.Split('_');
+                    
+                    Session["category"] = arg[1];
+                    Session["make"] = makeArg[1];
+                    Session["year"] = yearArg[1];
+                    Session["model"] = modelArg[1];
+
                     string e1 = Session["make"].ToString();
                     string e2 = Session["year"].ToString();
                     string e3 = Session["model"].ToString();
