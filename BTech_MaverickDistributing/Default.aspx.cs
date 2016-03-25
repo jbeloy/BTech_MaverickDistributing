@@ -278,7 +278,7 @@ namespace BTech_MaverickDistributing
                 {
                     //foreach(KeyValuePair<string, string> KVP in makeDic)
                     //{
-                        SqlCommand cmd = new SqlCommand("select distinct YearID from Parts where MakeID=" + KVP.Value, conn);
+                        SqlCommand cmd = new SqlCommand("select distinct YearID from Parts where MakeID=" + Session["make"], conn);
                         conn.Open();
 
                         DataTable dtTableChild = new DataTable();
