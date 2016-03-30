@@ -305,25 +305,15 @@ small {
             <asp:SessionParameter Name="YearID" SessionField="year" Type="Int32" />
         </SelectParameters>
     </asp:SqlDataSource>
-    <%--<asp:SqlDataSource ID="SQL_EquipmentType" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="SELECT [EquipmentTypeName], [EquipmentTypeID] FROM [EquipmentType]"></asp:SqlDataSource>
-    <asp:SqlDataSource ID="SQL_Make" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="GetMake" SelectCommandType="StoredProcedure">
+    <asp:SqlDataSource ID="SQL_ModelPartsSearch" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="GetModelParts" SelectCommandType="StoredProcedure">
         <SelectParameters>
-            <asp:ControlParameter ControlID="DDL_EquipmentType" Name="EquipmentType" PropertyName="SelectedValue" Type="String" />
+            <asp:SessionParameter Name="MakeID" SessionField="make" Type="Int32" />
+            <asp:SessionParameter Name="ModelID" SessionField="model" Type="Int32" />
+            <asp:SessionParameter Name="YearID" SessionField="year" Type="Int32" />
+            <asp:ControlParameter ControlID="txtModelPartSearch" Name="PartSearchWildCard" PropertyName="Text" Type="String" />
         </SelectParameters>
     </asp:SqlDataSource>
-    <asp:SqlDataSource ID="SQL_Year" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="GetYear" SelectCommandType="StoredProcedure">
-        <SelectParameters>
-            <asp:ControlParameter ControlID="DDL_Make" Name="Make" PropertyName="SelectedValue" Type="String" />
-            <asp:ControlParameter ControlID="DDL_EquipmentType" Name="EquipmentType" PropertyName="SelectedValue" Type="String" />
-        </SelectParameters>
-    </asp:SqlDataSource>
-    <asp:SqlDataSource ID="SQL_Model" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="GetModel" SelectCommandType="StoredProcedure">
-        <SelectParameters>
-            <asp:ControlParameter ControlID="DDL_Year" Name="Year" PropertyName="SelectedValue" Type="Int32" />
-            <asp:ControlParameter ControlID="DDL_Make" Name="Make" PropertyName="SelectedValue" Type="Int32" />
-            <asp:ControlParameter ControlID="DDL_EquipmentType" Name="EquipmentType" PropertyName="SelectedValue" Type="Int32" />
-        </SelectParameters>
-    </asp:SqlDataSource>--%>
+    <%--<asp:Label ID="ImageFilePathLabel" runat="server" Text='<%# Eval("ImageFilePath") %>' />--%>
 
 
     <div class="jumbotron">
@@ -336,70 +326,261 @@ small {
 
     <asp:TreeView ID="TV_Menu" runat="server" OnSelectedNodeChanged="TV_Menu_SelectedNodeChanged"></asp:TreeView>
 
-    <%--<div id="drilldown1" class="drilldown"> 
-      <div class="drilldown__options-container">
-        <p>Click to expand the options:</p>
-        <ul id="equipmentType" runat="server">
+    <br />
+&nbsp;<asp:Label ID="lblModelSearch" runat="server" Text="Model part search: " Visible="False"></asp:Label>
+&nbsp;<asp:TextBox ID="txtModelPartSearch" runat="server" Visible="False"></asp:TextBox>
+    <asp:Button ID="btnModelSearch" runat="server" OnClick="btnModelSearch_Click" Text="Search" Visible="False" />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
 
-            <%--<asp:Repeater ID="Repeater1" runat="server" DataSourceID="SQL_EquipmentType">
-                <HeaderTemplate><ul></HeaderTemplate>
-                <ItemTemplate>
-                    <li><div id="et_<%# Eval("EquipmentTypeName") %>"><%# Eval("EquipmentTypeName") %><label><input type="checkbox"></label></div><ul runat="server">
-                        <asp:Repeater ID="Repeater2" runat="server" DataSourceID="SQL_Year" OnItemDataBound="Repeater2_ItemDataBound">
-                            <ItemTemplate>
-                                <li><div id="mk_<%# Eval("MakeName") %>"><%# Eval("MakeName") %><label><input type="checkbox"></label></div><ul runat="server">
-                                    <asp:Repeater ID="Repeater3" runat="server" datasource='<%# ((DataRowView)Container.DataItem).Row.GetChildRows("myrelation") %>'>
-                                        <ItemTemplate>
-                                            <li><div id="year_<%# Eval("YearID") %>"><%# Eval("YearID") %><label><input type="checkbox"></label></div><ul runat="server">
-                            
-                                            </ul></li></ItemTemplate>
-                                    </asp:Repeater>
-                                </ul></li></ItemTemplate>
-                        </asp:Repeater>
-                    </ul></li></ItemTemplate>
-                <FooterTemplate></ul></FooterTemplate>
-            </asp:Repeater>--%>
+    <h1>Advanced Parts search functionality</h1>
+    <br />
+    <%--<asp:Label ID="ImageFilePathLabel" runat="server" Text='<%# Eval("ImageFilePath") %>' />--%>      <%--<asp:Label ID="ImageFilePathLabel" runat="server" Text='<%# Eval("ImageFilePath") %>' />--%><%--<asp:Label ID="ImageFilePathLabel" runat="server" Text='<%# Eval("ImageFilePath") %>' />--%>
+    <%--<asp:Label ID="ImageFilePathLabel" runat="server" Text='<%# Eval("ImageFilePath") %>' />--%>Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <asp:TextBox ID="txtType" runat="server"></asp:TextBox>
+    <br />
+    Make&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <asp:TextBox ID="txtMake" runat="server"></asp:TextBox>
+    <br />
+    Year&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <asp:TextBox ID="txtYear" runat="server"></asp:TextBox>
+    <br />
+    Model&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <asp:TextBox ID="txtModel" runat="server"></asp:TextBox>
+    <br />
+    Category&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <asp:TextBox ID="txtCategory" runat="server"></asp:TextBox>
+    <br />
+    Part Description&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <asp:TextBox ID="txtPartDesc" runat="server"></asp:TextBox>
+    <br />
+    Part Number&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <asp:TextBox ID="txtPartNumber" runat="server"></asp:TextBox>
+    <br />
+    <br />
+    <asp:Button ID="btnSearchParts" runat="server" OnClick="btnSearchParts_Click" Text="Search" />
+    <br />
+    <br />
 
-      <%--      <!-- start parent repeater -->
-            <asp:repeater id="parentRepeater" runat="server" OnItemDataBound="parentRepeater_ItemDataBound">
-               <itemtemplate>
-                  <li><div id="et_<%# Eval("EquipmentTypeName") %>"><%# Eval("EquipmentTypeName") %><label><input type="checkbox"></label></div><ul runat="server">
-              
-                  <!-- start child repeater1 -->
-                  <asp:repeater id="childRepeater" runat="server">
-
-                     <itemtemplate>
-                         <li><div id="et_<%# Eval("MakeName")%>"><%# Eval("MakeName")%><label><input type="checkbox"></label></div><ul runat="server">
-                             <!-- start child repeater2 -->
-                              <asp:repeater id="childRepeater2"  runat="server" datasource='<%# ((DataRowView)Container.DataItem).Row.GetChildRows("MakeID") %>'>
-
-                                 <itemtemplate>
-                                     <li><div id="et_<%# Eval("YearID")%>"><%# Eval("YearID")%><label><input type="checkbox"></label></div><ul runat="server">
-                                 </ul></li></itemtemplate>
-
-                              </asp:repeater>
-                              <!-- end child repeater2 -->
-                     </ul></li></itemtemplate>
-
-                  </asp:repeater>
-                  <!-- end child repeater1 -->  
-
-               </ul></li></itemtemplate>
-            </asp:repeater>
-            <!-- end parent repeater -->
-      
-        </ul>
-      </div>--%>
-<%--      <div class="drilldown__selected-container">
-        <p>Selected items:</p>
-        <div id="drilldown1Selected" class="drilldown__selected"></div>
-        <p><small>To remove selected items click them above.</small></p>
-      </div>
+        <div class="row">
+        <asp:ListView ID="LV_PartSearch" runat="server" DataSourceID="SQL_ModelPartsSearch">
+            <AlternatingItemTemplate>
+                <tr style="">
+                    <td>
+                        <asp:Label ID="MakeNameLabel" runat="server" Text='<%# Eval("MakeName") %>' />
+                    </td>
+                    <td>
+                        <asp:Label ID="EquipmentTypeNameLabel" runat="server" Text='<%# Eval("EquipmentTypeName") %>' />
+                    </td>
+                    <td>
+                        <asp:Label ID="CategoryNameLabel" runat="server" Text='<%# Eval("CategoryName") %>' />
+                    </td>
+                    <td>
+                        <asp:Label ID="ModelNameLabel" runat="server" Text='<%# Eval("ModelName") %>' />
+                    </td>
+                    <td>
+                        <asp:Label ID="YearIDLabel" runat="server" Text='<%# Eval("YearID") %>' />
+                    </td>
+                    <td>
+                        <asp:Label ID="ManufacturerNameLabel" runat="server" Text='<%# Eval("ManufacturerName") %>' />
+                    </td>
+                    <td>
+                        <asp:Label ID="PartNumberLabel" runat="server" Text='<%# Eval("PartNumber") %>' />
+                    </td>
+                    <td>
+                        <asp:Label ID="PartDescLabel" runat="server" Text='<%# Eval("PartDesc") %>' />
+                    </td>
+                    <td>
+                        <asp:Label ID="PriceLabel" runat="server" Text='<%# Eval("Price") %>' />
+                    </td>
+                    <td>
+                        <asp:Label ID="ImageFilePathLabel" runat="server" Text='<%# Eval("ImageFilePath") %>' />
+                    </td> 
+                </tr>
+            </AlternatingItemTemplate>
+            <EditItemTemplate>
+                <tr style="">
+                    <td>
+                        <asp:Button ID="UpdateButton" runat="server" CommandName="Update" Text="Update" />
+                        <asp:Button ID="CancelButton" runat="server" CommandName="Cancel" Text="Cancel" />
+                    </td>
+                    <td>
+                        <asp:TextBox ID="MakeNameTextBox" runat="server" Text='<%# Bind("MakeName") %>' />
+                    </td>
+                    <td>
+                        <asp:TextBox ID="EquipmentTypeNameTextBox" runat="server" Text='<%# Bind("EquipmentTypeName") %>' />
+                    </td>
+                    <td>
+                        <asp:TextBox ID="CategoryNameTextBox" runat="server" Text='<%# Bind("CategoryName") %>' />
+                    </td>
+                    <td>
+                        <asp:TextBox ID="ModelNameTextBox" runat="server" Text='<%# Bind("ModelName") %>' />
+                    </td>
+                    <td>
+                        <asp:TextBox ID="YearIDTextBox" runat="server" Text='<%# Bind("YearID") %>' />
+                    </td>
+                    <td>
+                        <asp:TextBox ID="ManufacturerNameTextBox" runat="server" Text='<%# Bind("ManufacturerName") %>' />
+                    </td>
+                    <td>
+                        <asp:TextBox ID="PartNumberTextBox" runat="server" Text='<%# Bind("PartNumber") %>' />
+                    </td>
+                    <td>
+                        <asp:TextBox ID="PartDescTextBox" runat="server" Text='<%# Bind("PartDesc") %>' />
+                    </td>
+                    <td>
+                        <asp:TextBox ID="PriceTextBox" runat="server" Text='<%# Bind("Price") %>' />
+                    </td>
+                    <td>
+                        <asp:TextBox ID="ImageFilePathTextBox" runat="server" Text='<%# Bind("ImageFilePath") %>' />
+                    </td>
+                </tr>
+            </EditItemTemplate>
+            <EmptyDataTemplate>
+                <table runat="server" style="">
+                    <tr>
+                        <td>No data was returned.</td>
+                    </tr>
+                </table>
+            </EmptyDataTemplate>
+            <InsertItemTemplate>
+                <tr style="">
+                    <td>
+                        <asp:Button ID="InsertButton" runat="server" CommandName="Insert" Text="Insert" />
+                        <asp:Button ID="CancelButton" runat="server" CommandName="Cancel" Text="Clear" />
+                    </td>
+                    <td>
+                        <asp:TextBox ID="MakeNameTextBox" runat="server" Text='<%# Bind("MakeName") %>' />
+                    </td>
+                    <td>
+                        <asp:TextBox ID="EquipmentTypeNameTextBox" runat="server" Text='<%# Bind("EquipmentTypeName") %>' />
+                    </td>
+                    <td>
+                        <asp:TextBox ID="CategoryNameTextBox" runat="server" Text='<%# Bind("CategoryName") %>' />
+                    </td>
+                    <td>
+                        <asp:TextBox ID="ModelNameTextBox" runat="server" Text='<%# Bind("ModelName") %>' />
+                    </td>
+                    <td>
+                        <asp:TextBox ID="YearIDTextBox" runat="server" Text='<%# Bind("YearID") %>' />
+                    </td>
+                    <td>
+                        <asp:TextBox ID="ManufacturerNameTextBox" runat="server" Text='<%# Bind("ManufacturerName") %>' />
+                    </td>
+                    <td>
+                        <asp:TextBox ID="PartNumberTextBox" runat="server" Text='<%# Bind("PartNumber") %>' />
+                    </td>
+                    <td>
+                        <asp:TextBox ID="PartDescTextBox" runat="server" Text='<%# Bind("PartDesc") %>' />
+                    </td>
+                    <td>
+                        <asp:TextBox ID="PriceTextBox" runat="server" Text='<%# Bind("Price") %>' />
+                    </td>
+                    <td>
+                        <asp:TextBox ID="ImageFilePathTextBox" runat="server" Text='<%# Bind("ImageFilePath") %>' />
+                    </td>
+                </tr>
+            </InsertItemTemplate>
+            <ItemTemplate>
+                <tr style="">
+                    <td>
+                        <asp:Label ID="MakeNameLabel" runat="server" Text='<%# Eval("MakeName") %>' />
+                    </td>
+                    <td>
+                        <asp:Label ID="EquipmentTypeNameLabel" runat="server" Text='<%# Eval("EquipmentTypeName") %>' />
+                    </td>
+                    <td>
+                        <asp:Label ID="CategoryNameLabel" runat="server" Text='<%# Eval("CategoryName") %>' />
+                    </td>
+                    <td>
+                        <asp:Label ID="ModelNameLabel" runat="server" Text='<%# Eval("ModelName") %>' />
+                    </td>
+                    <td>
+                        <asp:Label ID="YearIDLabel" runat="server" Text='<%# Eval("YearID") %>' />
+                    </td>
+                    <td>
+                        <asp:Label ID="ManufacturerNameLabel" runat="server" Text='<%# Eval("ManufacturerName") %>' />
+                    </td>
+                    <td>
+                        <asp:Label ID="PartNumberLabel" runat="server" Text='<%# Eval("PartNumber") %>' />
+                    </td>
+                    <td>
+                        <asp:Label ID="PartDescLabel" runat="server" Text='<%# Eval("PartDesc") %>' />
+                    </td>
+                    <td>
+                        <asp:Label ID="PriceLabel" runat="server" Text='<%# Eval("Price") %>' />
+                    </td>
+                    <td>
+                        <asp:Label ID="ImageFilePathLabel" runat="server" Text='<%# Eval("ImageFilePath") %>' />
+                    </td>
+                </tr>
+            </ItemTemplate>
+            <LayoutTemplate>
+                <table runat="server">
+                    <tr runat="server">
+                        <td runat="server">
+                            <table id="itemPlaceholderContainer" runat="server" border="0" style="">
+                                <tr runat="server" style="">
+                                    <th runat="server">MakeName</th>
+                                    <th runat="server">EquipmentTypeName</th>
+                                    <th runat="server">CategoryName</th>
+                                    <th runat="server">ModelName</th>
+                                    <th runat="server">YearID</th>
+                                    <th runat="server">ManufacturerName</th>
+                                    <th runat="server">PartNumber</th>
+                                    <th runat="server">PartDesc</th>
+                                    <th runat="server">Price</th>
+                                    <th runat="server">ImageFilePath</th>
+                                </tr>
+                                <tr id="itemPlaceholder" runat="server">
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr runat="server">
+                        <td runat="server" style=""></td>
+                    </tr>
+                </table>
+            </LayoutTemplate>
+            <SelectedItemTemplate>
+                <tr style="">
+                    <td>
+                        <asp:Label ID="MakeNameLabel" runat="server" Text='<%# Eval("MakeName") %>' />
+                    </td>
+                    <td>
+                        <asp:Label ID="EquipmentTypeNameLabel" runat="server" Text='<%# Eval("EquipmentTypeName") %>' />
+                    </td>
+                    <td>
+                        <asp:Label ID="CategoryNameLabel" runat="server" Text='<%# Eval("CategoryName") %>' />
+                    </td>
+                    <td>
+                        <asp:Label ID="ModelNameLabel" runat="server" Text='<%# Eval("ModelName") %>' />
+                    </td>
+                    <td>
+                        <asp:Label ID="YearIDLabel" runat="server" Text='<%# Eval("YearID") %>' />
+                    </td>
+                    <td>
+                        <asp:Label ID="ManufacturerNameLabel" runat="server" Text='<%# Eval("ManufacturerName") %>' />
+                    </td>
+                    <td>
+                        <asp:Label ID="PartNumberLabel" runat="server" Text='<%# Eval("PartNumber") %>' />
+                    </td>
+                    <td>
+                        <asp:Label ID="PartDescLabel" runat="server" Text='<%# Eval("PartDesc") %>' />
+                    </td>
+                    <td>
+                        <asp:Label ID="PriceLabel" runat="server" Text='<%# Eval("Price") %>' />
+                    </td>
+                    <td>
+                        <asp:Label ID="ImageFilePathLabel" runat="server" Text='<%# Eval("ImageFilePath") %>' />
+                    </td>
+                </tr>
+            </SelectedItemTemplate>
+        </asp:ListView>
     </div>
-    <input type="text" id="drilldownInput" class="drilldown__input" value="" style="display: none;">--%>
-
-    <%--<ul runat="server" id="tabs"> 
-    </ul>--%>
 
     <div class="row">
         <asp:ListView ID="LV_PartsInfo" runat="server" DataSourceID="SQL_PartsInfo">

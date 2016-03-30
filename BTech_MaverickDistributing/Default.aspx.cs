@@ -268,6 +268,9 @@ namespace BTech_MaverickDistributing
 
                         TV_Menu.SelectedNode.ChildNodes.Add(childNode);
                     }
+                    lblModelSearch.Visible = false;
+                    txtModelPartSearch.Visible = false;
+                    btnModelSearch.Visible = false;
                 }
                 else if(arg[0] == "second")
                 {
@@ -289,6 +292,10 @@ namespace BTech_MaverickDistributing
 
                         TV_Menu.SelectedNode.ChildNodes.Add(childNode);
                     }
+
+                    lblModelSearch.Visible = false;
+                    txtModelPartSearch.Visible = false;
+                    btnModelSearch.Visible = false;
                 }
                 else if(arg[0] == "third")
                 {
@@ -312,6 +319,10 @@ namespace BTech_MaverickDistributing
 
                         TV_Menu.SelectedNode.ChildNodes.Add(childNode);
                     }
+
+                    lblModelSearch.Visible = false;
+                    txtModelPartSearch.Visible = false;
+                    btnModelSearch.Visible = false;
                 }
                 else if (arg[0] == "fourth")
                 {
@@ -335,6 +346,10 @@ namespace BTech_MaverickDistributing
 
                         TV_Menu.SelectedNode.ChildNodes.Add(childNode);
                     }
+                    lblModelSearch.Text = "Model part search: ";
+                    lblModelSearch.Visible = true;
+                    txtModelPartSearch.Visible = true;
+                    btnModelSearch.Visible = true;
                 }
                 else if(arg[0] == "fifth")
                 {
@@ -357,6 +372,28 @@ namespace BTech_MaverickDistributing
                     LV_PartsInfo.DataBind();
                 }
             }
+        }
+
+        protected void btnSearchParts_Click(object sender, EventArgs e)
+        {
+        }
+
+        protected void btnModelSearch_Click(object sender, EventArgs e)
+        {
+            string[] makeArg = TV_Menu.SelectedNode.Parent.Parent.Value.Split('_');
+            string[] yearArg = TV_Menu.SelectedNode.Parent.Value.Split('_');
+            string[] modelArg = TV_Menu.SelectedNode.Value.Split('_');
+                    
+            Session["make"] = makeArg[1];
+            Session["year"] = yearArg[1];
+            Session["model"] = modelArg[1];
+ 
+            string e1 = Session["make"].ToString();
+            string e2 = Session["year"].ToString();
+            string e3 = Session["model"].ToString();
+            string e4 = Session["category"].ToString();
+
+            LV_PartSearch.DataBind();
         }
     }
 }
