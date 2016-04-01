@@ -322,46 +322,55 @@ small {
         <p><a href="http://www.asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
     </div>
 
-    <h1>Drill-down select</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <h1>Drill-down select</h1>
+                <hr />
+                <asp:TreeView ID="TV_Menu" runat="server" OnSelectedNodeChanged="TV_Menu_SelectedNodeChanged"></asp:TreeView>
+                <br />
 
-    <asp:TreeView ID="TV_Menu" runat="server" OnSelectedNodeChanged="TV_Menu_SelectedNodeChanged"></asp:TreeView>
-
-    <br />
-&nbsp;<asp:Label ID="lblModelSearch" runat="server" Text="Model part search: " Visible="False"></asp:Label>
-&nbsp;<asp:TextBox ID="txtModelPartSearch" runat="server" Visible="False"></asp:TextBox>
-    <asp:Button ID="btnModelSearch" runat="server" OnClick="btnModelSearch_Click" Text="Search" Visible="False" />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-
-    <h1>Advanced Parts search functionality</h1>
-    <br />
+                <div>
+                    <asp:Label ID="lblModelSearch" runat="server" Text="Model part search: " Visible="False"></asp:Label>
+                    <asp:TextBox ID="txtModelPartSearch" CssClass="form-control" runat="server" Visible="false"></asp:TextBox>
+                    <br />
+                    <asp:Button ID="btnModelSearch" runat="server" CssClass="btn btn-primary" OnClick="btnModelSearch_Click" Text="Search" Visible="False" />
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <h1>Advanced Search</h1>
+                <hr />
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    Type
+                    <asp:TextBox ID="txtType" runat="server" CssClass="form-control"></asp:TextBox>
+                    Year
+                    <asp:TextBox ID="txtYear" runat="server" CssClass="form-control"></asp:TextBox>
+                    Category
+                    <asp:TextBox ID="txtCategory" runat="server" CssClass="form-control"></asp:TextBox>
+                    Part Number
+                    <asp:TextBox ID="txtPartNumber" runat="server" CssClass="form-control"></asp:TextBox>
+                <br />
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    Make
+                    <asp:TextBox ID="txtMake" runat="server" CssClass="form-control"></asp:TextBox>
+                    Model
+                    <asp:TextBox ID="txtModel" runat="server" CssClass="form-control"></asp:TextBox>
+                    Part Description
+                    <asp:TextBox ID="txtPartDesc" runat="server" CssClass="form-control"></asp:TextBox>
+                    <br />
+                    <asp:Button ID="btnSearchParts" runat="server" OnClick="btnSearchParts_Click" Text="Search" CssClass="btn btn-primary pull-right" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
     <%--<asp:Label ID="ImageFilePathLabel" runat="server" Text='<%# Eval("ImageFilePath") %>' />--%>      <%--<asp:Label ID="ImageFilePathLabel" runat="server" Text='<%# Eval("ImageFilePath") %>' />--%><%--<asp:Label ID="ImageFilePathLabel" runat="server" Text='<%# Eval("ImageFilePath") %>' />--%>
-    <%--<asp:Label ID="ImageFilePathLabel" runat="server" Text='<%# Eval("ImageFilePath") %>' />--%>Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <asp:TextBox ID="txtType" runat="server"></asp:TextBox>
-    <br />
-    Make&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <asp:TextBox ID="txtMake" runat="server"></asp:TextBox>
-    <br />
-    Year&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <asp:TextBox ID="txtYear" runat="server"></asp:TextBox>
-    <br />
-    Model&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <asp:TextBox ID="txtModel" runat="server"></asp:TextBox>
-    <br />
-    Category&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <asp:TextBox ID="txtCategory" runat="server"></asp:TextBox>
-    <br />
-    Part Description&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <asp:TextBox ID="txtPartDesc" runat="server"></asp:TextBox>
-    <br />
-    Part Number&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <asp:TextBox ID="txtPartNumber" runat="server"></asp:TextBox>
+                <%--<asp:Label ID="ImageFilePathLabel" runat="server" Text='<%# Eval("ImageFilePath") %>' />--%>
+
     <br />
     <br />
-    <asp:Button ID="btnSearchParts" runat="server" OnClick="btnSearchParts_Click" Text="Search" />
+    <br />
     <br />
     <br />
 

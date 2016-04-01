@@ -19,6 +19,9 @@ namespace BTech_MaverickDistributing
         {
             if(!Page.IsPostBack)
             {
+                LV_PartsInfo.Visible = false;
+                LV_PartSearch.Visible = false;
+
                 string cn = WebConfigurationManager.ConnectionStrings["md_dbConnectionString"].ConnectionString;
                 using (SqlConnection conn = new SqlConnection(cn))
                 {
@@ -268,6 +271,7 @@ namespace BTech_MaverickDistributing
 
                         TV_Menu.SelectedNode.ChildNodes.Add(childNode);
                     }
+                    
                     lblModelSearch.Visible = false;
                     txtModelPartSearch.Visible = false;
                     btnModelSearch.Visible = false;
@@ -346,6 +350,7 @@ namespace BTech_MaverickDistributing
 
                         TV_Menu.SelectedNode.ChildNodes.Add(childNode);
                     }
+                    
                     lblModelSearch.Text = "Model part search: ";
                     lblModelSearch.Visible = true;
                     txtModelPartSearch.Visible = true;
@@ -368,7 +373,7 @@ namespace BTech_MaverickDistributing
                     string e4 = Session["category"].ToString();
 
                     //When the part category is clicked, then we need to bind the listview and data source.
-                    //SQL_PartsInfo.DataBind();
+                    LV_PartsInfo.Visible = true;
                     LV_PartsInfo.DataBind();
                 }
             }
@@ -383,16 +388,20 @@ namespace BTech_MaverickDistributing
             string[] makeArg = TV_Menu.SelectedNode.Parent.Parent.Value.Split('_');
             string[] yearArg = TV_Menu.SelectedNode.Parent.Value.Split('_');
             string[] modelArg = TV_Menu.SelectedNode.Value.Split('_');
-                    
+
             Session["make"] = makeArg[1];
             Session["year"] = yearArg[1];
             Session["model"] = modelArg[1];
- 
+
             string e1 = Session["make"].ToString();
             string e2 = Session["year"].ToString();
             string e3 = Session["model"].ToString();
             string e4 = Session["category"].ToString();
 
+            //Session["search"] = txtModelPartSearch.Text;
+
+            LV_PartsInfo.Visible = false;
+            LV_PartSearch.Visible = true;
             LV_PartSearch.DataBind();
         }
     }
