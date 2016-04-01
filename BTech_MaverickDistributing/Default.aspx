@@ -380,11 +380,11 @@ small {
     <br />
     <br />
     <br />
-
+    <div class="container-fluid">
         <div class="row">
         <asp:ListView ID="LV_PartSearch" runat="server" DataSourceID="SQL_ModelPartsSearch">
             <AlternatingItemTemplate>
-                <tr style="">
+                <tr class="partsInfo">
                     <td>
                         <asp:Label ID="MakeNameLabel" runat="server" Text='<%# Eval("MakeName") %>' />
                     </td>
@@ -463,7 +463,7 @@ small {
                 </table>
             </EmptyDataTemplate>
             <InsertItemTemplate>
-                <tr style="">
+                <tr>
                     <td>
                         <asp:Button ID="InsertButton" runat="server" CommandName="Insert" Text="Insert" />
                         <asp:Button ID="CancelButton" runat="server" CommandName="Cancel" Text="Clear" />
@@ -501,7 +501,7 @@ small {
                 </tr>
             </InsertItemTemplate>
             <ItemTemplate>
-                <tr style="">
+                <tr class="partsInfo">
                     <td>
                         <asp:Label ID="MakeNameLabel" runat="server" Text='<%# Eval("MakeName") %>' />
                     </td>
@@ -535,11 +535,12 @@ small {
                 </tr>
             </ItemTemplate>
             <LayoutTemplate>
-                <table runat="server">
+                <table runat="server" class="partsinfoClass">
                     <tr runat="server">
                         <td runat="server">
-                            <table id="itemPlaceholderContainer" runat="server" border="0" style="">
-                                <tr runat="server" style="">
+                            <table id="itemPlaceholderContainer" runat="server" border="1" class="jobDetailsClass">
+                                <tr runat="server" style="background-color:#DCDCDC;color: #000000;">
+                                <%--<tr runat="server" style="">--%>
                                     <th runat="server">MakeName</th>
                                     <th runat="server">EquipmentTypeName</th>
                                     <th runat="server">CategoryName</th>
@@ -596,12 +597,13 @@ small {
                 </tr>
             </SelectedItemTemplate>
         </asp:ListView>
+        </div>
     </div>
 
     <div class="row">
         <asp:ListView ID="LV_PartsInfo" runat="server" DataSourceID="SQL_PartsInfo">
             <AlternatingItemTemplate>
-                <tr style="background-color:#FFF8DC;">
+                <tr class="partsInfo">
                     <td>
                         <asp:Label ID="MakeNameLabel" runat="server" Text='<%# Eval("MakeName") %>' />
                     </td>
@@ -719,7 +721,7 @@ small {
                 </tr>
             </InsertItemTemplate>
             <ItemTemplate>
-                <tr style="background-color:#DCDCDC;color: #000000;">
+                <tr class="partsInfoAlt">
                     <td>
                         <asp:Label ID="MakeNameLabel" runat="server" Text='<%# Eval("MakeName") %>' />
                     </td>
@@ -754,10 +756,10 @@ small {
                 </tr>
             </ItemTemplate>
             <LayoutTemplate>
-                <table runat="server">
+                <table runat="server" class="partsinfoClass">
                     <tr runat="server">
                         <td runat="server">
-                            <table id="itemPlaceholderContainer" runat="server" border="1" style="background-color: #FFFFFF;border-collapse: collapse;border-color: #999999;border-style:none;border-width:1px;font-family: Verdana, Arial, Helvetica, sans-serif;">
+                            <table id="itemPlaceholderContainer" runat="server" border="1" class="partsinfoClass">
                                 <tr runat="server" style="background-color:#DCDCDC;color: #000000;">
                                     <th runat="server">MakeName</th>
                                     <th runat="server">EquipmentTypeName</th>

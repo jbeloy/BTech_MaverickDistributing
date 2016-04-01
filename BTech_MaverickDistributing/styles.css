@@ -2,10 +2,37 @@
 
 }
 
-.drilldownSearch-Hidden{
-    display: none;
+/*.partsInfo{
+    border-collapse: collapse;
+    border-spacing: 1px;
+    border-left: 1px solid #1F2A34;
+    border-right: 1px solid #1F2A34;
+}*/
+
+.partsInfoAlt{
+    background: #373B3E;
+    color: #080808;
+    text-align: left;
+    padding-left: 4px;
+    border: 1px solid #2d3134;
+    width: 120px;
+    color: white;
 }
 
-.drilldownSearch-Shown{
-    display: inline;
+.partsInfo {
+    background: white;
+    color: #421c4c;
+    text-align: left;
+    padding-left: 4px;
+    width: 120px;
+}
+
+.partsinfoClass{
+    width: 100%;
+}
+
+.partsinfoClass th{
+    padding: 1%;
+    text-align: center;
+    font-size: 110%;
 }
