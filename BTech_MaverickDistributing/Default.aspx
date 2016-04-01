@@ -327,7 +327,14 @@ small {
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <h1>Drill-down select</h1>
                 <hr />
-                <asp:TreeView ID="TV_Menu" runat="server" OnSelectedNodeChanged="TV_Menu_SelectedNodeChanged"></asp:TreeView>
+                <asp:TreeView ID="TV_Menu" runat="server" OnSelectedNodeChanged="TV_Menu_SelectedNodeChanged" NodeStyle-VerticalPadding="10" >
+                    <HoverNodeStyle Font-Underline="false" />
+                    <NodeStyle Font-Names="Verdana" Font-Size="11pt" ForeColor="Black"
+                    HorizontalPadding="0px" NodeSpacing="0px" />
+                <ParentNodeStyle Font-Bold="False" />
+                <SelectedNodeStyle Font-Underline="True" ForeColor="#DD5555"
+                    HorizontalPadding="0px" />
+                </asp:TreeView>
                 <br />
 
                 <div>

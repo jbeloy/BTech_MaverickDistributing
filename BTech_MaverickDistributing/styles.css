@@ -1,0 +1,11 @@
+﻿body {
+
+}
+
+.drilldownSearch-Hidden{
+    display: none;
+}
+
+.drilldownSearch-Shown{
+    display: inline;
+}
