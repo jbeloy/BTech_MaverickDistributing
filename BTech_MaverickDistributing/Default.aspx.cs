@@ -45,56 +45,6 @@ namespace BTech_MaverickDistributing
                     }
                 }
             }
-
-            //using (SqlConnection conn = new SqlConnection(cn))
-            //{
-            //    SqlDataAdapter cmd = new SqlDataAdapter("select EquipmentTypeName, EquipmentTypeID from EquipmentType where (EquipmentTypeID IN (select TypeID from Parts)); select TypeID, MakeName, M.MakeID, YearID from Make M inner join Parts P on M.MakeID=P.MakeID; select MakeName, MakeID from Make where (MakeID IN (select MakeID from Parts))", conn);
-            //    DataSet ds = new DataSet();
-            //    cmd.Fill(ds);
-
-            //    ds.Relations.Add(new DataRelation("TypeID", ds.Tables[0].Columns["EquipmentTypeID"],
-            //    ds.Tables[1].Columns["TypeID"]));
-
-            //    ds.Relations.Add(new DataRelation("MakeID", ds.Tables[2].Columns["MakeID"],
-            //    ds.Tables[1].Columns["MakeID"]));
-
-            //    parentRepeater.DataSource = ds.Tables[0];
-            //    parentRepeater.DataBind();
-            //}
-
-
-            //Create the connection and DataAdapter for the Authors table.
-            //string Connection = WebConfigurationManager.ConnectionStrings["md_dbConnectionString"].ConnectionString;
-            //SqlConnection cnn = new SqlConnection(Connection);
-
-            //SqlDataAdapter cmd1 = new SqlDataAdapter("select TypeID, MakeID from Parts group by TypeID, MakeID", cnn);
-            //SqlDataAdapter cmd4 = new SqlDataAdapter("select * from EquipmentType", cnn);
-            //SqlDataAdapter cmd2 = new SqlDataAdapter("select * from Make", cnn);
-            ////SqlDataAdapter cmd3 = new SqlDataAdapter("select * from EquipmentYear", cnn);            
-
-            ////Create and fill the DataSet.
-            //DataSet ds = new DataSet();
-            //cmd4.Fill(ds, "EquipmentType");
-            //cmd2.Fill(ds, "Make");
-            ////cmd3.Fill(ds, "EquipmentYear");
-            //cmd1.Fill(ds, "Parts");
-
-            //////Create the relation bewtween the Authors and Titles tables.
-            //ds.Relations.Add("myrelation",
-            //ds.Tables["Parts"].Columns["TypeID"],
-            //ds.Tables["EquipmentType"].Columns["EquipmentTypeID"]);
-
-            //ds.Relations.Add("myrelation2",
-            //ds.Tables["Make"].Columns["MakeID"],
-            //ds.Tables["Parts"].Columns["MakeID"]);
-
-            //////Bind the child table to the parent Repeater control, and call DataBind.
-            //////parentRepeater.DataSource = ds;
-            //parentRepeater.DataSource = ds.Tables["EquipmentType"];
-            //Page.DataBind();
-
-            //////Close the connection.
-            //cnn.Close();
         }
         //public void LoadTreeViewTest()
         //{
