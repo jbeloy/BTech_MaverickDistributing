@@ -197,12 +197,13 @@ namespace BTech_MaverickDistributing
 
         protected void TV_Menu_SelectedNodeChanged(object sender, EventArgs e)
         {
+            TV_Menu.SelectedNode.Expand();
             string cn = WebConfigurationManager.ConnectionStrings["md_dbConnectionString"].ConnectionString;
             using (SqlConnection conn = new SqlConnection(cn))
             {
                 //Check what level of tree view we are in before we call the SQL statement.
                 string[] arg = TV_Menu.SelectedNode.Value.Split('_');
-                if(arg[0] == "first")
+                if (arg[0] == "first")
                 {
                     SqlCommand cmd = new SqlCommand("select distinct MakeName, P.MakeID from Parts P inner join Make M on P.MakeId=M.MakeID", conn);
                     conn.Open();
@@ -215,21 +216,21 @@ namespace BTech_MaverickDistributing
                     foreach (DataRow childrow in dtTableChild.Rows)
                     {
                         TreeNode childNode = new TreeNode(childrow["MakeName"].ToString());
-                        childNode.PopulateOnDemand = false;
+                        childNode.PopulateOnDemand = true;
                         childNode.Value = "second_" + childrow["MakeID"];
                         Session["make"] = childrow["MakeID"].ToString();
 
                         TV_Menu.SelectedNode.ChildNodes.Add(childNode);
                     }
-                    
+
                     lblModelSearch.Visible = false;
                     txtModelPartSearch.Visible = false;
                     btnModelSearch.Visible = false;
                 }
-                else if(arg[0] == "second")
+                else if (arg[0] == "second")
                 {
                     //Use the selected value from the menue to execute the sql statement.
-                    SqlCommand cmd = new SqlCommand("select distinct YearID from Parts where MakeID=" + arg[1], conn);
+                    /*SqlCommand cmd = new SqlCommand("select distinct YearID from Parts where MakeID=" + arg[1], conn);
                     conn.Open();
 
                     DataTable dtTableChild = new DataTable();
@@ -240,23 +241,23 @@ namespace BTech_MaverickDistributing
                     foreach (DataRow childrow in dtTableChild.Rows)
                     {
                         TreeNode childNode = new TreeNode(childrow["YearID"].ToString());
-                        childNode.PopulateOnDemand = false;
+                        childNode.PopulateOnDemand = true;
                         childNode.Value = "third_" + childrow["YearID"];
                         Session["year"] = childrow["YearID"].ToString();
 
                         TV_Menu.SelectedNode.ChildNodes.Add(childNode);
-                    }
-
+                    }*/
+                    TV_Menu.SelectedNode.Expand();
                     lblModelSearch.Visible = false;
                     txtModelPartSearch.Visible = false;
                     btnModelSearch.Visible = false;
                 }
-                else if(arg[0] == "third")
+                else if (arg[0] == "third")
                 {
                     //Get the value of the parent node here.
                     string[] makeArg = TV_Menu.SelectedNode.Parent.Value.Split('_');
 
-                    SqlCommand cmd = new SqlCommand("select distinct ModelName, P.ModelID from Parts P inner join Model M on P.ModelID=M.ModelID where MakeID=" + makeArg[1] + " and YearID=" + arg[1], conn);
+                    /*SqlCommand cmd = new SqlCommand("select distinct ModelName, P.ModelID from Parts P inner join Model M on P.ModelID=M.ModelID where MakeID=" + makeArg[1] + " and YearID=" + arg[1], conn);
                     conn.Open();
 
                     DataTable dtTableChild = new DataTable();
@@ -267,13 +268,13 @@ namespace BTech_MaverickDistributing
                     foreach (DataRow childrow in dtTableChild.Rows)
                     {
                         TreeNode childNode = new TreeNode(childrow["ModelName"].ToString());
-                        childNode.PopulateOnDemand = false;
+                        childNode.PopulateOnDemand = true;
                         childNode.Value = "fourth_" + childrow["ModelID"];
                         Session["model"] = childrow["ModelID"].ToString();
 
                         TV_Menu.SelectedNode.ChildNodes.Add(childNode);
-                    }
-
+                    }*/
+                    TV_Menu.SelectedNode.Expand();
                     lblModelSearch.Visible = false;
                     txtModelPartSearch.Visible = false;
                     btnModelSearch.Visible = false;
@@ -283,7 +284,7 @@ namespace BTech_MaverickDistributing
                     string[] makeArg = TV_Menu.SelectedNode.Parent.Parent.Value.Split('_');
                     string[] yearArg = TV_Menu.SelectedNode.Parent.Value.Split('_');
 
-                    SqlCommand cmd = new SqlCommand("select distinct CategoryName, P.CategoryID from Parts P inner join Category C on P.CategoryID=C.CategoryID where MakeID=" + makeArg[1] + " and YearID=" + yearArg[1] + " and ModelID=" + arg[1], conn);
+                    /*SqlCommand cmd = new SqlCommand("select distinct CategoryName, P.CategoryID from Parts P inner join Category C on P.CategoryID=C.CategoryID where MakeID=" + makeArg[1] + " and YearID=" + yearArg[1] + " and ModelID=" + arg[1], conn);
                     conn.Open();
 
                     DataTable dtTableChild = new DataTable();
@@ -299,19 +300,19 @@ namespace BTech_MaverickDistributing
                         Session["category"] = childrow["CategoryID"].ToString();
 
                         TV_Menu.SelectedNode.ChildNodes.Add(childNode);
-                    }
-                    
+                    }*/
+                    TV_Menu.SelectedNode.Expand();
                     lblModelSearch.Text = "Model part search: ";
                     lblModelSearch.Visible = true;
                     txtModelPartSearch.Visible = true;
                     btnModelSearch.Visible = true;
                 }
-                else if(arg[0] == "fifth")
+                else if (arg[0] == "fifth")
                 {
                     string[] makeArg = TV_Menu.SelectedNode.Parent.Parent.Parent.Value.Split('_');
                     string[] yearArg = TV_Menu.SelectedNode.Parent.Parent.Value.Split('_');
                     string[] modelArg = TV_Menu.SelectedNode.Parent.Value.Split('_');
-                    
+
                     Session["category"] = arg[1];
                     Session["make"] = makeArg[1];
                     Session["year"] = yearArg[1];
@@ -353,6 +354,145 @@ namespace BTech_MaverickDistributing
             LV_PartsInfo.Visible = false;
             LV_PartSearch.Visible = true;
             LV_PartSearch.DataBind();
+        }
+        protected void TV_Menu_TreeNodeExpanded(object sender, TreeNodeEventArgs e)
+        {
+            if (TV_Menu.SelectedNode != null)
+            {
+                //TV_Menu.SelectedNode = e.Node;
+                string cn = WebConfigurationManager.ConnectionStrings["md_dbConnectionString"].ConnectionString;
+                using (SqlConnection conn = new SqlConnection(cn))
+                {
+                    //Check what level of tree view we are in before we call the SQL statement.
+                    //string[] arg = TV_Menu.SelectedNode.Value.Split('_');
+                    //use the event node object to access the 'selected node'
+                    string[] arg = e.Node.Value.Split('_');
+                    if (arg[0] == "first")
+                    {
+                        SqlCommand cmd = new SqlCommand("select distinct MakeName, P.MakeID from Parts P inner join Make M on P.MakeId=M.MakeID", conn);
+                        conn.Open();
+
+                        DataTable dtTableChild = new DataTable();
+                        dtTableChild.Load(cmd.ExecuteReader());
+
+                        conn.Close();
+
+                        foreach (DataRow childrow in dtTableChild.Rows)
+                        {
+                            TreeNode childNode = new TreeNode(childrow["MakeName"].ToString());
+                            childNode.PopulateOnDemand = true;
+                            childNode.Value = "second_" + childrow["MakeID"];
+                            Session["make"] = childrow["MakeID"].ToString();
+                            e.Node.ChildNodes.Add(childNode);
+                        }
+
+                        lblModelSearch.Visible = false;
+                        txtModelPartSearch.Visible = false;
+                        btnModelSearch.Visible = false;
+                    }
+                    else if (arg[0] == "second")
+                    {
+                        //Use the selected value from the menue to execute the sql statement.
+                        SqlCommand cmd = new SqlCommand("select distinct YearID from Parts where MakeID=" + arg[1], conn);
+                        conn.Open();
+
+                        DataTable dtTableChild = new DataTable();
+                        dtTableChild.Load(cmd.ExecuteReader());
+
+                        conn.Close();
+
+                        foreach (DataRow childrow in dtTableChild.Rows)
+                        {
+                            TreeNode childNode = new TreeNode(childrow["YearID"].ToString());
+                            childNode.PopulateOnDemand = true;
+                            childNode.Value = "third_" + childrow["YearID"];
+                            Session["year"] = childrow["YearID"].ToString();
+
+                            e.Node.ChildNodes.Add(childNode);
+                        }
+
+                        lblModelSearch.Visible = false;
+                        txtModelPartSearch.Visible = false;
+                        btnModelSearch.Visible = false;
+                    }
+                    else if (arg[0] == "third")
+                    {
+                        //Get the value of the parent node here.
+                        string[] makeArg = e.Node.Parent.Value.Split('_');
+
+                        SqlCommand cmd = new SqlCommand("select distinct ModelName, P.ModelID from Parts P inner join Model M on P.ModelID=M.ModelID where MakeID=" + makeArg[1] + " and YearID=" + arg[1], conn);
+                        conn.Open();
+
+                        DataTable dtTableChild = new DataTable();
+                        dtTableChild.Load(cmd.ExecuteReader());
+
+                        conn.Close();
+
+                        foreach (DataRow childrow in dtTableChild.Rows)
+                        {
+                            TreeNode childNode = new TreeNode(childrow["ModelName"].ToString());
+                            childNode.PopulateOnDemand = true;
+                            childNode.Value = "fourth_" + childrow["ModelID"];
+                            Session["model"] = childrow["ModelID"].ToString();
+
+                            e.Node.ChildNodes.Add(childNode);
+                        }
+
+                        lblModelSearch.Visible = false;
+                        txtModelPartSearch.Visible = false;
+                        btnModelSearch.Visible = false;
+                    }
+                    else if (arg[0] == "fourth")
+                    {
+                        string[] makeArg = e.Node.Parent.Parent.Value.Split('_');
+                        string[] yearArg = e.Node.Parent.Value.Split('_');
+
+                        SqlCommand cmd = new SqlCommand("select distinct CategoryName, P.CategoryID from Parts P inner join Category C on P.CategoryID=C.CategoryID where MakeID=" + makeArg[1] + " and YearID=" + yearArg[1] + " and ModelID=" + arg[1], conn);
+                        conn.Open();
+
+                        DataTable dtTableChild = new DataTable();
+                        dtTableChild.Load(cmd.ExecuteReader());
+
+                        conn.Close();
+
+                        foreach (DataRow childrow in dtTableChild.Rows)
+                        {
+                            TreeNode childNode = new TreeNode(childrow["CategoryName"].ToString());
+                            childNode.PopulateOnDemand = true;
+                            childNode.Value = "fifth_" + childrow["CategoryID"];
+                            Session["category"] = childrow["CategoryID"].ToString();
+
+                            e.Node.ChildNodes.Add(childNode);
+                        }
+
+                        lblModelSearch.Text = "Model part search: ";
+                        lblModelSearch.Visible = true;
+                        txtModelPartSearch.Visible = true;
+                        btnModelSearch.Visible = true;
+                    }
+                    else if (arg[0] == "fifth")
+                    {
+                        string[] makeArg = e.Node.Parent.Parent.Parent.Value.Split('_');
+                        string[] yearArg = e.Node.Parent.Parent.Value.Split('_');
+                        string[] modelArg = e.Node.Parent.Value.Split('_');
+
+                        Session["category"] = arg[1];
+                        Session["make"] = makeArg[1];
+                        Session["year"] = yearArg[1];
+                        Session["model"] = modelArg[1];
+
+                        string e1 = Session["make"].ToString();
+                        string e2 = Session["year"].ToString();
+                        string e3 = Session["model"].ToString();
+                        string e4 = Session["category"].ToString();
+
+                        //When the part category is clicked, then we need to bind the listview and data source.
+                        LV_PartsInfo.Visible = true;
+                        LV_PartsInfo.DataBind();
+                    }
+                }
+            }
+
         }
     }
 }

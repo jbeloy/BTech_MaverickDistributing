@@ -327,7 +327,7 @@ small {
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <h1>Drill-down select</h1>
                 <hr />
-                <asp:TreeView ID="TV_Menu" runat="server" OnSelectedNodeChanged="TV_Menu_SelectedNodeChanged" NodeStyle-VerticalPadding="10" >
+                <asp:TreeView ID="TV_Menu" runat="server" OnSelectedNodeChanged="TV_Menu_SelectedNodeChanged" NodeStyle-VerticalPadding="10" OnTreeNodeExpanded="TV_Menu_TreeNodeExpanded" >
                     <HoverNodeStyle Font-Underline="false" />
                     <NodeStyle Font-Names="Verdana" Font-Size="11pt" ForeColor="Black"
                     HorizontalPadding="0px" NodeSpacing="0px" />
