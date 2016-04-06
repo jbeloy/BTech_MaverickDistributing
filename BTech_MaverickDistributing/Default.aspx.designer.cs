@@ -31,6 +31,15 @@ namespace BTech_MaverickDistributing {
         protected global::System.Web.UI.WebControls.SqlDataSource SQL_ModelPartsSearch;
         
         /// <summary>
+        /// SQL_AdvancedPartSearch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource SQL_AdvancedPartSearch;
+        
+        /// <summary>
         /// TV_Menu control.
         /// </summary>
         /// <remarks>
@@ -94,6 +103,15 @@ namespace BTech_MaverickDistributing {
         protected global::System.Web.UI.WebControls.TextBox txtCategory;
         
         /// <summary>
+        /// txtManufacturer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtManufacturer;
+        
+        /// <summary>
         /// txtPartNumber control.
         /// </summary>
         /// <remarks>
@@ -155,5 +173,14 @@ namespace BTech_MaverickDistributing {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ListView LV_PartsInfo;
+        
+        /// <summary>
+        /// LV_AdvancedPartSearch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListView LV_AdvancedPartSearch;
     }
 }

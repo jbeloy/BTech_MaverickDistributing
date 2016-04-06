@@ -15,12 +15,14 @@ namespace BTech_MaverickDistributing
 {
     public partial class _Default : Page
     {
+        TreeNode varSelectedNode = new TreeNode();
         protected void Page_Load(object sender, EventArgs e)
         {
             if(!Page.IsPostBack)
             {
                 LV_PartsInfo.Visible = false;
                 LV_PartSearch.Visible = false;
+                LV_AdvancedPartSearch.Visible = false;
 
                 string cn = WebConfigurationManager.ConnectionStrings["md_dbConnectionString"].ConnectionString;
                 using (SqlConnection conn = new SqlConnection(cn))
@@ -202,6 +204,7 @@ namespace BTech_MaverickDistributing
             using (SqlConnection conn = new SqlConnection(cn))
             {
                 //Check what level of tree view we are in before we call the SQL statement.
+                varSelectedNode = TV_Menu.SelectedNode;
                 string[] arg = TV_Menu.SelectedNode.Value.Split('_');
                 if (arg[0] == "first")
                 {
@@ -325,6 +328,8 @@ namespace BTech_MaverickDistributing
 
                     //When the part category is clicked, then we need to bind the listview and data source.
                     LV_PartsInfo.Visible = true;
+                    LV_PartSearch.Visible = false;
+                    LV_AdvancedPartSearch.Visible = false;
                     LV_PartsInfo.DataBind();
                 }
             }
@@ -332,6 +337,10 @@ namespace BTech_MaverickDistributing
 
         protected void btnSearchParts_Click(object sender, EventArgs e)
         {
+            LV_PartsInfo.Visible = false;
+            LV_PartSearch.Visible = false;
+            LV_AdvancedPartSearch.Visible = true;
+            LV_AdvancedPartSearch.DataBind();
         }
 
         protected void btnModelSearch_Click(object sender, EventArgs e)
@@ -339,6 +348,11 @@ namespace BTech_MaverickDistributing
             string[] makeArg = TV_Menu.SelectedNode.Parent.Parent.Value.Split('_');
             string[] yearArg = TV_Menu.SelectedNode.Parent.Value.Split('_');
             string[] modelArg = TV_Menu.SelectedNode.Value.Split('_');
+            //TV_Menu.SelectedNode.Collapse();
+            //TV_Menu.SelectedNode.Expand();
+            //string[] makeArg = varSelectedNode.Parent.Parent.Value.Split('_');
+            //string[] yearArg = varSelectedNode.Parent.Value.Split('_');
+            //string[] modelArg = varSelectedNode.Value.Split('_');
 
             Session["make"] = makeArg[1];
             Session["year"] = yearArg[1];
@@ -353,6 +367,7 @@ namespace BTech_MaverickDistributing
 
             LV_PartsInfo.Visible = false;
             LV_PartSearch.Visible = true;
+            LV_AdvancedPartSearch.Visible = false;
             LV_PartSearch.DataBind();
         }
         protected void TV_Menu_TreeNodeExpanded(object sender, TreeNodeEventArgs e)
@@ -366,6 +381,7 @@ namespace BTech_MaverickDistributing
                     //Check what level of tree view we are in before we call the SQL statement.
                     //string[] arg = TV_Menu.SelectedNode.Value.Split('_');
                     //use the event node object to access the 'selected node'
+                    varSelectedNode = e.Node;
                     string[] arg = e.Node.Value.Split('_');
                     if (arg[0] == "first")
                     {
@@ -487,6 +503,8 @@ namespace BTech_MaverickDistributing
                         string e4 = Session["category"].ToString();
 
                         //When the part category is clicked, then we need to bind the listview and data source.
+                        LV_PartSearch.Visible = false;
+                        LV_AdvancedPartSearch.Visible = false;
                         LV_PartsInfo.Visible = true;
                         LV_PartsInfo.DataBind();
                     }
