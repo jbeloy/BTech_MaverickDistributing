@@ -370,6 +370,7 @@ namespace BTech_MaverickDistributing
             LV_AdvancedPartSearch.Visible = false;
             LV_PartSearch.DataBind();
         }
+
         protected void TV_Menu_TreeNodeExpanded(object sender, TreeNodeEventArgs e)
         {
             if (TV_Menu.SelectedNode != null)

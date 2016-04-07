@@ -6,9 +6,6 @@
     <script>
 
         $(document).ready(function () {
-
-            
-
             //
             // Settings
             //
@@ -313,7 +310,7 @@ small {
             <asp:ControlParameter ControlID="txtModelPartSearch" Name="PartSearchWildCard" PropertyName="Text" Type="String" />
         </SelectParameters>
     </asp:SqlDataSource>
-            <asp:SqlDataSource ID="SQL_AdvancedPartSearch" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="GetAdvancedSearchParts" SelectCommandType="StoredProcedure">
+    <asp:SqlDataSource ID="SQL_AdvancedPartSearch" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="GetAdvancedSearchParts" SelectCommandType="StoredProcedure">
             <SelectParameters>
                 <asp:ControlParameter ControlID="txtType" Name="EquipmentType" PropertyName="Text" Type="String" />
                 <asp:ControlParameter ControlID="txtCategory" Name="Category" PropertyName="Text" Type="String" />
@@ -615,8 +612,9 @@ small {
         </div>
     </div>
 
-    <div class="row">
-        <asp:ListView ID="LV_PartsInfo" runat="server" DataSourceID="SQL_PartsInfo">
+    <div class="container-fluid">
+        <div class="row">
+            <asp:ListView ID="LV_PartsInfo" runat="server" DataSourceID="SQL_PartsInfo">
             <AlternatingItemTemplate>
                 <tr class="partsInfo">
                     <td>
@@ -832,9 +830,12 @@ small {
                 </tr>
             </SelectedItemTemplate>
         </asp:ListView>
+        </div>
     </div>
-       <div class="row">
-        <asp:ListView ID="LV_AdvancedPartSearch" runat="server" DataSourceID="SQL_AdvancedPartSearch">
+
+    <div class="container">
+        <div class="row">
+            <asp:ListView ID="LV_AdvancedPartSearch" runat="server" DataSourceID="SQL_AdvancedPartSearch">
             <AlternatingItemTemplate>
                 <tr class="partsInfo">
                     <td>
@@ -1050,5 +1051,8 @@ small {
                 </tr>
             </SelectedItemTemplate>
         </asp:ListView>
+        </div>
     </div>
+    
+
 </asp:Content>
