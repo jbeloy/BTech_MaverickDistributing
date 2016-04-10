@@ -6,9 +6,6 @@
     <script>
 
         $(document).ready(function () {
-
-            
-
             //
             // Settings
             //
@@ -162,140 +159,6 @@
 
     </script>
 
-
-    <style>
-
-        * {
-  box-sizing: border-box;
-}
-
-body {
-  padding: 1em;
-}
-
-small {
-  font-size: 12px;
-  color: #999;
-}
-
-.drilldown {
-  font-size: 0px;
-}
-
-.drilldown > * {
-  font-size: 14px;
-}
-
-.drilldown ul {
-  display: block;
-  list-style: inside none;
-  padding-left: 1em;
-}
-
-.drilldown .drilldown__options-container,
-.drilldown .drilldown__selected-container {
-  display: inline-block;
-  vertical-align: top;
-}
-
-.drilldown .drilldown__options-container {
-  width: 50%;
-}
-
-.drilldown .drilldown__options-container > ul {
-  margin-top: 0;
-  padding: 0;
-}
-
-.drilldown .drilldown__selected-container {
-  width: 47.5%;
-  margin-left: 2.5%;
-}
-
-.drilldown .drilldown__selected-container .drilldown__selected {
-  min-height: 5em;
-  border: 1px solid #CCC;
-  background-color: #EEE;
-}
-
-.drilldown .drilldown__selected-container .drilldown__selected p {
-  margin: 0.25em;
-  padding: 0.5em;
-  display: block;
-  cursor: pointer;
-  border: 1px solid #CCC;
-  border-radius: 0.25em;
-  background-color: #FFF;
-}
-
-.drilldown .drilldown__selected-container .drilldown__selected p:after {
-  content: "X";
-  display: inline-block;
-  padding: 0 0.25em;
-  float: right;
-}
-
-.drilldown .drilldown__selected-container .drilldown__selected p:hover {
-  background-color: #FFE;
-}
-
-.drilldown li {
-  margin: 0.25em 0;
-}
-
-.drilldown li label {
-  position: absolute;
-  top: 0;
-  right: 0;
-  height: 100%;
-  width: 3em;
-  background-color: #CCC;
-  display: block;
-  text-align: center;
-  border-left: 1px solid #CCC;
-  border-radius: 0 0.25em 0.25em 0;
-  box-shadow: inset 0 1px 3px #999;
-}
-
-.drilldown li input[type=checkbox] {
-  vertical-align: middle;
-  height: 100%;
-  display: inline-block;
-}
-
-.drilldown li > div {
-  position: relative;
-  padding: 0.5em 0 0.5em 1em;
-  background-color: #FFF;
-  border: 1px solid #CCC;
-  border-radius: 0.25em;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.drilldown li > div.active {
-  background-color: #FFC;
-}
-
-.drilldown li > div.active + ul div:not(.selected) {
-  background-color: #FFE;
-}
-
-.drilldown li > div.selected {
-  background-color: #EFF;
-}
-
-.drilldown li > ul {
-  display: none;
-}
-
-.drilldown__input {
-  width: 100%;
-}
-
-
-    </style>
-
     <!--SQL Data source for the listview-->
     <asp:SqlDataSource ID="SQL_PartsInfo" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="GetPartsInfo" SelectCommandType="StoredProcedure">
         <SelectParameters>
@@ -313,7 +176,7 @@ small {
             <asp:ControlParameter ControlID="txtModelPartSearch" Name="PartSearchWildCard" PropertyName="Text" Type="String" />
         </SelectParameters>
     </asp:SqlDataSource>
-            <asp:SqlDataSource ID="SQL_AdvancedPartSearch" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="GetAdvancedSearchParts" SelectCommandType="StoredProcedure">
+    <asp:SqlDataSource ID="SQL_AdvancedPartSearch" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="GetAdvancedSearchParts" SelectCommandType="StoredProcedure">
             <SelectParameters>
                 <asp:ControlParameter ControlID="txtType" Name="EquipmentType" PropertyName="Text" Type="String" />
                 <asp:ControlParameter ControlID="txtCategory" Name="Category" PropertyName="Text" Type="String" />
@@ -325,7 +188,6 @@ small {
                 <asp:ControlParameter ControlID="txtPartDesc" Name="PartDesc" PropertyName="Text" Type="String" />
             </SelectParameters>
         </asp:SqlDataSource>
-    <%--<tr runat="server" style="">--%>
 
 
     <div class="jumbotron">
