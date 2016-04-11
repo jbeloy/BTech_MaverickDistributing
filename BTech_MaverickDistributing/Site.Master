@@ -124,7 +124,15 @@
             </ul>
         </div>
 
-        <img src="Images/header4.jpg" style="width:100%; padding-top: 5%;"/>
+        <div class="hero-unit">
+            <h1>Car Part Selector Thingy!</h1>
+            <hr width="15%" />
+            <h2>Search OEM and after market part manufacturers online and all in one place.</h2>
+        </div>
+
+        <%--<div style="overflow: hidden;">
+        <img src="Images/header4.jpg" style="width:2000px; padding-top: 5%;"/>
+        </div>--%>
 
         <div class="container body-content">
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
