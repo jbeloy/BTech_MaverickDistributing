@@ -189,14 +189,49 @@
             </SelectParameters>
         </asp:SqlDataSource>
 
-    <%--<div class="jumbotron">
-        <h1>Car Part Selector Thingy Webstie</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
-        <p><a href="http://www.asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <div class="ulCont">
+        <ul class="list-inline adSearch">
+                    <li>
+                        TYPE
+                        <asp:TextBox ID="txtType" runat="server" CssClass="form-control adSearchControls"></asp:TextBox>
+                    </li>
+                    <li>
+                        YEAR
+                        <asp:TextBox ID="txtYear" runat="server" CssClass="form-control adSearchControls"></asp:TextBox>
+                    </li>
+                    <li>
+                        CATEGORY
+                        <asp:TextBox ID="txtCategory" runat="server" CssClass="form-control adSearchControls"></asp:TextBox>
+                    </li>
+                    <li>
+                        MANUFACTURER
+                        <asp:TextBox ID="txtManufacturer" runat="server" CssClass="form-control adSearchControls"></asp:TextBox>
+                    </li>
+                </ul>
+        <ul class="list-inline adSearch">
+                    <li>
+                        PART NUMBER
+                        <asp:TextBox ID="txtPartNumber" runat="server" CssClass="form-control adSearchControls"></asp:TextBox>
+                    </li>
+                    <li>
+                        MAKE
+                        <asp:TextBox ID="txtMake" runat="server" CssClass="form-control adSearchControls"></asp:TextBox>
+                    </li>
+                    <li>
+                        MODEL
+                        <asp:TextBox ID="txtModel" runat="server" CssClass="form-control adSearchControls"></asp:TextBox>
+                    </li>
+                    <li>
+                         PART DESCRIPTION
+                        <asp:TextBox ID="txtPartDesc" runat="server" CssClass="form-control adSearchControls"></asp:TextBox>
+                    </li>
+                    <li>
+                        <asp:Button ID="Button1" runat="server" OnClick="btnSearchParts_Click" Text="Search" CssClass="searchButton" />
+                    </li>
+                </ul>
+    </div>
 
-    </div>--%>
-
-    <div class="container" style="padding-top: 5%;">
+    <div class="container">
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <h1 class="hero-text">Drill-down select</h1>
@@ -218,7 +253,7 @@
                     <asp:Button ID="btnModelSearch" runat="server" CssClass="btn btn-primary" OnClick="btnModelSearch_Click" Text="Search" Visible="False" />
                 </div>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <%--<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <h1>Advanced Search</h1>
                 <hr />
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -228,7 +263,8 @@
                     <asp:TextBox ID="txtYear" runat="server" CssClass="form-control"></asp:TextBox>
                     Category
                     <asp:TextBox ID="txtCategory" runat="server" CssClass="form-control"></asp:TextBox>
-                    Manufacturer<asp:TextBox ID="txtManufacturer" runat="server" CssClass="form-control"></asp:TextBox>
+                    Manufacturer
+                    <asp:TextBox ID="txtManufacturer" runat="server" CssClass="form-control"></asp:TextBox>
                     Part Number
                     <asp:TextBox ID="txtPartNumber" runat="server" CssClass="form-control"></asp:TextBox>
                 <br />
@@ -243,17 +279,12 @@
                     <br />
                     <asp:Button ID="btnSearchParts" runat="server" OnClick="btnSearchParts_Click" Text="Search" CssClass="btn btn-primary pull-right" />
                 </div>
-            </div>
+            </div>--%>
+            <asp:Button ID="btnSearchParts" runat="server" OnClick="btnSearchParts_Click" Text="Search" CssClass="btn btn-primary pull-right" />
         </div>
     </div>
     <hr />
-    <%--<tr runat="server" style="">--%><%--<tr runat="server" style="">--%><%--<tr runat="server" style="">--%><%--<asp:Label ID="ImageFilePathLabel" runat="server" Text='<%# Eval("ImageFilePath") %>' />--%>
 
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
     <div class="container-fluid">
         <div class="row">
         <asp:ListView ID="LV_PartSearch" runat="server" DataSourceID="SQL_ModelPartsSearch">
@@ -692,7 +723,8 @@
             </SelectedItemTemplate>
         </asp:ListView>
     </div>
-       <div class="row">
+    
+    <div class="row">
         <asp:ListView ID="LV_AdvancedPartSearch" runat="server" DataSourceID="SQL_AdvancedPartSearch">
             <AlternatingItemTemplate>
                 <tr class="partsInfo">

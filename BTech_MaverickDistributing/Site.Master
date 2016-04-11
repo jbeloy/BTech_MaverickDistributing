@@ -130,11 +130,8 @@
             <h2>Search OEM and after market part manufacturers online and all in one place.</h2>
         </div>
 
-        <%--<div style="overflow: hidden;">
-        <img src="Images/header4.jpg" style="width:2000px; padding-top: 5%;"/>
-        </div>--%>
-
-        <div class="container body-content">
+        <%--<div class="container body-content">--%>
+        <div>
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>
             <hr />

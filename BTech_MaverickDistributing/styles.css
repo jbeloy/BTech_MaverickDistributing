@@ -481,6 +481,38 @@ body {
     border: solid;
 }
 
+.adSearch{
+    color: white;
+    font-weight: bold;
+    font-size: 160%;
+    display: table;
+    background-color: #212F3C;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.adSearch li{
+    padding: 4%;
+    background-color: #212F3C;
+}
+
+.adSearchControls{
+    border-radius: 2px;
+}
+
+.ulCont{
+    background-color: #212F3C;
+}
+
+.searchButton{
+    background-color: transparent;
+    border: solid;
+    border-radius: 5px;
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+}
 
 /* Portrait tablet to landscape and desktop */
     @media (min-width: 768px) and (max-width: 979px) { ... }
