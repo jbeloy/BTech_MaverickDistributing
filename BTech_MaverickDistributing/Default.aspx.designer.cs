@@ -121,15 +121,6 @@ namespace BTech_MaverickDistributing {
         protected global::System.Web.UI.WebControls.Button Button1;
         
         /// <summary>
-        /// TV_Menu control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TreeView TV_Menu;
-        
-        /// <summary>
         /// lblModelSearch control.
         /// </summary>
         /// <remarks>
@@ -157,13 +148,13 @@ namespace BTech_MaverickDistributing {
         protected global::System.Web.UI.WebControls.Button btnModelSearch;
         
         /// <summary>
-        /// btnSearchParts control.
+        /// TV_Menu control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSearchParts;
+        protected global::System.Web.UI.WebControls.TreeView TV_Menu;
         
         /// <summary>
         /// LV_PartSearch control.

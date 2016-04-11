@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="BTech_MaverickDistributing._Default" %>
+﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="BTech_MaverickDistributing._Default" MaintainScrollPositionOnPostBack = "true" %>
 <%@Import Namespace="System.Data"%>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
@@ -6,6 +6,16 @@
     <script>
 
         $(document).ready(function () {
+
+            //When the checkbox is checked, hide the advanced search, and show the drill down search.
+            $('#toggleAdvanced').click(function () {
+                if ($('drillDownSearch').hasClass('hidden'))
+                {
+                    //if dds has hidden class, remove the class and apply it to advanced search.
+                    $('drillDownSearch').removeClass('hidden');
+                }
+            });
+
             //
             // Settings
             //
@@ -189,25 +199,25 @@
             </SelectParameters>
         </asp:SqlDataSource>
 
-    <div class="ulCont">
+    <div id="advancedSearch" class="ulCont">
         <ul class="list-inline adSearch">
-                    <li>
-                        TYPE
-                        <asp:TextBox ID="txtType" runat="server" CssClass="form-control adSearchControls"></asp:TextBox>
-                    </li>
-                    <li>
-                        YEAR
-                        <asp:TextBox ID="txtYear" runat="server" CssClass="form-control adSearchControls"></asp:TextBox>
-                    </li>
-                    <li>
-                        CATEGORY
-                        <asp:TextBox ID="txtCategory" runat="server" CssClass="form-control adSearchControls"></asp:TextBox>
-                    </li>
-                    <li>
-                        MANUFACTURER
-                        <asp:TextBox ID="txtManufacturer" runat="server" CssClass="form-control adSearchControls"></asp:TextBox>
-                    </li>
-                </ul>
+            <li>
+                TYPE
+                <asp:TextBox ID="txtType" runat="server" CssClass="form-control adSearchControls"></asp:TextBox>
+            </li>
+            <li>
+                YEAR
+                <asp:TextBox ID="txtYear" runat="server" CssClass="form-control adSearchControls"></asp:TextBox>
+            </li>
+            <li>
+                CATEGORY
+                <asp:TextBox ID="txtCategory" runat="server" CssClass="form-control adSearchControls"></asp:TextBox>
+            </li>
+            <li>
+                MANUFACTURER
+                <asp:TextBox ID="txtManufacturer" runat="server" CssClass="form-control adSearchControls"></asp:TextBox>
+            </li>
+        </ul>
         <ul class="list-inline adSearch">
                     <li>
                         PART NUMBER
@@ -229,13 +239,32 @@
                         <asp:Button ID="Button1" runat="server" OnClick="btnSearchParts_Click" Text="Search" CssClass="searchButton" />
                     </li>
                 </ul>
+        <ul>
+            <li>
+                <section>
+                    <input id='one' type='checkbox' />
+                      <label for='one'>
+                        <span id="toggleAdvanced"></span>
+                        Drill-Down Selection
+                        <ins><i>Drill-Down Selection</i></ins>
+                      </label>
+                </section>
+            </li>
+        </ul>
     </div>
 
-    <div class="container">
+    <div id="drillDownSearch" class="container">
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <h1 class="hero-text">Drill-down select</h1>
                 <hr />
+                <div>
+                    <asp:Label ID="lblModelSearch" runat="server" Text="Model part search: " Visible="False"></asp:Label>
+                    <div style="display: flex;">
+                        <asp:TextBox ID="txtModelPartSearch" CssClass="form-control" runat="server" Visible="false"></asp:TextBox>
+                        <asp:Button ID="btnModelSearch" runat="server" CssClass="searchDrillDownButton" OnClick="btnModelSearch_Click" Text="Search" Visible="False" />
+                    </div>
+                </div>
                 <asp:TreeView ID="TV_Menu" runat="server" OnSelectedNodeChanged="TV_Menu_SelectedNodeChanged" NodeStyle-VerticalPadding="10" OnTreeNodeExpanded="TV_Menu_TreeNodeExpanded" >
                     <HoverNodeStyle Font-Underline="false" />
                     <NodeStyle Font-Names="Verdana" Font-Size="11pt" ForeColor="Black"
@@ -245,13 +274,6 @@
                     HorizontalPadding="0px" />
                 </asp:TreeView>
                 <br />
-
-                <div>
-                    <asp:Label ID="lblModelSearch" runat="server" Text="Model part search: " Visible="False"></asp:Label>
-                    <asp:TextBox ID="txtModelPartSearch" CssClass="form-control" runat="server" Visible="false"></asp:TextBox>
-                    <br />
-                    <asp:Button ID="btnModelSearch" runat="server" CssClass="btn btn-primary" OnClick="btnModelSearch_Click" Text="Search" Visible="False" />
-                </div>
             </div>
             <%--<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <h1>Advanced Search</h1>
@@ -280,7 +302,7 @@
                     <asp:Button ID="btnSearchParts" runat="server" OnClick="btnSearchParts_Click" Text="Search" CssClass="btn btn-primary pull-right" />
                 </div>
             </div>--%>
-            <asp:Button ID="btnSearchParts" runat="server" OnClick="btnSearchParts_Click" Text="Search" CssClass="btn btn-primary pull-right" />
+            <%--<asp:Button ID="btnSearchParts" runat="server" OnClick="btnSearchParts_Click" Text="Search" CssClass="btn btn-primary pull-right" />--%>
         </div>
     </div>
     <hr />
