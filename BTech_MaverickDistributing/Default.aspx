@@ -199,7 +199,7 @@
     <div class="container" style="padding-top: 5%;">
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                <h1>Drill-down select</h1>
+                <h1 class="hero-text">Drill-down select</h1>
                 <hr />
                 <asp:TreeView ID="TV_Menu" runat="server" OnSelectedNodeChanged="TV_Menu_SelectedNodeChanged" NodeStyle-VerticalPadding="10" OnTreeNodeExpanded="TV_Menu_TreeNodeExpanded" >
                     <HoverNodeStyle Font-Underline="false" />
@@ -228,9 +228,7 @@
                     <asp:TextBox ID="txtYear" runat="server" CssClass="form-control"></asp:TextBox>
                     Category
                     <asp:TextBox ID="txtCategory" runat="server" CssClass="form-control"></asp:TextBox>
-                    <br />
                     Manufacturer<asp:TextBox ID="txtManufacturer" runat="server" CssClass="form-control"></asp:TextBox>
-                    <br />
                     Part Number
                     <asp:TextBox ID="txtPartNumber" runat="server" CssClass="form-control"></asp:TextBox>
                 <br />
