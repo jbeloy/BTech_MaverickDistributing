@@ -16,6 +16,9 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
+    <!-- jQuery include -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
     <link rel="stylesheet" href="styles.css" />
@@ -52,41 +55,77 @@
             </Scripts>
         </asp:ScriptManager>
 
-        <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" runat="server" href="~/"><img src="Images/maverick_logo.gif" class="img-responsive"/></a>
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li><a runat="server" href="~/">Home</a></li>
-                        <li><a runat="server" href="~/About">About</a></li>
-                        <li><a runat="server" href="~/Contact">Contact</a></li>
-                    </ul>
-                    <asp:LoginView runat="server" ViewStateMode="Disabled">
-                        <AnonymousTemplate>
-                            <ul class="nav navbar-nav navbar-right">
-                                <li><a runat="server" href="~/Account/Register">Register</a></li>
-                                <li><a runat="server" href="~/Account/Login">Log in</a></li>
-                            </ul>
-                        </AnonymousTemplate>
-                        <LoggedInTemplate>
-                            <ul class="nav navbar-nav navbar-right">
-                                <li><a runat="server" href="~/Account/Manage" title="Manage your account">Hello, <%: Context.User.Identity.GetUserName()  %> !</a></li>
-                                <li>
-                                    <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Log off" LogoutPageUrl="~/" OnLoggingOut="Unnamed_LoggingOut" />
+        <script>
+
+            $(document).ready(function(){
+                $('.gn-icon-menu').hover(function () {
+                    $('.gn-menu-wrapper').toggleClass('gn-open-part');
+                });
+
+                $('.gn-menu-wrapper').hover(function () {
+                    $(this).toggleClass('gn-open-all');
+                })
+            });
+
+            
+
+        </script>
+
+        <div class="container">
+            <ul id="gn-menu" class="gn-menu-main">
+                <li class="gn-trigger">	
+                  <a class="gn-icon gn-icon-menu"><span>Menu</span></a>
+                    <nav class="gn-menu-wrapper">
+                        <div class="gn-scroller">
+                            <ul class="gn-menu">
+                                <li class="gn-search-item">
+                                    <input placeholder="Search" type="search" class="gn-search">	
+                                      <a class="gn-icon gn-icon-search"><span>Search</span></a>
+                                </li>
+                                <li>	<a class="gn-icon gn-icon-download">Downloads</a>
+                                    <ul class="gn-submenu">
+                                        <li><a class="gn-icon gn-icon-illustrator">Vector Illustrations</a>
+                                        </li>
+                                        <li><a class="gn-icon gn-icon-photoshop">Photoshop files</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><a class="gn-icon gn-icon-cog">Settings</a>
+                                </li>
+                                <li><a class="gn-icon gn-icon-help">Help</a>
+                                </li>
+                                <li>	<a class="gn-icon gn-icon-archive">Archives</a>
+                                    <ul class="gn-submenu">
+                                        <li><a class="gn-icon gn-icon-article">Articles</a>
+                                        </li>
+                                        <li><a class="gn-icon gn-icon-pictures">Images</a>
+                                        </li>
+                                        <li><a class="gn-icon gn-icon-videos">Videos</a>
+                                        </li>
+                                    </ul>
                                 </li>
                             </ul>
-                        </LoggedInTemplate>
-                    </asp:LoginView>
-                </div>
-            </div>
+                        </div>
+                        <!-- /gn-scroller -->
+                    </nav>
+                </li>
+                <li>
+                    <img src="Images/maverick_logo.gif" />
+                </li>
+                <%--<li>
+                    <a>Example Menu Item 1</a>
+                </li>
+                <li>
+                    <a class="codrops-icon codrops-icon-prev"><span>Example 2</span></a>
+                </li>
+                <li>
+                    <a class="codrops-icon codrops-icon-drop" href="http://tympanus.net/codrops/?p=16030"><span>Back to the Codrops Article</span></a>
+                </li>--%>
+            </ul>
         </div>
+
+        <img src="Images/header4.jpg" style="width:100%; padding-top: 5%;"/>
+
         <div class="container body-content">
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>
