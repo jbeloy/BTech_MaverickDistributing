@@ -240,6 +240,8 @@
     <Content Include="Images\7.jpg" />
     <Content Include="Images\8.jpg" />
     <Content Include="Images\9.jpg" />
+    <Content Include="Images\header4.jpg" />
+    <Content Include="Images\maverick_logo.gif" />
     <Content Include="packages.config" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
