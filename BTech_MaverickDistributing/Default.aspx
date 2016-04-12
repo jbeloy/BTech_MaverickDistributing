@@ -193,7 +193,7 @@
                 <asp:ControlParameter ControlID="txtMake" Name="MakeName" PropertyName="Text" Type="String" />
                 <asp:ControlParameter ControlID="txtModel" Name="ModelName" PropertyName="Text" Type="String" />
                 <asp:ControlParameter ControlID="txtManufacturer" DefaultValue="" Name="ManufacturerName" PropertyName="Text" Type="String" />
-                <asp:ControlParameter ControlID="txtYear" Name="YearID" PropertyName="Text" Type="Int32" />
+                <asp:ControlParameter ControlID="txtYear" Name="YearID" PropertyName="Text" Type="String" />
                 <asp:ControlParameter ControlID="txtPartNumber" Name="PartNumber" PropertyName="Text" Type="String" />
                 <asp:ControlParameter ControlID="txtPartDesc" Name="PartDesc" PropertyName="Text" Type="String" />
             </SelectParameters>
