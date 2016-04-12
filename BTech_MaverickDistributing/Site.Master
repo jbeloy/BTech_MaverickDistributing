@@ -110,7 +110,7 @@
                     </nav>
                 </li>
                 <li>
-                    <img src="Images/maverick_logo.gif" />
+                    <a href="http://www.maverickdistributing.com/" target="_blank"><img src="Images/maverick_logo.gif" /></a>
                 </li>
                 <%--<li>
                     <a>Example Menu Item 1</a>

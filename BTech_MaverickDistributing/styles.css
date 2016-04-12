@@ -195,7 +195,7 @@ small {
   text-align: center;
 }
 .gn-menu-main > li > a {
-  padding: 10% 60px;
+  padding: 0 60px;
   padding-left: 80px;
   text-transform: uppercase;
   letter-spacing: 1px;
