@@ -188,16 +188,37 @@
     </asp:SqlDataSource>
     <asp:SqlDataSource ID="SQL_AdvancedPartSearch" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="GetAdvancedSearchParts" SelectCommandType="StoredProcedure">
             <SelectParameters>
-                <asp:ControlParameter ControlID="txtType" Name="EquipmentType" PropertyName="Text" Type="String" />
-                <asp:ControlParameter ControlID="txtCategory" Name="Category" PropertyName="Text" Type="String" />
-                <asp:ControlParameter ControlID="txtMake" Name="MakeName" PropertyName="Text" Type="String" />
-                <asp:ControlParameter ControlID="txtModel" Name="ModelName" PropertyName="Text" Type="String" />
-                <asp:ControlParameter ControlID="txtManufacturer" DefaultValue="" Name="ManufacturerName" PropertyName="Text" Type="String" />
-                <asp:ControlParameter ControlID="txtYear" Name="YearID" PropertyName="Text" Type="String" />
+                <asp:ControlParameter ControlID="drpType" Name="EquipmentType" PropertyName="SelectedValue" Type="String" />
+                <asp:ControlParameter ControlID="drpCategory" Name="Category" PropertyName="SelectedValue" Type="String" />
+                <asp:ControlParameter ControlID="drpMake" Name="MakeName" PropertyName="SelectedValue" Type="String" />
+                <asp:ControlParameter ControlID="drpModel" Name="ModelName" PropertyName="SelectedValue" Type="String" />
+                <asp:ControlParameter ControlID="drpManufacturer" DefaultValue="" Name="ManufacturerName" PropertyName="SelectedValue" Type="String" />
+                <asp:ControlParameter ControlID="drpYear" Name="YearID" PropertyName="SelectedValue" Type="String" />
                 <asp:ControlParameter ControlID="txtPartNumber" Name="PartNumber" PropertyName="Text" Type="String" />
                 <asp:ControlParameter ControlID="txtPartDesc" Name="PartDesc" PropertyName="Text" Type="String" />
             </SelectParameters>
         </asp:SqlDataSource>
+
+    <asp:DropDownList ID="drpType" runat="server" DataSourceID="SQLType" DataTextField="EquipmentTypeName" DataValueField="EquipmentTypeName">
+    </asp:DropDownList>
+
+    <asp:SqlDataSource ID="SQLType" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="SELECT [EquipmentTypeName] FROM [EquipmentType] ORDER BY [EquipmentTypeName]"></asp:SqlDataSource>
+
+    <asp:DropDownList ID="drpYear" runat="server" DataSourceID="SQLYear" DataTextField="EquipmentYearID" DataValueField="EquipmentYearID">
+    </asp:DropDownList>
+    <asp:SqlDataSource ID="SQLYear" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="SELECT [EquipmentYearID] FROM [EquipmentYear] ORDER BY [EquipmentYearID] DESC"></asp:SqlDataSource>
+    <asp:DropDownList ID="drpCategory" runat="server" DataSourceID="SQLCategory" DataTextField="CategoryName" DataValueField="CategoryName">
+    </asp:DropDownList>
+    <asp:SqlDataSource ID="SQLCategory" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="SELECT [CategoryName] FROM [Category] ORDER BY [CategoryName]"></asp:SqlDataSource>
+    <asp:DropDownList ID="drpManufacturer" runat="server" DataSourceID="SQLManufacturer" DataTextField="ManufacturerName" DataValueField="ManufacturerName">
+    </asp:DropDownList>
+    <asp:SqlDataSource ID="SQLManufacturer" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="SELECT [ManufacturerName] FROM [Manufacturer] ORDER BY [ManufacturerName]"></asp:SqlDataSource>
+    <asp:DropDownList ID="drpMake" runat="server" DataSourceID="SQLMake" DataTextField="MakeName" DataValueField="MakeName">
+    </asp:DropDownList>
+    <asp:SqlDataSource ID="SQLMake" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="SELECT [MakeName] FROM [Make] ORDER BY [MakeName]"></asp:SqlDataSource>
+    <asp:DropDownList ID="drpModel" runat="server" DataSourceID="SQLModel" DataTextField="ModelName" DataValueField="ModelName">
+    </asp:DropDownList>
+    <asp:SqlDataSource ID="SQLModel" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="SELECT [ModelName] FROM [Model] ORDER BY [ModelName]"></asp:SqlDataSource>
 
     <div id="advancedSearch" class="ulCont">
         <ul class="list-inline adSearch">
@@ -301,7 +322,7 @@
                     <br />
                     <asp:Button ID="btnSearchParts" runat="server" OnClick="btnSearchParts_Click" Text="Search" CssClass="btn btn-primary pull-right" />
                 </div>
-            </div>--%>            <%--<asp:Button ID="btnSearchParts" runat="server" OnClick="btnSearchParts_Click" Text="Search" CssClass="btn btn-primary pull-right" />--%>
+            </div>--%><%--<asp:Button ID="btnSearchParts" runat="server" OnClick="btnSearchParts_Click" Text="Search" CssClass="btn btn-primary pull-right" />--%>
         </div>
     </div>
     <hr />

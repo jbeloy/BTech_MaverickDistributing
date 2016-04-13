@@ -347,7 +347,7 @@ namespace BTech_MaverickDistributing
         protected void btnSearchParts_Click(object sender, EventArgs e)
         {
             //set the text parameters to 'empty arg' as the SQL datasource does not properly convert empty strings to null
-            if (string.IsNullOrWhiteSpace(txtMake.Text))
+            /*if (string.IsNullOrWhiteSpace(txtMake.Text))
                 txtMake.Text = " ";
             if (string.IsNullOrWhiteSpace(txtType.Text))
                 txtType.Text = " ";
@@ -358,7 +358,7 @@ namespace BTech_MaverickDistributing
             if (string.IsNullOrWhiteSpace(txtYear.Text))
                 txtYear.Text = " ";
             if (string.IsNullOrWhiteSpace(txtManufacturer.Text))
-                txtManufacturer.Text = " ";
+                txtManufacturer.Text = " ";*/
             if (string.IsNullOrWhiteSpace(txtPartNumber.Text))
                 txtPartNumber.Text = " ";
             if (string.IsNullOrWhiteSpace(txtPartDesc.Text))
