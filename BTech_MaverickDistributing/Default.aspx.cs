@@ -250,6 +250,8 @@ namespace BTech_MaverickDistributing
 
                         TV_Menu.SelectedNode.ChildNodes.Add(childNode);
                     }*/
+                    Session["make"] = arg[1];
+
                     TV_Menu.SelectedNode.Expand();
                     lblModelSearch.Visible = false;
                     txtModelPartSearch.Visible = false;
@@ -277,6 +279,9 @@ namespace BTech_MaverickDistributing
 
                         TV_Menu.SelectedNode.ChildNodes.Add(childNode);
                     }*/
+                    Session["make"] = makeArg[1];
+                    Session["year"] = arg[1];
+
                     TV_Menu.SelectedNode.Expand();
                     lblModelSearch.Visible = false;
                     txtModelPartSearch.Visible = false;
@@ -304,6 +309,10 @@ namespace BTech_MaverickDistributing
 
                         TV_Menu.SelectedNode.ChildNodes.Add(childNode);
                     }*/
+                    Session["make"] = makeArg[1];
+                    Session["year"] = yearArg[1];
+                    Session["model"] = arg[1];
+
                     TV_Menu.SelectedNode.Expand();
                     lblModelSearch.Text = "Model part search: ";
                     lblModelSearch.Visible = true;
@@ -463,7 +472,7 @@ namespace BTech_MaverickDistributing
 
                             e.Node.ChildNodes.Add(childNode);
                         }
-
+                        Session["make"] = arg[1];
                         lblModelSearch.Visible = false;
                         txtModelPartSearch.Visible = false;
                         btnModelSearch.Visible = false;
@@ -490,7 +499,8 @@ namespace BTech_MaverickDistributing
 
                             e.Node.ChildNodes.Add(childNode);
                         }
-
+                        Session["make"] = makeArg[1];
+                        Session["year"] = arg[1];
                         lblModelSearch.Visible = false;
                         txtModelPartSearch.Visible = false;
                         btnModelSearch.Visible = false;
@@ -518,6 +528,9 @@ namespace BTech_MaverickDistributing
                             e.Node.ChildNodes.Add(childNode);
                         }
 
+                        Session["make"] = makeArg[1];
+                        Session["year"] = yearArg[1];
+                        Session["model"] = arg[1];
                         lblModelSearch.Text = "Model part search: ";
                         lblModelSearch.Visible = true;
                         txtModelPartSearch.Visible = true;

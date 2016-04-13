@@ -301,8 +301,7 @@
                     <br />
                     <asp:Button ID="btnSearchParts" runat="server" OnClick="btnSearchParts_Click" Text="Search" CssClass="btn btn-primary pull-right" />
                 </div>
-            </div>--%>
-            <%--<asp:Button ID="btnSearchParts" runat="server" OnClick="btnSearchParts_Click" Text="Search" CssClass="btn btn-primary pull-right" />--%>
+            </div>--%>            <%--<asp:Button ID="btnSearchParts" runat="server" OnClick="btnSearchParts_Click" Text="Search" CssClass="btn btn-primary pull-right" />--%>
         </div>
     </div>
     <hr />
