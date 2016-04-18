@@ -47,6 +47,20 @@ namespace BTech_MaverickDistributing
                     }
                 }
             }
+            else
+            {
+                if (!CHK_toggleAdvanced.Checked)
+                {
+                    drillDownSearch.Attributes.Add("style", "display: none;");
+                    advancedSearch.Attributes.Remove("style");
+                    CHK_toggleDrillDown.Checked = false;
+                }
+                else
+                {
+                    drillDownSearch.Attributes.Remove("style");
+                    advancedSearch.Attributes.Add("style", "display: none;");
+                }
+            }
         }
         //public void LoadTreeViewTest()
         //{
@@ -561,6 +575,38 @@ namespace BTech_MaverickDistributing
                 }
             }
 
+        }
+
+        protected void CHK_toggleAdvanced_CheckedChanged(object sender, EventArgs e)
+        {
+            //Wehn the check is changed, check checkbox state, then hide or show drill down selection.
+            if(!CHK_toggleAdvanced.Checked)
+            {
+                drillDownSearch.Attributes.Add("style", "display: none;");
+                advancedSearch.Attributes.Remove("style");
+                CHK_toggleDrillDown.Checked = false;
+            }
+            else
+            {
+                drillDownSearch.Attributes.Remove("style");
+                advancedSearch.Attributes.Add("style", "display: none;");
+            }
+        }
+
+        protected void CHK_toggleDrillDown_CheckedChanged(object sender, EventArgs e)
+        {
+            //Wehn the check is changed, check checkbox state, then hide or show drill down selection.
+            if (!CHK_toggleDrillDown.Checked)
+            {
+                drillDownSearch.Attributes.Add("style", "display: none;");
+                advancedSearch.Attributes.Remove("style");
+                CHK_toggleAdvanced.Checked = false;
+            }
+            else
+            {
+                drillDownSearch.Attributes.Remove("style");
+                advancedSearch.Attributes.Add("style", "display: none;");
+            }
         }
     }
 }

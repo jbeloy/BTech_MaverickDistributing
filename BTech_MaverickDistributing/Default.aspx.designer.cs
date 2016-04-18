@@ -40,15 +40,6 @@ namespace BTech_MaverickDistributing {
         protected global::System.Web.UI.WebControls.SqlDataSource SQL_AdvancedPartSearch;
         
         /// <summary>
-        /// drpType control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList drpType;
-        
-        /// <summary>
         /// SQLType control.
         /// </summary>
         /// <remarks>
@@ -56,15 +47,6 @@ namespace BTech_MaverickDistributing {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.SqlDataSource SQLType;
-        
-        /// <summary>
-        /// drpYear control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList drpYear;
         
         /// <summary>
         /// SQLYear control.
@@ -76,15 +58,6 @@ namespace BTech_MaverickDistributing {
         protected global::System.Web.UI.WebControls.SqlDataSource SQLYear;
         
         /// <summary>
-        /// drpCategory control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList drpCategory;
-        
-        /// <summary>
         /// SQLCategory control.
         /// </summary>
         /// <remarks>
@@ -92,15 +65,6 @@ namespace BTech_MaverickDistributing {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.SqlDataSource SQLCategory;
-        
-        /// <summary>
-        /// drpManufacturer control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList drpManufacturer;
         
         /// <summary>
         /// SQLManufacturer control.
@@ -112,15 +76,6 @@ namespace BTech_MaverickDistributing {
         protected global::System.Web.UI.WebControls.SqlDataSource SQLManufacturer;
         
         /// <summary>
-        /// drpMake control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList drpMake;
-        
-        /// <summary>
         /// SQLMake control.
         /// </summary>
         /// <remarks>
@@ -128,15 +83,6 @@ namespace BTech_MaverickDistributing {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.SqlDataSource SQLMake;
-        
-        /// <summary>
-        /// drpModel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList drpModel;
         
         /// <summary>
         /// SQLModel control.
@@ -148,40 +94,67 @@ namespace BTech_MaverickDistributing {
         protected global::System.Web.UI.WebControls.SqlDataSource SQLModel;
         
         /// <summary>
-        /// txtType control.
+        /// advancedSearch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtType;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl advancedSearch;
         
         /// <summary>
-        /// txtYear control.
+        /// drpType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtYear;
+        protected global::System.Web.UI.WebControls.DropDownList drpType;
         
         /// <summary>
-        /// txtCategory control.
+        /// drpYear control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCategory;
+        protected global::System.Web.UI.WebControls.DropDownList drpYear;
         
         /// <summary>
-        /// txtManufacturer control.
+        /// drpCategory control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtManufacturer;
+        protected global::System.Web.UI.WebControls.DropDownList drpCategory;
+        
+        /// <summary>
+        /// drpManufacturer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList drpManufacturer;
+        
+        /// <summary>
+        /// drpMake control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList drpMake;
+        
+        /// <summary>
+        /// drpModel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList drpModel;
         
         /// <summary>
         /// txtPartNumber control.
@@ -191,24 +164,6 @@ namespace BTech_MaverickDistributing {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtPartNumber;
-        
-        /// <summary>
-        /// txtMake control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtMake;
-        
-        /// <summary>
-        /// txtModel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtModel;
         
         /// <summary>
         /// txtPartDesc control.
@@ -227,6 +182,24 @@ namespace BTech_MaverickDistributing {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Button1;
+        
+        /// <summary>
+        /// CHK_toggleAdvanced control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox CHK_toggleAdvanced;
+        
+        /// <summary>
+        /// drillDownSearch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl drillDownSearch;
         
         /// <summary>
         /// lblModelSearch control.
@@ -263,6 +236,15 @@ namespace BTech_MaverickDistributing {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TreeView TV_Menu;
+        
+        /// <summary>
+        /// CHK_toggleDrillDown control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox CHK_toggleDrillDown;
         
         /// <summary>
         /// LV_PartSearch control.

@@ -5,16 +5,15 @@
 
     <script>
 
-        $(document).ready(function () {
+        ////When the checkbox is checked, hide the advanced search, and show the drill down search.
+        //$('#CHK_toggleAdvanced').click(function () {
+        //    if ($('drillDownSearch').hasClass('hidden')) {
+        //        //if dds has hidden class, remove the class and apply it to advanced search.
+        //        $('drillDownSearch').removeClass('hidden');
+        //    }
+        //});
 
-            //When the checkbox is checked, hide the advanced search, and show the drill down search.
-            $('#toggleAdvanced').click(function () {
-                if ($('drillDownSearch').hasClass('hidden'))
-                {
-                    //if dds has hidden class, remove the class and apply it to advanced search.
-                    $('drillDownSearch').removeClass('hidden');
-                }
-            });
+        $(document).ready(function () {
 
             //
             // Settings
@@ -198,89 +197,73 @@
                 <asp:ControlParameter ControlID="txtPartDesc" Name="PartDesc" PropertyName="Text" Type="String" />
             </SelectParameters>
         </asp:SqlDataSource>
-
-    <asp:DropDownList ID="drpType" runat="server" DataSourceID="SQLType" DataTextField="EquipmentTypeName" DataValueField="EquipmentTypeName">
-    </asp:DropDownList>
-
     <asp:SqlDataSource ID="SQLType" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="SELECT [EquipmentTypeName] FROM [EquipmentType] ORDER BY [EquipmentTypeName]"></asp:SqlDataSource>
-
-    <asp:DropDownList ID="drpYear" runat="server" DataSourceID="SQLYear" DataTextField="EquipmentYearID" DataValueField="EquipmentYearID">
-    </asp:DropDownList>
     <asp:SqlDataSource ID="SQLYear" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="SELECT [EquipmentYearID] FROM [EquipmentYear] ORDER BY [EquipmentYearID] DESC"></asp:SqlDataSource>
-    <asp:DropDownList ID="drpCategory" runat="server" DataSourceID="SQLCategory" DataTextField="CategoryName" DataValueField="CategoryName">
-    </asp:DropDownList>
     <asp:SqlDataSource ID="SQLCategory" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="SELECT [CategoryName] FROM [Category] ORDER BY [CategoryName]"></asp:SqlDataSource>
-    <asp:DropDownList ID="drpManufacturer" runat="server" DataSourceID="SQLManufacturer" DataTextField="ManufacturerName" DataValueField="ManufacturerName">
-    </asp:DropDownList>
     <asp:SqlDataSource ID="SQLManufacturer" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="SELECT [ManufacturerName] FROM [Manufacturer] ORDER BY [ManufacturerName]"></asp:SqlDataSource>
-    <asp:DropDownList ID="drpMake" runat="server" DataSourceID="SQLMake" DataTextField="MakeName" DataValueField="MakeName">
-    </asp:DropDownList>
     <asp:SqlDataSource ID="SQLMake" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="SELECT [MakeName] FROM [Make] ORDER BY [MakeName]"></asp:SqlDataSource>
-    <asp:DropDownList ID="drpModel" runat="server" DataSourceID="SQLModel" DataTextField="ModelName" DataValueField="ModelName">
-    </asp:DropDownList>
     <asp:SqlDataSource ID="SQLModel" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="SELECT [ModelName] FROM [Model] ORDER BY [ModelName]"></asp:SqlDataSource>
 
-    <div id="advancedSearch" class="ulCont">
+    <div id="advancedSearch" class="ulCont" runat="server">
+        <ul class="list-inline adSearch" style="text-align:center; margin-left:auto; margin-right:auto;">
+            <li>
+                <h2>ADVANCED SEARCH</h2>
+            </li>
+        </ul>
+        <hr />
         <ul class="list-inline adSearch">
             <li>
                 TYPE
-                <asp:TextBox ID="txtType" runat="server" CssClass="form-control adSearchControls"></asp:TextBox>
+                <asp:DropDownList ID="drpType" CssClass="form-control" runat="server" DataSourceID="SQLType" DataTextField="EquipmentTypeName" DataValueField="EquipmentTypeName"></asp:DropDownList>
             </li>
             <li>
                 YEAR
-                <asp:TextBox ID="txtYear" runat="server" CssClass="form-control adSearchControls"></asp:TextBox>
+                <asp:DropDownList ID="drpYear" CssClass="form-control" runat="server" DataSourceID="SQLYear" DataTextField="EquipmentYearID" DataValueField="EquipmentYearID"></asp:DropDownList>
             </li>
             <li>
                 CATEGORY
-                <asp:TextBox ID="txtCategory" runat="server" CssClass="form-control adSearchControls"></asp:TextBox>
+                <asp:DropDownList ID="drpCategory" CssClass="form-control" runat="server" DataSourceID="SQLCategory" DataTextField="CategoryName" DataValueField="CategoryName"></asp:DropDownList>
             </li>
             <li>
                 MANUFACTURER
-                <asp:TextBox ID="txtManufacturer" runat="server" CssClass="form-control adSearchControls"></asp:TextBox>
+                <asp:DropDownList ID="drpManufacturer" CssClass="form-control" runat="server" DataSourceID="SQLManufacturer" DataTextField="ManufacturerName" DataValueField="ManufacturerName"></asp:DropDownList>
             </li>
         </ul>
         <ul class="list-inline adSearch">
-                    <li>
-                        PART NUMBER
-                        <asp:TextBox ID="txtPartNumber" runat="server" CssClass="form-control adSearchControls"></asp:TextBox>
-                    </li>
-                    <li>
-                        MAKE
-                        <asp:TextBox ID="txtMake" runat="server" CssClass="form-control adSearchControls"></asp:TextBox>
-                    </li>
-                    <li>
-                        MODEL
-                        <asp:TextBox ID="txtModel" runat="server" CssClass="form-control adSearchControls"></asp:TextBox>
-                    </li>
-                    <li>
-                         PART DESCRIPTION
-                        <asp:TextBox ID="txtPartDesc" runat="server" CssClass="form-control adSearchControls"></asp:TextBox>
-                    </li>
-                    <li>
-                        <asp:Button ID="Button1" runat="server" OnClick="btnSearchParts_Click" Text="Search" CssClass="searchButton" />
-                    </li>
-                </ul>
-        <ul>
             <li>
-                <section>
-                    <input id='one' type='checkbox' />
-                      <label for='one'>
-                        <span id="toggleAdvanced"></span>
-                        Drill-Down Selection
-                        <ins><i>Drill-Down Selection</i></ins>
-                      </label>
-                </section>
+                MAKE
+                <asp:DropDownList ID="drpMake" CssClass="form-control" runat="server" DataSourceID="SQLMake" DataTextField="MakeName" DataValueField="MakeName"></asp:DropDownList>
+            </li>
+            <li>
+                MODEL
+                <asp:DropDownList ID="drpModel" CssClass="form-control" runat="server" DataSourceID="SQLModel" DataTextField="ModelName" DataValueField="ModelName"></asp:DropDownList>
+            </li>
+            <li>
+                PART NUMBER
+                <asp:TextBox ID="txtPartNumber" runat="server" CssClass="form-control adSearchControls"></asp:TextBox>
+            </li>            
+            <li>
+                 PART DESCRIPTION
+                <asp:TextBox ID="txtPartDesc" runat="server" CssClass="form-control adSearchControls"></asp:TextBox>
+            </li>
+            <li>
+                <asp:Button ID="Button1" runat="server" OnClick="btnSearchParts_Click" Text="Search" CssClass="searchButton" />
+            </li>
+        </ul>
+        <ul style="list-style: none;">
+            <li style="color: white;">
+                <asp:CheckBox ID="CHK_toggleAdvanced" runat="server" Text="Show Drill-Down Search" style="text-indent: 10px;" OnCheckedChanged="CHK_toggleAdvanced_CheckedChanged" AutoPostBack="true"/>
             </li>
         </ul>
     </div>
 
-    <div id="drillDownSearch" class="container">
+    <div id="drillDownSearch" class="container" runat="server" style="display: none;">
         <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align: center;">
                 <h1 class="hero-text">Drill-down select</h1>
                 <hr />
                 <div>
-                    <asp:Label ID="lblModelSearch" runat="server" Text="Model part search: " Visible="False"></asp:Label>
+                    <asp:Label ID="lblModelSearch" runat="server" Text="Model part search: " Visible="False" style="text-align: center;"></asp:Label>
                     <div style="display: flex;">
                         <asp:TextBox ID="txtModelPartSearch" CssClass="form-control" runat="server" Visible="false"></asp:TextBox>
                         <asp:Button ID="btnModelSearch" runat="server" CssClass="searchDrillDownButton" OnClick="btnModelSearch_Click" Text="Search" Visible="False" />
@@ -296,38 +279,17 @@
                 </asp:TreeView>
                 <br />
             </div>
-            <%--<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                <h1>Advanced Search</h1>
-                <hr />
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                    Type
-                    <asp:TextBox ID="txtType" runat="server" CssClass="form-control"></asp:TextBox>
-                    Year
-                    <asp:TextBox ID="txtYear" runat="server" CssClass="form-control"></asp:TextBox>
-                    Category
-                    <asp:TextBox ID="txtCategory" runat="server" CssClass="form-control"></asp:TextBox>
-                    Manufacturer
-                    <asp:TextBox ID="txtManufacturer" runat="server" CssClass="form-control"></asp:TextBox>
-                    Part Number
-                    <asp:TextBox ID="txtPartNumber" runat="server" CssClass="form-control"></asp:TextBox>
-                <br />
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                    Make
-                    <asp:TextBox ID="txtMake" runat="server" CssClass="form-control"></asp:TextBox>
-                    Model
-                    <asp:TextBox ID="txtModel" runat="server" CssClass="form-control"></asp:TextBox>
-                    Part Description
-                    <asp:TextBox ID="txtPartDesc" runat="server" CssClass="form-control"></asp:TextBox>
-                    <br />
-                    <asp:Button ID="btnSearchParts" runat="server" OnClick="btnSearchParts_Click" Text="Search" CssClass="btn btn-primary pull-right" />
-                </div>
-            </div>--%><%--<asp:Button ID="btnSearchParts" runat="server" OnClick="btnSearchParts_Click" Text="Search" CssClass="btn btn-primary pull-right" />--%>
         </div>
+        <ul style="list-style: none;">
+            <li>
+                <asp:CheckBox ID="CHK_toggleDrillDown" runat="server" Text="Show Drill-Down Search" style="text-indent: 10px;" OnCheckedChanged="CHK_toggleDrillDown_CheckedChanged" AutoPostBack="true" Checked="true"/>
+            </li>
+        </ul>
     </div>
+
     <hr />
 
-    <div class="container-fluid">
+    <div class="container">
         <div class="row">
         <asp:ListView ID="LV_PartSearch" runat="server" DataSourceID="SQL_ModelPartsSearch">
             <AlternatingItemTemplate>
@@ -550,13 +512,16 @@
     <div class="row">
         <asp:ListView ID="LV_PartsInfo" runat="server" DataSourceID="SQL_PartsInfo">
             <AlternatingItemTemplate>
-                <tr class="partsInfo">
+                <%--<tr class="partsInfo">
                     <td>
                         <asp:Label ID="MakeNameLabel" runat="server" Text='<%# Eval("MakeName") %>' />
-                    </td>
-                    <td>
+                    </td>--%>
+                    <%--<td>
                         <asp:Label ID="EquipmentTypeNameLabel" runat="server" Text='<%# Eval("EquipmentTypeName") %>' />
                     </td>
+                    <td colspan="2">
+                        <asp:Image ID="ImageFilePathImage" runat="server" src='<%# Eval("ImageFilePath") %>' Style="width:300px;" />
+                    </td> 
                     <td>
                         <asp:Label ID="CategoryNameLabel" runat="server" Text='<%# Eval("CategoryName") %>' />
                     </td>
@@ -578,10 +543,98 @@
                     <td>
                         <asp:Label ID="PriceLabel" runat="server" Text='<%# Eval("Price", "{0:$0.00}") %>' />
                     </td>
+                </tr>--%>
+                <tr class="partsInfoAlt">
+                    <%--<td>
+                        <asp:Label ID="MakeNameLabel" runat="server" Text='<%# Eval("MakeName") %>' />
+                    </td>
                     <td>
-                        <%--<asp:Label ID="ImageFilePathLabel" runat="server" Text='<%# Eval("ImageFilePath") %>' />--%>
-                        <asp:Image ID="ImageFilePathImage" runat="server" src='<%# Eval("ImageFilePath") %>' Style="width:300px;" />
-                    </td> 
+                        <asp:Label ID="EquipmentTypeNameLabel" runat="server" Text='<%# Eval("EquipmentTypeName") %>' />
+                    </td>--%>
+                    <td colspan="2" rowspan="5">
+                        <asp:Image ID="ImageFilePathImage" runat="server" src='<%# Eval("ImageFilePath") %>' Style="width:100%;max-height: 200px;max-width: 300px;" />
+                    </td>
+                    <td colspan="3" style="font-weight:bold;font-size:120%;">
+                        <asp:Label ID="PartDescLabel" runat="server" Text='<%# Eval("PartDesc") %>' />
+                    </td>
+                </tr>
+                <tr class="partsInfoAlt">
+                    <td>
+                        <div class="cardLabel">
+                            <asp:Label Text="PART #:" runat="server"></asp:Label>
+                        </div>
+                        <div class="cardLabel">
+                            <asp:Label ID="PartNumberLabel" runat="server" Text='<%# Eval("PartNumber") %>' />
+                        </div>
+                    </td>
+                    <td>
+                    </td>
+                    <td colspan="1">
+                        <div class="cardLabel">
+                            <asp:Label Text="YEAR:" runat="server"></asp:Label>
+                        </div>
+                        <div class="cardLabel">
+                            <asp:Label ID="YearIDLabel" runat="server" Text='<%# Eval("YearID") %>' />
+                        </div>
+                    </td>
+                </tr>
+                <tr class="partsInfoAlt">
+                    <td>
+                        <div class="cardLabel">
+                            <asp:Label runat="server" Text="PART MANUFACTURER:"></asp:Label>
+                        </div>
+                        <div class="cardLabel">
+                            <asp:Label ID="ManufacturerNameLabel" runat="server" Text='<%# Eval("ManufacturerName") %>' />
+                        </div>
+                    </td>
+                    <td>
+
+                    </td>
+                    <td>
+                        <div class="cardLabel">
+                            <asp:Label runat="server" Text="MAKE:"></asp:Label>
+                        </div>
+                        <div class="cardLabel">
+                            <asp:Label ID="MakeNameLabel" runat="server" Text='<%# Eval("MakeName") %>' />
+                        </div>
+                    </td>
+                </tr>
+                <tr class="partsInfoAlt">
+                    <td>
+
+                    </td>
+                    <td>
+                        
+                    </td>
+                    <td >
+                        <div class="cardLabel">
+                            <asp:Label runat="server" Text="MODEL:"></asp:Label>
+                        </div>
+                        <div class="cardLabel">
+                            <asp:Label ID="ModelNameLabel" runat="server" Text='<%# Eval("ModelName") %>' />
+                        </div>
+                    </td>
+                </tr>
+                <tr class="partsInfoAlt">
+                    <td>
+                        <div class="cardLabel">
+                            <asp:Label runat="server" Text="PRICE(CAD):"></asp:Label>
+                        </div>
+                        <div class="cardLabel">
+                            <asp:Label ID="PriceLabel" runat="server" Text='<%# Eval("Price", "{0:$0.00}") %>' />
+                        </div>
+                    </td>
+                    <td colspan="2"></td>
+                   <%-- <td>
+                        <asp:Label ID="ModelNameLabel" runat="server" Text='<%# Eval("ModelName") %>' />
+                    </td>
+                    <td>
+                        <asp:Label ID="YearIDLabel" runat="server" Text='<%# Eval("YearID") %>' />
+                    </td>
+                       <h4>PART CATEGORY:</h4><asp:Label ID="CategoryNameLabel" runat="server" Text='<%# Eval("CategoryName") %>' />
+                    <td>
+                        <asp:Label ID="ManufacturerNameLabel" runat="server" Text='<%# Eval("ManufacturerName") %>' />
+                    </td>--%>
                 </tr>
             </AlternatingItemTemplate>
             <EditItemTemplate>
@@ -590,12 +643,12 @@
                         <asp:Button ID="UpdateButton" runat="server" CommandName="Update" Text="Update" />
                         <asp:Button ID="CancelButton" runat="server" CommandName="Cancel" Text="Cancel" />
                     </td>
-                    <td>
+                    <%--<td>
                         <asp:TextBox ID="MakeNameTextBox" runat="server" Text='<%# Bind("MakeName") %>' />
                     </td>
                     <td>
                         <asp:TextBox ID="EquipmentTypeNameTextBox" runat="server" Text='<%# Bind("EquipmentTypeName") %>' />
-                    </td>
+                    </td>--%>
                     <td>
                         <asp:TextBox ID="CategoryNameTextBox" runat="server" Text='<%# Bind("CategoryName") %>' />
                     </td>
@@ -669,16 +722,34 @@
             </InsertItemTemplate>
             <ItemTemplate>
                 <tr class="partsInfoAlt">
-                    <td>
+                    <%--<td>
                         <asp:Label ID="MakeNameLabel" runat="server" Text='<%# Eval("MakeName") %>' />
                     </td>
                     <td>
                         <asp:Label ID="EquipmentTypeNameLabel" runat="server" Text='<%# Eval("EquipmentTypeName") %>' />
+                    </td>--%>
+                    <td colspan="2" rowspan="4">
+                        <asp:Image ID="ImageFilePathImage" runat="server" src='<%# Eval("ImageFilePath") %>' Style="width:100%;max-height: 200px;max-width: 300px;" />
                     </td>
-                    <td>
+                    <td colspan="3" style="font-weight:bold;font-size:120%;">
+                        <asp:Label ID="PartDescLabel" runat="server" Text='<%# Eval("PartDesc") %>' />
+                    </td>
+                </tr>
+                <tr class="partsInfoAlt">
+                    <td colspan="3">
+                        <asp:Label ID="PartNumberLabel" runat="server" Text='<%# Eval("PartNumber") %>' />
+                    </td>
+                </tr>
+                <tr class="partsInfoAlt" />
+                    <td colspan="3">
                         <asp:Label ID="CategoryNameLabel" runat="server" Text='<%# Eval("CategoryName") %>' />
                     </td>
-                    <td>
+                </tr>
+                <tr class="partsInfoAlt">
+                    <td colspan="3">
+                        <asp:Label ID="PriceLabel" runat="server" Text='<%# Eval("Price", "{0:$0.00}") %>' />
+                    </td>
+                   <%-- <td>
                         <asp:Label ID="ModelNameLabel" runat="server" Text='<%# Eval("ModelName") %>' />
                     </td>
                     <td>
@@ -686,40 +757,27 @@
                     </td>
                     <td>
                         <asp:Label ID="ManufacturerNameLabel" runat="server" Text='<%# Eval("ManufacturerName") %>' />
-                    </td>
-                    <td>
-                        <asp:Label ID="PartNumberLabel" runat="server" Text='<%# Eval("PartNumber") %>' />
-                    </td>
-                    <td>
-                        <asp:Label ID="PartDescLabel" runat="server" Text='<%# Eval("PartDesc") %>' />
-                    </td>
-                    <td>
-                        <asp:Label ID="PriceLabel" runat="server" Text='<%# Eval("Price", "{0:$0.00}") %>' />
-                    </td>
-                    <td>
-                        <%--<asp:Label ID="ImageFilePathLabel" runat="server" Text='<%# Eval("ImageFilePath") %>' />--%>
-                        <asp:Image ID="ImageFilePathImage" runat="server" src='<%# Eval("ImageFilePath") %>' Style="width:300px;" />
-                    </td>
+                    </td>--%>
                 </tr>
             </ItemTemplate>
             <LayoutTemplate>
                 <table runat="server" class="partsinfoClass">
                     <tr runat="server">
                         <td runat="server">
-                            <table id="itemPlaceholderContainer" runat="server" border="1" class="partsinfoClass">
+                            <table id="itemPlaceholderContainer" runat="server" border="1" class="partsinfoClass" style="padding-top: 25px;">
                                 <tr runat="server" style="background-color:#DCDCDC;color: #000000;">
-                                    <th runat="server">MakeName</th>
-                                    <th runat="server">EquipmentTypeName</th>
-                                    <th runat="server">CategoryName</th>
-                                    <th runat="server">ModelName</th>
-                                    <th runat="server">YearID</th>
-                                    <th runat="server">ManufacturerName</th>
-                                    <th runat="server">PartNumber</th>
-                                    <th runat="server">PartDesc</th>
-                                    <th runat="server">Price</th>
-                                    <th runat="server">ImageFilePath</th>
+                                    <%--<th runat="server">MakeName</th>
+                                    <th runat="server">EquipmentTypeName</th>--%>
+                                    <%--<th runat="server"  colspan="2"></th>
+                                    <th runat="server">Part Category</th>
+                                    <th runat="server">Model</th>
+                                    <th runat="server">Year</th>
+                                    <th runat="server">Manufacturer</th>
+                                    <th runat="server">Part #</th>
+                                    <th runat="server">Part Description</th>
+                                    <th runat="server">Price (CAD)</th>--%>
                                 </tr>
-                                <tr id="itemPlaceholder" runat="server">
+                                <tr id="itemPlaceholder" runat="server" >
                                 </tr>
                             </table>
                         </td>

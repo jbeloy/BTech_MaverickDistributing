@@ -73,7 +73,7 @@
 
         <div class="container">
             <ul id="gn-menu" class="gn-menu-main">
-                <li class="gn-trigger">	
+                <li class="gn-trigger" style="padding-top: 2%;min-height: 125px;">	
                   <a class="gn-icon gn-icon-menu"><span>Menu</span></a>
                     <nav class="gn-menu-wrapper">
                         <div class="gn-scroller">
@@ -109,7 +109,7 @@
                         <!-- /gn-scroller -->
                     </nav>
                 </li>
-                <li>
+                <li style="padding: 1%;">
                     <a href="http://www.maverickdistributing.com/" target="_blank"><img src="Images/maverick_logo.gif" /></a>
                 </li>
                 <%--<li>
