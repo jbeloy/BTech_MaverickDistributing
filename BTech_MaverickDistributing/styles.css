@@ -9,6 +9,7 @@
     width: 120px;
     /*color: white;*/
     font-size: 125%;
+    font-family: 'Fjalla One';
 }
 
 .partsInfo {
@@ -36,6 +37,15 @@
 
 .cardLabel{
     float: left;
+}
+
+.cardLeft{
+    padding-left: 5%;
+}
+
+.cardLeftInner{
+    padding-left: 2%;
+    color: #516272;
 }
 
         * {
