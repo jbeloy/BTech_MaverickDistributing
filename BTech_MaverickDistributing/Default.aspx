@@ -5,14 +5,6 @@
 
     <script>
 
-        ////When the checkbox is checked, hide the advanced search, and show the drill down search.
-        //$('#CHK_toggleAdvanced').click(function () {
-        //    if ($('drillDownSearch').hasClass('hidden')) {
-        //        //if dds has hidden class, remove the class and apply it to advanced search.
-        //        $('drillDownSearch').removeClass('hidden');
-        //    }
-        //});
-
         $(document).ready(function () {
 
             //
@@ -202,7 +194,7 @@ UNION
 SELECT [EquipmentTypeName] FROM [EquipmentType] ORDER BY [EquipmentTypeName]"></asp:SqlDataSource>
     <asp:SqlDataSource ID="SQLYear" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="SELECT ' ' as EquipmentYearID
 UNION
-SELECT Cast(EquipmentYearID as VARCHAR(50)) as EquipmentYearID FROM [EquipmentYear] ORDER BY [EquipmentYearID] "></asp:SqlDataSource>
+SELECT Cast(EquipmentYearID as VARCHAR(50)) as EquipmentYearID FROM [EquipmentYear] ORDER BY [EquipmentYearID]"></asp:SqlDataSource>
     <asp:SqlDataSource ID="SQLCategory" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="SELECT ' ' as CategoryName
 UNION
 SELECT [CategoryName] FROM [Category] ORDER BY [CategoryName]"></asp:SqlDataSource>
@@ -301,10 +293,10 @@ SELECT [ModelName] FROM [Model] ORDER BY [ModelName]"></asp:SqlDataSource>
 
     <hr />
 
-    <div class="container">
+<%--    <div class="container">
         <div class="row">
         <asp:ListView ID="LV_PartSearch" runat="server" DataSourceID="SQL_ModelPartsSearch">
-            <AlternatingItemTemplate>
+            <%--<AlternatingItemTemplate>
                 <tr class="partsInfo">
                     <td>
                         <asp:Label ID="MakeNameLabel" runat="server" Text='<%# Eval("MakeName") %>' />
@@ -336,6 +328,94 @@ SELECT [ModelName] FROM [Model] ORDER BY [ModelName]"></asp:SqlDataSource>
                     <td>
                         <asp:Label ID="ImageFilePathLabel" runat="server" Text='<%# Eval("ImageFilePath") %>' />
                     </td> 
+                </tr>
+            </AlternatingItemTemplate>
+            <AlternatingItemTemplate>
+                <tr class="partsInfoAlt">
+                    <td colspan="2" rowspan="5">
+                        <asp:Image ID="ImageFilePathImage" runat="server" src='<%# Eval("ImageFilePath") %>' Style="width:100%;max-height: 200px;max-width: 300px;" />
+                    </td>
+                    <td colspan="3" style="font-weight:bold;font-size:120%;">
+                        <asp:Label ID="PartDescLabel" runat="server" Text='<%# Eval("PartDesc") %>' />
+                    </td>
+                </tr>
+                <tr class="partsInfoAlt">
+                    <td>
+                        <div class="cardLabel">
+                            <asp:Label Text="PART #:" runat="server"></asp:Label>
+                        </div>
+                        <div class="cardLabel">
+                            <asp:Label ID="PartNumberLabel" runat="server" Text='<%# Eval("PartNumber") %>' />
+                        </div>
+                    </td>
+                    <td>
+                    </td>
+                    <td colspan="1">
+                        <div class="cardLabel">
+                            <asp:Label Text="YEAR:" runat="server"></asp:Label>
+                        </div>
+                        <div class="cardLabel">
+                            <asp:Label ID="YearIDLabel" runat="server" Text='<%# Eval("YearID") %>' />
+                        </div>
+                    </td>
+                </tr>
+                <tr class="partsInfoAlt">
+                    <td>
+                        <div class="cardLabel">
+                            <asp:Label runat="server" Text="PART MANUFACTURER:"></asp:Label>
+                        </div>
+                        <div class="cardLabel">
+                            <asp:Label ID="ManufacturerNameLabel" runat="server" Text='<%# Eval("ManufacturerName") %>' />
+                        </div>
+                    </td>
+                    <td>
+
+                    </td>
+                    <td>
+                        <div class="cardLabel">
+                            <asp:Label runat="server" Text="MAKE:"></asp:Label>
+                        </div>
+                        <div class="cardLabel">
+                            <asp:Label ID="MakeNameLabel" runat="server" Text='<%# Eval("MakeName") %>' />
+                        </div>
+                    </td>
+                </tr>
+                <tr class="partsInfoAlt">
+                    <td>
+
+                    </td>
+                    <td>
+                        
+                    </td>
+                    <td >
+                        <div class="cardLabel">
+                            <asp:Label runat="server" Text="MODEL:"></asp:Label>
+                        </div>
+                        <div class="cardLabel">
+                            <asp:Label ID="ModelNameLabel" runat="server" Text='<%# Eval("ModelName") %>' />
+                        </div>
+                    </td>
+                </tr>
+                <tr class="partsInfoAlt">
+                    <td>
+                        <div class="cardLabel">
+                            <asp:Label runat="server" Text="PRICE(CAD):"></asp:Label>
+                        </div>
+                        <div class="cardLabel">
+                            <asp:Label ID="PriceLabel" runat="server" Text='<%# Eval("Price", "{0:$0.00}") %>' />
+                        </div>
+                    </td>
+                    <td colspan="2"></td>
+                   <%-- <td>
+                        <asp:Label ID="ModelNameLabel" runat="server" Text='<%# Eval("ModelName") %>' />
+                    </td>
+                    <td>
+                        <asp:Label ID="YearIDLabel" runat="server" Text='<%# Eval("YearID") %>' />
+                    </td>
+                       <h4>PART CATEGORY:</h4><asp:Label ID="CategoryNameLabel" runat="server" Text='<%# Eval("CategoryName") %>' />
+                    <td>
+                        <asp:Label ID="ManufacturerNameLabel" runat="server" Text='<%# Eval("ManufacturerName") %>' />
+                    </td>
                 </tr>
             </AlternatingItemTemplate>
             <EditItemTemplate>
@@ -461,7 +541,7 @@ SELECT [ModelName] FROM [Model] ORDER BY [ModelName]"></asp:SqlDataSource>
                         <td runat="server">
                             <table id="itemPlaceholderContainer" runat="server" border="1" class="jobDetailsClass">
                                 <tr runat="server" style="background-color:#DCDCDC;color: #000000;">
-                                <%--<tr runat="server" style="">--%>
+                                <%--<tr runat="server" style="">
                                     <th runat="server">MakeName</th>
                                     <th runat="server">EquipmentTypeName</th>
                                     <th runat="server">CategoryName</th>
@@ -519,7 +599,7 @@ SELECT [ModelName] FROM [Model] ORDER BY [ModelName]"></asp:SqlDataSource>
             </SelectedItemTemplate>
         </asp:ListView>
         </div>
-    </div>
+    </div>--%>
 
     <div class="row">
         <asp:ListView ID="LV_PartsInfo" runat="server" DataSourceID="SQL_PartsInfo">
@@ -838,7 +918,7 @@ SELECT [ModelName] FROM [Model] ORDER BY [ModelName]"></asp:SqlDataSource>
     
     <div class="row">
         <asp:ListView ID="LV_AdvancedPartSearch" runat="server" DataSourceID="SQL_AdvancedPartSearch">
-            <AlternatingItemTemplate>
+            <%--<AlternatingItemTemplate>
                 <tr class="partsInfo">
                     <td>
                         <asp:Label ID="MakeNameLabel" runat="server" Text='<%# Eval("MakeName") %>' />
@@ -868,9 +948,86 @@ SELECT [ModelName] FROM [Model] ORDER BY [ModelName]"></asp:SqlDataSource>
                         <asp:Label ID="PriceLabel" runat="server" Text='<%# Eval("Price", "{0:$0.00}") %>' />
                     </td>
                     <td>
-                        <%--<asp:Label ID="ImageFilePathLabel" runat="server" Text='<%# Eval("ImageFilePath") %>' />--%>
                         <asp:Image ID="ImageFilePathImage" runat="server" src='<%# Eval("ImageFilePath") %>' Style="width:300px;" />
                     </td> 
+                </tr>
+            </AlternatingItemTemplate>--%>
+            <AlternatingItemTemplate>
+                <tr class="partsInfoAlt">
+                    <td colspan="2" rowspan="5">
+                        <asp:Image ID="ImageFilePathImage" runat="server" src='<%# Eval("ImageFilePath") %>' Style="width:100%;max-height: 200px;max-width: 300px;" />
+                    </td>
+                    <td colspan="3" style="font-weight:bold;font-size:120%;">
+                        <asp:Label ID="PartDescLabel" runat="server" Text='<%# Eval("PartDesc") %>' style="padding:5%;"/>
+                    </td>
+                </tr>
+                <tr class="partsInfoAlt">
+                    <td>
+                        <div class="cardLabel">
+                            <asp:Label Text="PART #:" runat="server"></asp:Label>
+                        </div>
+                        <div class="cardLabel">
+                            <asp:Label ID="PartNumberLabel" runat="server" Text='<%# Eval("PartNumber") %>' />
+                        </div>
+                    </td>
+                    <td>
+                    </td>
+                    <td colspan="1">
+                        <div class="cardLabel">
+                            <asp:Label Text="YEAR:" runat="server"></asp:Label>
+                        </div>
+                        <div class="cardLabel">
+                            <asp:Label ID="YearIDLabel" runat="server" Text='<%# Eval("YearID") %>' />
+                        </div>
+                    </td>
+                </tr>
+                <tr class="partsInfoAlt">
+                    <td>
+                        <div class="cardLabel">
+                            <asp:Label runat="server" Text="PART MANUFACTURER:"></asp:Label>
+                        </div>
+                        <div class="cardLabel">
+                            <asp:Label ID="ManufacturerNameLabel" runat="server" Text='<%# Eval("ManufacturerName") %>' />
+                        </div>
+                    </td>
+                    <td>
+
+                    </td>
+                    <td>
+                        <div class="cardLabel">
+                            <asp:Label runat="server" Text="MAKE:"></asp:Label>
+                        </div>
+                        <div class="cardLabel">
+                            <asp:Label ID="MakeNameLabel" runat="server" Text='<%# Eval("MakeName") %>' />
+                        </div>
+                    </td>
+                </tr>
+                <tr class="partsInfoAlt">
+                    <td>
+
+                    </td>
+                    <td>
+                        
+                    </td>
+                    <td >
+                        <div class="cardLabel">
+                            <asp:Label runat="server" Text="MODEL:"></asp:Label>
+                        </div>
+                        <div class="cardLabel">
+                            <asp:Label ID="ModelNameLabel" runat="server" Text='<%# Eval("ModelName") %>' />
+                        </div>
+                    </td>
+                </tr>
+                <tr class="partsInfoAlt">
+                    <td>
+                        <div class="cardLabel">
+                            <asp:Label runat="server" Text="PRICE(CAD):"></asp:Label>
+                        </div>
+                        <div class="cardLabel">
+                            <asp:Label ID="PriceLabel" runat="server" Text='<%# Eval("Price", "{0:$0.00}") %>' />
+                        </div>
+                    </td>
+                    <td colspan="2"></td>
                 </tr>
             </AlternatingItemTemplate>
             <EditItemTemplate>
@@ -956,7 +1113,7 @@ SELECT [ModelName] FROM [Model] ORDER BY [ModelName]"></asp:SqlDataSource>
                     </td>
                 </tr>
             </InsertItemTemplate>
-            <ItemTemplate>
+            <%--<ItemTemplate>
                 <tr class="partsInfoAlt">
                     <td>
                         <asp:Label ID="MakeNameLabel" runat="server" Text='<%# Eval("MakeName") %>' />
@@ -986,12 +1143,89 @@ SELECT [ModelName] FROM [Model] ORDER BY [ModelName]"></asp:SqlDataSource>
                         <asp:Label ID="PriceLabel" runat="server" Text='<%# Eval("Price", "{0:$0.00}") %>' />
                     </td>
                     <td>
-                        <%--<asp:Label ID="ImageFilePathLabel" runat="server" Text='<%# Eval("ImageFilePath") %>' />--%>
                         <asp:Image ID="ImageFilePathImage" runat="server" src='<%# Eval("ImageFilePath") %>' Style="width:300px;" />
                     </td>
                 </tr>
+            </ItemTemplate>--%>
+            <ItemTemplate>
+                 <tr class="partsInfoAlt">
+                    <td colspan="2" rowspan="5">
+                        <asp:Image ID="ImageFilePathImage" runat="server" src='<%# Eval("ImageFilePath") %>' Style="width:100%;max-height: 200px;max-width: 300px;" />
+                    </td>
+                    <td colspan="3" style="font-weight:bold;font-size:120%;">
+                        <asp:Label ID="PartDescLabel" runat="server" Text='<%# Eval("PartDesc") %>' style="padding:5%;"/>
+                    </td>
+                </tr>
+                <tr class="partsInfoAlt">
+                    <td>
+                        <div class="cardLabel">
+                            <asp:Label Text="PART #:" runat="server"></asp:Label>
+                        </div>
+                        <div class="cardLabel">
+                            <asp:Label ID="PartNumberLabel" runat="server" Text='<%# Eval("PartNumber") %>' />
+                        </div>
+                    </td>
+                    <td>
+                    </td>
+                    <td colspan="1">
+                        <div class="cardLabel">
+                            <asp:Label Text="YEAR:" runat="server"></asp:Label>
+                        </div>
+                        <div class="cardLabel">
+                            <asp:Label ID="YearIDLabel" runat="server" Text='<%# Eval("YearID") %>' />
+                        </div>
+                    </td>
+                </tr>
+                <tr class="partsInfoAlt">
+                    <td>
+                        <div class="cardLabel">
+                            <asp:Label runat="server" Text="PART MANUFACTURER:"></asp:Label>
+                        </div>
+                        <div class="cardLabel">
+                            <asp:Label ID="ManufacturerNameLabel" runat="server" Text='<%# Eval("ManufacturerName") %>' />
+                        </div>
+                    </td>
+                    <td>
+
+                    </td>
+                    <td>
+                        <div class="cardLabel">
+                            <asp:Label runat="server" Text="MAKE:"></asp:Label>
+                        </div>
+                        <div class="cardLabel">
+                            <asp:Label ID="MakeNameLabel" runat="server" Text='<%# Eval("MakeName") %>' />
+                        </div>
+                    </td>
+                </tr>
+                <tr class="partsInfoAlt">
+                    <td>
+
+                    </td>
+                    <td>
+                        
+                    </td>
+                    <td >
+                        <div class="cardLabel">
+                            <asp:Label runat="server" Text="MODEL:"></asp:Label>
+                        </div>
+                        <div class="cardLabel">
+                            <asp:Label ID="ModelNameLabel" runat="server" Text='<%# Eval("ModelName") %>' />
+                        </div>
+                    </td>
+                </tr>
+                <tr class="partsInfoAlt">
+                    <td>
+                        <div class="cardLabel">
+                            <asp:Label runat="server" Text="PRICE(CAD):"></asp:Label>
+                        </div>
+                        <div class="cardLabel">
+                            <asp:Label ID="PriceLabel" runat="server" Text='<%# Eval("Price", "{0:$0.00}") %>' />
+                        </div>
+                    </td>
+                    <td colspan="2"></td>
+                </tr>
             </ItemTemplate>
-            <LayoutTemplate>
+            <%--<LayoutTemplate>
                 <table runat="server" class="partsinfoClass">
                     <tr runat="server">
                         <td runat="server">
@@ -1009,6 +1243,23 @@ SELECT [ModelName] FROM [Model] ORDER BY [ModelName]"></asp:SqlDataSource>
                                     <th runat="server">ImageFilePath</th>
                                 </tr>
                                 <tr id="itemPlaceholder" runat="server">
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr runat="server">
+                        <td runat="server" style="text-align: center;background-color: #CCCCCC;font-family: Verdana, Arial, Helvetica, sans-serif;color: #000000;"></td>
+                    </tr>
+                </table>
+            </LayoutTemplate>--%>
+            <LayoutTemplate>
+                <table runat="server" class="partsinfoClass" style="border-spacing: 10px;border-collapse: separate;">
+                    <tr runat="server">
+                        <td runat="server">
+                            <table id="itemPlaceholderContainer" runat="server" border="1" class="partsinfoClass" style="padding-top: 25px;">
+                                <tr runat="server" style="background-color:#DCDCDC;color: #000000;">
+                                </tr>
+                                <tr id="itemPlaceholder" runat="server" style="border: solid black;">
                                 </tr>
                             </table>
                         </td>

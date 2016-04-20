@@ -21,7 +21,7 @@ namespace BTech_MaverickDistributing
             if(!Page.IsPostBack)
             {
                 LV_PartsInfo.Visible = false;
-                LV_PartSearch.Visible = false;
+                //LV_PartSearch.Visible = false;
                 LV_AdvancedPartSearch.Visible = false;
 
                 string cn = WebConfigurationManager.ConnectionStrings["md_dbConnectionString"].ConnectionString;
@@ -351,7 +351,7 @@ namespace BTech_MaverickDistributing
 
                     //When the part category is clicked, then we need to bind the listview and data source.
                     LV_PartsInfo.Visible = true;
-                    LV_PartSearch.Visible = false;
+                    //LV_PartSearch.Visible = false;
                     LV_AdvancedPartSearch.Visible = false;
                     LV_PartsInfo.DataBind();
                 }
@@ -379,7 +379,7 @@ namespace BTech_MaverickDistributing
                 txtPartDesc.Text = " ";
 
             LV_PartsInfo.Visible = false;
-            LV_PartSearch.Visible = false;
+            //LV_PartSearch.Visible = false;
             LV_AdvancedPartSearch.Visible = true;
             LV_AdvancedPartSearch.DataBind();
 
@@ -425,9 +425,9 @@ namespace BTech_MaverickDistributing
             //Session["search"] = txtModelPartSearch.Text;
 
             LV_PartsInfo.Visible = false;
-            LV_PartSearch.Visible = true;
+            //LV_PartSearch.Visible = true;
             LV_AdvancedPartSearch.Visible = false;
-            LV_PartSearch.DataBind();
+            //LV_PartSearch.DataBind();
         }
 
         protected void TV_Menu_TreeNodeExpanded(object sender, TreeNodeEventArgs e)
@@ -567,7 +567,7 @@ namespace BTech_MaverickDistributing
                         string e4 = Session["category"].ToString();
 
                         //When the part category is clicked, then we need to bind the listview and data source.
-                        LV_PartSearch.Visible = false;
+                        //LV_PartSearch.Visible = false;
                         LV_AdvancedPartSearch.Visible = false;
                         LV_PartsInfo.Visible = true;
                         LV_PartsInfo.DataBind();

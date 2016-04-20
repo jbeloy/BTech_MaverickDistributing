@@ -1,11 +1,13 @@
 ﻿.partsInfoAlt{
-    background: #373B3E;
-    color: #080808;
+    /*background: #373B3E;*/
+    /*color: #080808;*/
+    color: black;
     text-align: center;
     padding-left: 4px;
-    border: 10px solid #373B3E;
+    /*border: 10px solid #373B3E;*/
+    border: 10px solid white;
     width: 120px;
-    color: white;
+    /*color: white;*/
     font-size: 125%;
 }
 
