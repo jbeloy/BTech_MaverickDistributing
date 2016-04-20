@@ -197,12 +197,24 @@
                 <asp:ControlParameter ControlID="txtPartDesc" Name="PartDesc" PropertyName="Text" Type="String" />
             </SelectParameters>
         </asp:SqlDataSource>
-    <asp:SqlDataSource ID="SQLType" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="SELECT [EquipmentTypeName] FROM [EquipmentType] ORDER BY [EquipmentTypeName]"></asp:SqlDataSource>
-    <asp:SqlDataSource ID="SQLYear" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="SELECT [EquipmentYearID] FROM [EquipmentYear] ORDER BY [EquipmentYearID] DESC"></asp:SqlDataSource>
-    <asp:SqlDataSource ID="SQLCategory" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="SELECT [CategoryName] FROM [Category] ORDER BY [CategoryName]"></asp:SqlDataSource>
-    <asp:SqlDataSource ID="SQLManufacturer" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="SELECT [ManufacturerName] FROM [Manufacturer] ORDER BY [ManufacturerName]"></asp:SqlDataSource>
-    <asp:SqlDataSource ID="SQLMake" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="SELECT [MakeName] FROM [Make] ORDER BY [MakeName]"></asp:SqlDataSource>
-    <asp:SqlDataSource ID="SQLModel" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="SELECT [ModelName] FROM [Model] ORDER BY [ModelName]"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="SQLType" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="SELECT ' ' as EquipmentTypeName
+UNION
+SELECT [EquipmentTypeName] FROM [EquipmentType] ORDER BY [EquipmentTypeName]"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="SQLYear" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="SELECT ' ' as EquipmentYearID
+UNION
+SELECT Cast(EquipmentYearID as VARCHAR(50)) as EquipmentYearID FROM [EquipmentYear] ORDER BY [EquipmentYearID] "></asp:SqlDataSource>
+    <asp:SqlDataSource ID="SQLCategory" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="SELECT ' ' as CategoryName
+UNION
+SELECT [CategoryName] FROM [Category] ORDER BY [CategoryName]"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="SQLManufacturer" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="SELECT ' ' as ManufacturerName
+UNION
+SELECT [ManufacturerName] FROM [Manufacturer] ORDER BY [ManufacturerName]"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="SQLMake" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="SELECT ' ' as MakeName
+UNION
+SELECT [MakeName] FROM [Make] ORDER BY [MakeName]"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="SQLModel" runat="server" ConnectionString="<%$ ConnectionStrings:md_dbConnectionString %>" SelectCommand="SELECT ' ' as ModelName
+UNION
+SELECT [ModelName] FROM [Model] ORDER BY [ModelName]"></asp:SqlDataSource>
 
     <div id="advancedSearch" class="ulCont" runat="server">
         <ul class="list-inline adSearch" style="text-align:center; margin-left:auto; margin-right:auto;">
