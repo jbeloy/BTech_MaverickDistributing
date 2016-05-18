@@ -412,11 +412,11 @@ namespace BTech_MaverickDistributing
             //string[] makeArg = varSelectedNode.Parent.Parent.Value.Split('_');
             //string[] yearArg = varSelectedNode.Parent.Value.Split('_');
             //string[] modelArg = varSelectedNode.Value.Split('_');
-
-            Session["make"] = makeArg[1];
+              
+            Session["make"] = makeArg[1]; 
             Session["year"] = yearArg[1];
             Session["model"] = modelArg[1];
-
+             
             string e1 = Session["make"].ToString();
             string e2 = Session["year"].ToString();
             string e3 = Session["model"].ToString();
