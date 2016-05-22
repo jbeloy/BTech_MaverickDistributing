@@ -352,11 +352,11 @@ namespace BTech_MaverickDistributing
                     //When the part category is clicked, then we need to bind the listview and data source.
                     LV_PartsInfo.Visible = true;
                     LV_PartSearch.Visible = false;
-                    LV_AdvancedPartSearch.Visible = false;
+                    LV_AdvancedPartSearch.Visible = false; 
                     LV_PartsInfo.DataBind();
-                }
+                } 
             }
-        }
+        } 
 
         protected void btnSearchParts_Click(object sender, EventArgs e)
         {
