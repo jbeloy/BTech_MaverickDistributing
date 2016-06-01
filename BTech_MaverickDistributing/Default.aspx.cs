@@ -42,7 +42,6 @@ namespace BTech_MaverickDistributing
                         TreeNode node = new TreeNode(row["EquipmentTypeName"].ToString());
                         node.PopulateOnDemand = true;
                         node.Value = "first_" + row["EquipmentTypeID"].ToString();
-
                         TV_Menu.Nodes.Add(node);
                     }
                 }
@@ -222,8 +221,13 @@ namespace BTech_MaverickDistributing
                 string[] arg = TV_Menu.SelectedNode.Value.Split('_');
                 if (arg[0] == "first")
                 {
-                    SqlCommand cmd = new SqlCommand("select distinct MakeName, P.MakeID from Parts P inner join Make M on P.MakeId=M.MakeID", conn);
+                    //Session["equipmenttypeid"] = arg[1].ToString();
+                    //Get the value of the equipment type node here.
+                    string[] equipmentTypeArg = TV_Menu.SelectedNode.Value.Split('_');
+                    SqlCommand cmd = new SqlCommand("select distinct MakeName, P.MakeID from Parts P inner join Make M on P.MakeId=M.MakeID  inner join Model Mo on P.ModelID=Mo.ModelID where Mo.EquipmentTypeID=" + equipmentTypeArg[1], conn);
                     conn.Open();
+                    //SqlCommand cmd = new SqlCommand("select distinct MakeName, P.MakeID from Parts P inner join Make M on P.MakeId=M.MakeID", conn);
+                    //conn.Open();
 
                     DataTable dtTableChild = new DataTable();
                     dtTableChild.Load(cmd.ExecuteReader());
@@ -273,6 +277,9 @@ namespace BTech_MaverickDistributing
                 }
                 else if (arg[0] == "third")
                 {
+                    //Get the value of the equipment type parent node here.
+                    string[] equipmentTypeArg = TV_Menu.SelectedNode.Parent.Parent.Value.Split('_');
+
                     //Get the value of the parent node here.
                     string[] makeArg = TV_Menu.SelectedNode.Parent.Value.Split('_');
 
@@ -445,7 +452,10 @@ namespace BTech_MaverickDistributing
                     string[] arg = e.Node.Value.Split('_');
                     if (arg[0] == "first")
                     {
-                        SqlCommand cmd = new SqlCommand("select distinct MakeName, P.MakeID from Parts P inner join Make M on P.MakeId=M.MakeID", conn);
+                        //Session["equipmenttypeid"] = arg[1].ToString();
+                        //Get the value of the equipment type node here.
+                        string[] equipmentTypeArg = e.Node.Value.Split('_');
+                        SqlCommand cmd = new SqlCommand("select distinct MakeName, P.MakeID from Parts P inner join Make M on P.MakeId=M.MakeID  inner join Model Mo on P.ModelID=Mo.ModelID where Mo.EquipmentTypeID=" + equipmentTypeArg[1], conn);
                         conn.Open();
 
                         DataTable dtTableChild = new DataTable();
@@ -468,8 +478,12 @@ namespace BTech_MaverickDistributing
                     }
                     else if (arg[0] == "second")
                     {
+                        //Get the value of the equipment type node here.
+                        string[] equipmentTypeArg = e.Node.Parent.Value.Split('_');
+
                         //Use the selected value from the menue to execute the sql statement.
-                        SqlCommand cmd = new SqlCommand("select distinct YearID from Parts where MakeID=" + arg[1], conn);
+                        SqlCommand cmd = new SqlCommand("select distinct YearID from Parts P inner join Model M on P.ModelID=M.ModelID  where MakeID="
+                            + arg[1] + " and MakeID=" + arg[1] + " and M.EquipmentTypeID=" + equipmentTypeArg[1], conn);
                         conn.Open();
 
                         DataTable dtTableChild = new DataTable();
@@ -493,10 +507,14 @@ namespace BTech_MaverickDistributing
                     }
                     else if (arg[0] == "third")
                     {
+                        //Get the value of the equipment type node here.
+                        string[] equipmentTypeArg = e.Node.Parent.Parent.Value.Split('_');
+
                         //Get the value of the parent node here.
                         string[] makeArg = e.Node.Parent.Value.Split('_');
 
-                        SqlCommand cmd = new SqlCommand("select distinct ModelName, P.ModelID from Parts P inner join Model M on P.ModelID=M.ModelID where MakeID=" + makeArg[1] + " and YearID=" + arg[1], conn);
+                        SqlCommand cmd = new SqlCommand("select distinct ModelName, P.ModelID from Parts P inner join Model M on P.ModelID=M.ModelID where MakeID=" 
+                            + makeArg[1] + " and YearID=" + arg[1] + " and M.EquipmentTypeID=" + equipmentTypeArg[1], conn);
                         conn.Open();
 
                         DataTable dtTableChild = new DataTable();
