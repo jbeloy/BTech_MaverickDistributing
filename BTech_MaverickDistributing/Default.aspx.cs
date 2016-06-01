@@ -61,117 +61,18 @@ namespace BTech_MaverickDistributing
                 }
             }
         }
-        //public void LoadTreeViewTest()
-        //{
-        //    try
-        //    {
-        //        using (var ctx = new md_dbEntities())
-        //        {
-        //            List<string> equipmentTypes = new List<string>();
-        //            List<string> makes = new List<string>();
-
-        //            var objectContext = (ctx as System.Data.Entity.Infrastructure.IObjectContextAdapter).ObjectContext;
-
-        //            string strSQLtoGetParts = "";
-        //            //these are the parameters to get a subset of the result set
-        //            int yearToGet = 2005;
-        //            string partMakeToGet = "Honda";
-        //            string partModelToGet = "TRX450R";
-        //            string partCategoryToGet = "CLUTCH";
-
-        //            //use objectContext here..
-
-        //            strSQLtoGetParts = String.Format(Statements.GetPartsByYearMakeModelCategory(), yearToGet, partMakeToGet, partModelToGet, partCategoryToGet);
-        //            var getPartSubset = objectContext.ExecuteStoreQuery<PartsView>(strSQLtoGetParts).ToList();
-
-        //            //Get all of the equipment types from the database.
-        //            equipmentTypes = Statements.GetEquipmentType();
-
-        //            foreach(string t in equipmentTypes)
-        //            {
-        //                HtmlGenericControl li = new HtmlGenericControl("li");//Create html control <li>
-        //                //Create the correct <li> for the equipment type. Using the naming convention tableAbreviation_recordName eg: et_ATV.
-        //                li.InnerHtml = "<div id='et_" + t +"' >" + t + "<label><input type='checkbox'></label></div><ul id='" + t + "_make' runat='server'></ul>";
-        //                li.Attributes.Add("onload", "li_" + t + "_Load");
-        //                li.ID = "li_" + t;
-        //                equipmentType.Controls.Add(li);
-        //            }
-
-        //            makes = Statements.GetMake();
-
-        //            foreach(string t in makes)
-        //            {
-        //                HtmlGenericControl li = new HtmlGenericControl("li");//Create html control <li>
-        //                //Create the correct <li> for the equipment type. Using the naming convention tableAbreviation_recordName eg: et_ATV.
-        //                li.InnerHtml = "<div id='mk_" + t + "' >" + t + "<label><input type='checkbox'></label></div>";
-        //                Page.FindControl("ATV_make").Controls.Add(li);
-        //            }
-
-        //            //foreach (var partRow in getPartSubset)
-        //            //{
-        //            //    HtmlGenericControl li = new HtmlGenericControl("li");//Create html control <li>
-        //            //    //li.InnerText = partRow.ManufacturerName + ", " + partRow.PartDesc + ", " + partRow.CategoryName; // these are the attributes of the data row from the database
-        //            //    li.InnerHtml = "<div id='10' >ATV<label><input type='checkbox'></label></div>";
-        //            //    //li.InnerText = "ATV";
-        //            //    //tabs.Controls.Add(li);
-        //            //    equipmentType.Controls.Add(li);
-
-        //            //    //HtmlGenericControl anchor = new HtmlGenericControl("a");
-        //            //    //anchor.Attributes.Add("href", "page.htm");
-        //            //    //anchor.InnerText = partRow.PartDesc;
-
-        //            //    //HtmlGenericControl li = new HtmlGenericControl("li");
-        //            //    //li.Attributes.Add("class", "MyClass");
-        //            //    //li.InnerText = "Item2";
-        //            //    //MyList2.Controls.Add(li);
-        //            //    //li.Controls.Add(anchor);
-
-        //            //    //li.Controls.Add(partRow.ManufacturerName + ", " + partRow.PartDesc + ", " + partRow.Price);
-        //            //    //drilldown1.Controls.Add(li);
-                        
-        //            //}
-        //        }
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        //error handling here
-        //    }
-            
-        //}
-        //protected void CHK_Clutch_ServerChange(object sender, EventArgs e)
-        //{
-        //    //When the button is checked, updatae the listview to show that part.
-
-        //    //Check to see if the checkbox is checked.
-        //    /*if(CHK_Clutch.Checked)
-        //    {
-        //        //Update the hidden field with the parameters.
-        //        HF_PartsInfo.Value = "Clutch";
-        //    }
-        //    else
-        //    {
-        //        //Erase the value from the HiddenField.
-        //        HF_PartsInfo.Value = null;
-        //    }*/
-        //}
 
         protected void Repeater2_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
             string MakeName = DataBinder.Eval(e.Item.DataItem, "MakeName").ToString();
             this.Session["make"] = MakeName;
-            //this.Session["make"] = "Honda";
             RepeaterItem item = e.Item;
-            //Repeater3_ItemDataBound(sender, e);
             Repeater Product = (Repeater)item.FindControl("Repeater3");
             Product.DataBind();
-            //Repeater MakeRepeater = (Repeater)sender;
-            //MakeRepeater.DataBind();
         }
 
         protected void Repeater3_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
-            //Repeater MakeRepeater = (Repeater)sender;
             string Year = DataBinder.Eval(e.Item.DataItem, "YearID").ToString();
             RepeaterItem item = e.Item;
 
@@ -182,8 +83,6 @@ namespace BTech_MaverickDistributing
                 else
                     e.Item.Visible = false;
             }
-            
-            //MakeRepeater.DataBind();
         }
 
         protected void parentRepeater_ItemDataBound(object sender, RepeaterItemEventArgs e)
@@ -226,8 +125,6 @@ namespace BTech_MaverickDistributing
                     string[] equipmentTypeArg = TV_Menu.SelectedNode.Value.Split('_');
                     SqlCommand cmd = new SqlCommand("select distinct MakeName, P.MakeID from Parts P inner join Make M on P.MakeId=M.MakeID  inner join Model Mo on P.ModelID=Mo.ModelID where Mo.EquipmentTypeID=" + equipmentTypeArg[1], conn);
                     conn.Open();
-                    //SqlCommand cmd = new SqlCommand("select distinct MakeName, P.MakeID from Parts P inner join Make M on P.MakeId=M.MakeID", conn);
-                    //conn.Open();
 
                     DataTable dtTableChild = new DataTable();
                     dtTableChild.Load(cmd.ExecuteReader());
@@ -367,19 +264,6 @@ namespace BTech_MaverickDistributing
 
         protected void btnSearchParts_Click(object sender, EventArgs e)
         {
-            //set the text parameters to 'empty arg' as the SQL datasource does not properly convert empty strings to null
-            /*if (string.IsNullOrWhiteSpace(txtMake.Text))
-                txtMake.Text = " ";
-            if (string.IsNullOrWhiteSpace(txtType.Text))
-                txtType.Text = " ";
-            if (string.IsNullOrWhiteSpace(txtCategory.Text))
-                txtCategory.Text = " ";
-            if (string.IsNullOrWhiteSpace(txtModel.Text))
-                txtModel.Text = " ";
-            if (string.IsNullOrWhiteSpace(txtYear.Text))
-                txtYear.Text = " ";
-            if (string.IsNullOrWhiteSpace(txtManufacturer.Text))
-                txtManufacturer.Text = " ";*/
             if (string.IsNullOrWhiteSpace(txtPartNumber.Text))
                 txtPartNumber.Text = " ";
             if (string.IsNullOrWhiteSpace(txtPartDesc.Text))
@@ -390,23 +274,6 @@ namespace BTech_MaverickDistributing
             LV_AdvancedPartSearch.Visible = true;
             LV_AdvancedPartSearch.DataBind();
 
-            //set the string back to null
-            /*if (txtMake.Text == "EMPTYARG")
-                txtMake.Text = null;
-            if (txtType.Text == "EMPTYARG")
-                txtType.Text = null;
-            if (txtCategory.Text == "EMPTYARG")
-                txtCategory.Text = null;
-            if (txtModel.Text == "EMPTYARG")
-                txtModel.Text = null;
-            if (txtYear.Text == "EMPTYARG")
-                txtYear.Text = null;
-            if (txtManufacturer.Text == "EMPTYARG")
-                txtManufacturer.Text = null;
-            if (txtPartNumber.Text == "EMPTYARG")
-                txtPartNumber.Text = null;
-            if (txtPartDesc.Text == "EMPTYARG")
-                txtPartDesc.Text = null;*/
         }
 
         protected void btnModelSearch_Click(object sender, EventArgs e)
@@ -414,11 +281,6 @@ namespace BTech_MaverickDistributing
             string[] makeArg = TV_Menu.SelectedNode.Parent.Parent.Value.Split('_');
             string[] yearArg = TV_Menu.SelectedNode.Parent.Value.Split('_');
             string[] modelArg = TV_Menu.SelectedNode.Value.Split('_');
-            //TV_Menu.SelectedNode.Collapse();
-            //TV_Menu.SelectedNode.Expand();
-            //string[] makeArg = varSelectedNode.Parent.Parent.Value.Split('_');
-            //string[] yearArg = varSelectedNode.Parent.Value.Split('_');
-            //string[] modelArg = varSelectedNode.Value.Split('_');
               
             Session["make"] = makeArg[1]; 
             Session["year"] = yearArg[1];
@@ -452,7 +314,6 @@ namespace BTech_MaverickDistributing
                     string[] arg = e.Node.Value.Split('_');
                     if (arg[0] == "first")
                     {
-                        //Session["equipmenttypeid"] = arg[1].ToString();
                         //Get the value of the equipment type node here.
                         string[] equipmentTypeArg = e.Node.Value.Split('_');
                         SqlCommand cmd = new SqlCommand("select distinct MakeName, P.MakeID from Parts P inner join Make M on P.MakeId=M.MakeID  inner join Model Mo on P.ModelID=Mo.ModelID where Mo.EquipmentTypeID=" + equipmentTypeArg[1], conn);
@@ -597,7 +458,7 @@ namespace BTech_MaverickDistributing
 
         protected void CHK_toggleAdvanced_CheckedChanged(object sender, EventArgs e)
         {
-            //Wehn the check is changed, check checkbox state, then hide or show drill down selection.
+            //When the check is changed, check checkbox state, then hide or show drill down selection.
             if(!CHK_toggleAdvanced.Checked)
             {
                 drillDownSearch.Attributes.Add("style", "display: none;");
