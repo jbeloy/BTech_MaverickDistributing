@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="styles.css" />
     <link href='https://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
 
-    <title><%: Page.Title %> - My ASP.NET Application</title>
+    <title><%: Page.Title %> - Powersport Part Selector</title>
 
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
@@ -69,14 +69,14 @@
 
         <div class="container">
             <ul id="gn-menu" class="gn-menu-main">
-                <li class="gn-trigger" style="padding-top: 2%;min-height: 125px;">	
+                <%--<li class="gn-trigger" style="padding-top: 2%;min-height: 125px;">	
                   <a class="gn-icon gn-icon-menu"><span>Menu</span></a>
                     <nav class="gn-menu-wrapper">
                         <div class="gn-scroller">
                             <ul class="gn-menu">
                                 <li class="gn-search-item">
-                                    <input placeholder="Search" type="search" class="gn-search">	
-                                      <a class="gn-icon gn-icon-search"><span>Search</span></a>
+                                    <input placeholder="Login" class="gn-icon-user">	
+                                      <a class="gn-icon gn-icon-search"><span>Login</span></a>
                                 </li>
                                 <li>	<a class="gn-icon gn-icon-download">Downloads</a>
                                     <ul class="gn-submenu">
@@ -86,7 +86,7 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li><a class="gn-icon gn-icon-cog">Settings</a>
+                                <li><a class="gn-icon gn-icon-user">Login</a>
                                 </li>
                                 <li><a class="gn-icon gn-icon-help">Help</a>
                                 </li>
@@ -102,9 +102,8 @@
                                 </li>
                             </ul>
                         </div>
-                        <!-- /gn-scroller -->
                     </nav>
-                </li>
+                </li>--%>
                 <li style="padding: 1%;">
                     <a href="http://www.maverickdistributing.com/" target="_blank"><img src="Images/maverick_logo.gif" /></a>
                 </li>
@@ -132,7 +131,24 @@
             </asp:ContentPlaceHolder>
             <hr />
             <footer>
-                <p>&copy; <%: DateTime.Now.Year %> - My ASP.NET Application</p>
+                <div class="container" style="font-weight: bold; font-size: 160%;">
+                    <div class="row" style="text-align: center;">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            &copy; <%: DateTime.Now.Year %> - My ASP.NET Application
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <ul style="list-style: none; padding-bottom: 3%;">
+                                <li s>
+                                    <a href="login.aspx">LOGIN</a>
+                                </li>
+                                <li>
+                                    <a id="BTN_UploadInventory" href="inventory.aspx" runat="server">UPLOAD INVENTORY</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                 </div>
+                
             </footer>
         </div>
     </form>

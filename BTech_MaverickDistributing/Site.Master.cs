@@ -68,7 +68,15 @@ namespace BTech_MaverickDistributing
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            //Check to see if the user is logged in. If they are, display the upload inventory button.
+            if(Session["user"] != "" && Session["user"] != null)
+            {
+                BTN_UploadInventory.Visible = true;
+            }
+            else
+            {
+                BTN_UploadInventory.Visible = false;
+            }
         }
 
         protected void Unnamed_LoggingOut(object sender, LoginCancelEventArgs e)

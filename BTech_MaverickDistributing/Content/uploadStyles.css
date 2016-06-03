@@ -1,0 +1,20 @@
+﻿@import url("http://fonts.googleapis.com/css?family=Lato");
+
+.upload{
+    margin-left: auto;
+    margin-right: auto;
+    background-color:#596877;
+    color: white;
+    padding: 10px 15px;
+    font-family: 'Lato', sans-serif;
+    font-size: 150%;
+    text-transform: uppercase;
+}
+
+.uploadContainer{
+    background-color:#596877;
+    padding-top: 10vh;
+    padding-bottom: 10vh;
+    text-align: center;
+    color: white;
+}

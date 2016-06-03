@@ -164,7 +164,9 @@
     <Content Include="Account\VerifyPhoneNumber.aspx" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\loginStyles.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\uploadStyles.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Images\10.jpg" />
     <Content Include="Images\100.png" />
@@ -309,6 +311,8 @@
     <Content Include="Images\9.jpg" />
     <Content Include="Images\header4.jpg" />
     <Content Include="Images\maverick_logo.gif" />
+    <Content Include="inventory.aspx" />
+    <Content Include="login.aspx" />
     <Content Include="packages.config" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -331,6 +335,7 @@
       <DependentUpon>MaverickDistributingDataModel.edmx</DependentUpon>
       <LastGenOutput>MaverickDistributingDataModel.cs</LastGenOutput>
     </Content>
+    <None Include="Properties\PublishProfiles\MD.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -513,6 +518,20 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="inventory.aspx.cs">
+      <DependentUpon>inventory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="inventory.aspx.designer.cs">
+      <DependentUpon>inventory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="login.aspx.cs">
+      <DependentUpon>login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="login.aspx.designer.cs">
+      <DependentUpon>login.aspx</DependentUpon>
     </Compile>
     <Compile Include="Make.cs">
       <DependentUpon>MaverickDistributingDataModel.tt</DependentUpon>

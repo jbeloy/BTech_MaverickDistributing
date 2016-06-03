@@ -10,24 +10,15 @@
 namespace BTech_MaverickDistributing {
     
     
-    public partial class SiteMaster {
+    public partial class inventory {
         
         /// <summary>
-        /// MainContent control.
+        /// FU_Inventory control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder MainContent;
-        
-        /// <summary>
-        /// BTN_UploadInventory control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor BTN_UploadInventory;
+        protected global::System.Web.UI.WebControls.FileUpload FU_Inventory;
     }
 }
