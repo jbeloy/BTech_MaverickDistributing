@@ -460,7 +460,7 @@ body {
 
 /*This is the custom css for the hero image.*/
 .hero-unit {
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/Images/header4.jpg');
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('Images/header4.jpg');
     background-size:cover;
     background-color: #EEEEEE;
     height: 60vh;
